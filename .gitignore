@@ -1,0 +1,26 @@
+#created by yo marionette
+temp
+dist
+.sass-cache
+app/bower_components
+.tmp/
+
+#github's default node gitignore
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+#custom
+*.swp
