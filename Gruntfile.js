@@ -296,7 +296,7 @@ module.exports = function (grunt) {
         'createDefaultTemplate',
         'handlebars',
         'compass',
-        'connect:test',
+        'connect:testserver',
         'mocha'
     ]);
 

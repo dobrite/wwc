@@ -4,11 +4,11 @@
     var root = this;
 
     root.require([
-		'backbone',
-		'application',
-		'regionManager'
-	],
-	function ( Backbone, App ) {
-		App.start();
-	});
+        'backbone',
+        'application',
+        'regionManager'
+    ],
+    function ( Backbone, App ) {
+        App.start();
+    });
 }).call( this );
