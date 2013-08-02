@@ -1,3 +1,4 @@
+/* jslint node: true */
 'use strict';
 
 var express = require('express');
@@ -8,6 +9,11 @@ var hbs = require('express-hbs');
 
 var socketIO = require('socket.io');
 
+var bone = require('bone.io');
+
+bone.set('io.options', {
+    server: socketIO
+});
 
 // init express
 var app = express();
@@ -26,6 +32,7 @@ app.use(function(req, res, next){
 });
 
 // mount static
+app.use(bone.static());
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
 
