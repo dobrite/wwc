@@ -18,7 +18,8 @@
         /* Add application regions here */
         App.addRegions({
             chatPane: "#chat-pane",
-            nickPane: "#nick-pane"
+            nickPane: "#nick-pane",
+            inputPane: '#input-pane'
         });
 
         /* Add initializers here */
