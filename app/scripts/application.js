@@ -5,21 +5,25 @@
 
     root.define([
         'backbone',
+        'boneio',
         'communicator',
-        'hbs!tmpl/welcome'
+        'hbs!tmpl/main'
     ],
 
-    function( Backbone, Communicator, Welcome_tmpl ) {
-        var welcomeTmpl = Welcome_tmpl;
+    function( Backbone, BoneIO, Communicator, Main_tmpl ) {
+        var mainTmpl = Main_tmpl;
 
         var App = new Backbone.Marionette.Application();
 
         /* Add application regions here */
-        App.addRegions({});
+        App.addRegions({
+            chatPane: "#chat-pane",
+            nickPane: "#nick-pane"
+        });
 
         /* Add initializers here */
         App.addInitializer( function () {
-            document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+            document.body.innerHTML = mainTmpl();
             Communicator.mediator.trigger("APP:START");
         });
 

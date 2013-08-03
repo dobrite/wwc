@@ -1,4 +1,6 @@
+/* jslint node: true */
 'use strict';
+
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));

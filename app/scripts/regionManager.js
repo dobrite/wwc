@@ -1,51 +1,51 @@
 (function() {
-	'use strict';
+    'use strict';
 
-	var root = this;
+    var root = this;
 
-	root.define([
-		'backbone',
-		'communicator'
-	],
-	function( Backbone, Communicator ) {
+    root.define([
+        'backbone',
+        'communicator'
+    ],
+    function( Backbone, Communicator ) {
 
-		var RegionManager = Backbone.Marionette.Controller.extend({
-		
-			initialize: function( options ) {
-				console.log("Initialize a Region Manager");
+        var RegionManager = Backbone.Marionette.Controller.extend({
 
-				/* internal region manager */
-				this._regionManager = new Backbone.Marionette.RegionManager();
+            initialize: function( options ) {
+                console.log("Initialize a Region Manager");
 
-				/* event API */
-				Communicator.reqres.setHandler("RM:addRegion", this.addRegion, this);
-				Communicator.reqres.setHandler("RM:removeRegion", this.removeRegion, this);
-				Communicator.reqres.setHandler("RM:getRegion", this.getRegion, this);
-			},
+                /* internal region manager */
+                this._regionManager = new Backbone.Marionette.RegionManager();
 
-			/* add region facade */
-			addRegion: function( regionName, regionId ) {
-				var region = this.getRegion( regionName );
+                /* event API */
+                Communicator.reqres.setHandler("RM:addRegion", this.addRegion, this);
+                Communicator.reqres.setHandler("RM:removeRegion", this.removeRegion, this);
+                Communicator.reqres.setHandler("RM:getRegion", this.getRegion, this);
+            },
 
-				if( region ) {
-					console.log("REGION ALREADY CREATED TO JUST RETURN REF");
-					return region;
-				}
-				
-				return this._regionManager.addRegion( regionName, regionId );
-			},
+            /* add region facade */
+            addRegion: function( regionName, regionId ) {
+                var region = this.getRegion( regionName );
 
-			/* remove region facade */
-			removeRegion: function( regionName ) {
-				this._regionManager.removeRegion( regionName );
-			},
+                if( region ) {
+                    console.log("REGION ALREADY CREATED TO JUST RETURN REF");
+                    return region;
+                }
 
-			/* get region facade */
-			getRegion: function( regionName ) {
-				return this._regionManager.get( regionName );
-			}
-		});
+                return this._regionManager.addRegion( regionName, regionId );
+            },
 
-		return new RegionManager();
-	});
+            /* remove region facade */
+            removeRegion: function( regionName ) {
+                this._regionManager.removeRegion( regionName );
+            },
+
+            /* get region facade */
+            getRegion: function( regionName ) {
+                return this._regionManager.get( regionName );
+            }
+        });
+
+        return new RegionManager();
+    });
 }).call( this );

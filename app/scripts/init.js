@@ -10,12 +10,10 @@
         /* starting point for application */
         deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
 
-
         shim: {
             handlebars: {
                 exports: 'Handlebars'
             },
-
             backbone: {
                 deps: [
                     'underscore',
@@ -26,6 +24,10 @@
             bootstrap: {
                 deps: ['jquery'],
                 exports: 'jquery'
+            },
+            boneio: {
+                deps: ['jquery'],
+                exports: 'bone'
             }
         },
 
@@ -41,6 +43,9 @@
 
             /* alias the bootstrap js lib */
             bootstrap: 'vendor/bootstrap',
+
+            /* alias bone.io js lib */
+            boneio: '../bower_components/bone.io/bone.io',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',

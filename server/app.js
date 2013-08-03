@@ -32,10 +32,8 @@ app.use(function(req, res, next){
 });
 
 // mount static
-app.use(bone.static());
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
-
 
 // route index.html
 app.get('/', function(req, res){
@@ -46,6 +44,4 @@ app.get('/', function(req, res){
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express App started!');
 });
-
-
 

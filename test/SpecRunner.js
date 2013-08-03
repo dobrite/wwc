@@ -11,13 +11,15 @@ require.config({
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
 
+        boneio: '../bower_components/bone.io/bone.io',
+
         /* backbone plugins */
         'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
         'backbone.iobind': '../bower_components/backbone.iobind/dist/backbone.iobind',
 
         /* alias all marionette libs */
         'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
-        'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr', 
+        'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
         'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
         /* alias the bootstrap js lib */
@@ -64,8 +66,8 @@ function( $, testSuite ) {
             else {
                 mocha.run();
             }
-            
+
         });
     });
 });
-  
+
