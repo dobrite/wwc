@@ -15,18 +15,6 @@
                     expect( App ).to.be.an.instanceof( Marionette.Application );
                 });
 
-                it('should have a chatPane region', function(){
-                    expect( App.chatPane ).to.be.an.instanceof( Marionette.Region );
-                });
-
-                it('should have a nickPane region', function(){
-                    expect( App.nickPane ).to.be.an.instanceof( Marionette.Region );
-                });
-
-                it('should have an inputPane region', function(){
-                    expect( App.inputPane ).to.be.an.instanceof( Marionette.Region );
-                });
-
                 it('comes with a vent', function(){
                     expect( App.vent ).to.be.an.instanceof( Wreqr.EventAggregator );
                 });

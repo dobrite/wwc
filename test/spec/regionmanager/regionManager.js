@@ -7,12 +7,12 @@
         'regionManager',
         'backbone.marionette'
         ],
-        function( regionManager, Marionette ) {
+        function( RegionManager, Marionette ) {
 
             describe('regionManager RegionManager', function () {
 
                 it('should be an instance of Marionette.Controller', function () {
-                    expect( regionManager ).to.be.an.instanceof( Marionette.Controller );
+                    expect( RegionManager ).to.be.an.instanceof( Marionette.Controller );
                 });
 
             });
