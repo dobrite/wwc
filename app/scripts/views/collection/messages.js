@@ -5,9 +5,9 @@
 
     root.define([
         'backbone',
-        'views/item/message'
+        'views/item/messageItemView'
     ],
-    function( Backbone, Message  ) {
+    function( Backbone, MessageItemView ) {
 
         /* Return a ItemView class definition */
         return Backbone.Marionette.CollectionView.extend({

@@ -4,13 +4,13 @@
     var root = this;
 
     root.define([
-        'views/item/message'
+        'models/message'
         ],
         function( Message ) {
 
-            describe('Message Itemview', function () {
+            describe('Message Model', function () {
 
-                it('should be an instance of Message Itemview', function () {
+                it('should be an instance of Message Model', function () {
                     var message = new Message();
                     expect( message ).to.be.an.instanceof( Message );
                 });

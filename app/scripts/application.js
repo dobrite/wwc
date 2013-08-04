@@ -11,8 +11,8 @@
         'hbs!tmpl/main'
     ],
 
-    function( Backbone, BoneIO, RegionManager, Communicator, Main_tmpl ) {
-        var mainTmpl = Main_tmpl;
+    function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate ) {
+        var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();
 
@@ -25,7 +25,7 @@
 
         /* Add initializers here */
         App.addInitializer( function () {
-            document.body.innerHTML = mainTmpl();
+            document.body.innerHTML = mainTemplate();
             Communicator.mediator.trigger("APP:START");
         });
 

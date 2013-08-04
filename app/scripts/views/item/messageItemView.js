@@ -5,9 +5,10 @@
 
     root.define([
         'backbone',
+        'models/message',
         'hbs!tmpl/item/message_tmpl'
     ],
-    function( Backbone, MessageTmpl  ) {
+    function( Backbone, Message, MessageTemplate  ) {
 
         /* Return a ItemView class definition */
         return Backbone.Marionette.ItemView.extend({
@@ -16,9 +17,11 @@
                 console.log("initialize a Message ItemView");
             },
 
+            model: Message,
+
             template: {
                 type: 'handlebars',
-                template: MessageTmpl
+                template: MessageTemplate
             },
 
             /* ui selector cache */
