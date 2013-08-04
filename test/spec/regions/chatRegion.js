@@ -15,9 +15,6 @@
                     expect( chatRegion ).to.be.an.instanceof( Chatregion );
                 });
 
-                it('should have more test written', function(){
-                    expect( false ).to.be.ok;
-                });
             });
 
         });

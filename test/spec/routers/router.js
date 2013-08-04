@@ -15,9 +15,6 @@
                     expect( router ).to.be.an.instanceof( Router );
                 });
 
-                it('should have more test written', function(){
-                    expect( false ).to.be.ok;
-                });
             });
 
         });
