@@ -5,9 +5,10 @@
 
     root.define([
         'backbone',
+        'underscore',
         'communicator'
     ],
-    function( Backbone, Communicator ) {
+    function( Backbone, _, Communicator ) {
 
         var RegionManager = Backbone.Marionette.Controller.extend({
 
@@ -33,6 +34,11 @@
                 }
 
                 return this._regionManager.addRegion( regionName, regionId );
+            },
+
+            /* convenience function */
+            addRegions: function( regions ) {
+                _.each(regions, this.addRegion, this);
             },
 
             /* remove region facade */
