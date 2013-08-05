@@ -61,38 +61,35 @@ require.config({
 
 /* require test suite */
 require([
+    'mocha',
+    'chai',
+    'sinon',
+    'sinon-chai',
     'jquery',
     'spec/testSuite'
 ],
-function( $, testSuite ) {
+function( mocha, chai, sinon, sinonChai, $, testSuite ) {
 
     'use strict';
 
+    mocha.ui('bdd');
+    mocha.reporter('html');
+
+    //has to be a better way
+    window.expect = chai.expect,
+    window.should = chai.should(),
+    window.assert = chai.assert;
+
     /* on dom ready require all specs and run */
     $( function() {
-        require([
-            'mocha',
-            'chai',
-            'sinon',
-            'sinon-chai'
-        ],
-        function( mocha, chai, sinon, sinonChai ) {
-            mocha.ui('bdd');
-            mocha.reporter('html');
+        require( testSuite.specs, function() {
+            if (window.mochaPhantomJS) {
+                mochaPhantomJS.run();
+            }
+            else {
+                mocha.run();
+            }
 
-            window.expect = chai.expect,
-            window.should = chai.should(),
-            window.assert = chai.assert;
-
-            require( testSuite.specs, function() {
-                if (window.mochaPhantomJS) {
-                    mochaPhantomJS.run();
-                }
-                else {
-                    mocha.run();
-                }
-
-            });
         });
     });
 });
