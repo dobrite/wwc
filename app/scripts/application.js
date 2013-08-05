@@ -4,8 +4,9 @@
     var root = this;
 
     root.define([
+        'socketio',
         'backbone',
-        'boneio',
+        'controllers/boneio',
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
@@ -13,7 +14,7 @@
         'views/item/messageItemView',
     ],
 
-    function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+    function( io, Backbone, BoneIO, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();
@@ -29,14 +30,13 @@
         App.addInitializer( function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("APP:START");
+            var boneio = new BoneIO({io: io});
             var message = new Message({nick: 'Nick', text: 'Yo!'});
 
             var messageItemView = new MessageItemView({model: message});
 
             RegionManager.getRegion('chatPane').show(messageItemView);
-            console.log(messageItemView.render());
         });
-
 
         return App;
     });

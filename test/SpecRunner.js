@@ -4,13 +4,25 @@ require.config({
 
     deps: ['backbone.marionette', 'marionette.handlebars'],
 
+    shim: {
+        mocha: {
+            exports: 'mocha',
+        },
+    },
+
     paths: {
         spec: '../../test/spec', // lives in the test directory
+
+        mocha: '../bower_components/mocha/mocha',
+        chai: '../bower_components/chai/chai',
+        sinon: '../bower_components/sinonjs/sinon',
+        'sinon-chai': '../bower_components/sinon-chai/lib/sinon-chai',
 
         jquery: '../bower_components/jquery/jquery',
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
 
+        socketio: '../bower_components/socket.io-client/dist/socket.io',
         boneio: '../bower_components/bone.io/bone.io',
 
         /* backbone plugins */
@@ -58,15 +70,29 @@ function( $, testSuite ) {
 
     /* on dom ready require all specs and run */
     $( function() {
-        require(testSuite.specs, function() {
+        require([
+            'mocha',
+            'chai',
+            'sinon',
+            'sinon-chai'
+        ],
+        function( mocha, chai, sinon, sinonChai ) {
+            mocha.ui('bdd');
+            mocha.reporter('html');
 
-            if (window.mochaPhantomJS) {
-                mochaPhantomJS.run();
-            }
-            else {
-                mocha.run();
-            }
+            window.expect = chai.expect,
+            window.should = chai.should(),
+            window.assert = chai.assert;
 
+            require( testSuite.specs, function() {
+                if (window.mochaPhantomJS) {
+                    mochaPhantomJS.run();
+                }
+                else {
+                    mocha.run();
+                }
+
+            });
         });
     });
 });

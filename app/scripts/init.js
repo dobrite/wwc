@@ -28,6 +28,9 @@
             boneio: {
                 deps: ['jquery'],
                 exports: 'bone'
+            },
+            socketio: {
+                exports: 'io',
             }
         },
 
@@ -43,6 +46,9 @@
 
             /* alias the bootstrap js lib */
             bootstrap: 'vendor/bootstrap',
+
+            /* alias socket.io js lib */
+            socketio: '../bower_components/socket.io-client/dist/socket.io',
 
             /* alias bone.io js lib */
             boneio: '../bower_components/bone.io/bone.io',
