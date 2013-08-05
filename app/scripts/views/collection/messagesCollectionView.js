@@ -16,7 +16,7 @@
                 console.log("initialize a Messages CollectionView");
             },
 
-            itemView: Message,
+            itemView: MessageItemView,
 
             /* ui selector cache */
             ui: {},

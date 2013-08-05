@@ -9,14 +9,10 @@
         function( Backbone ) {
 
             return Backbone.Model.extend({
-                initialize: function() {
-                    console.log("initialize a Message model");
-                },
-
                 defaults: {
                     nick: '',
-                    text: ''
-                }
+                    text: '',
+                },
 
         });
     });

@@ -9,7 +9,7 @@ define(function() {
             'spec/regionmanager/regionManager.js',
             'spec/regions/chatRegion.js',
             'spec/routers/router.js',
-            'spec/views/collection/messages.js',
+            'spec/views/collection/messagesCollectionView.js',
             'spec/views/item/messageItemView.js'
         ]
     };

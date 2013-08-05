@@ -10,8 +10,8 @@
         ],
         function( App, Marionette, Wreqr ) {
 
-            describe('application App', function () {
-                it('should be an instance of Mationette.Application', function () {
+            describe('Application App', function () {
+                it('should be an instance of Marionette.Application', function () {
                     expect( App ).to.be.an.instanceof( Marionette.Application );
                 });
 

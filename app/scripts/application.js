@@ -8,10 +8,12 @@
         'boneio',
         'regionManager',
         'communicator',
-        'hbs!tmpl/main'
+        'hbs!tmpl/main',
+        'models/message',
+        'views/item/messageItemView',
     ],
 
-    function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate ) {
+    function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();
@@ -26,8 +28,15 @@
         /* Add initializers here */
         App.addInitializer( function () {
             document.body.innerHTML = mainTemplate();
-            Communicator.mediator.trigger("APP:START");
+            Communicator.vent.trigger("APP:START");
+            var message = new Message({nick: 'Nick', text: 'Yo!'});
+
+            var messageItemView = new MessageItemView({model: message});
+
+            RegionManager.getRegion('chatPane').show(messageItemView);
+            console.log(messageItemView.render());
         });
+
 
         return App;
     });

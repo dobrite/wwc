@@ -15,9 +15,22 @@
                     expect( message ).to.be.an.instanceof( Message );
                 });
 
-                it('should have more test written', function(){
-                    expect( false ).to.be.ok;
+                it('should have a nick property that defaults to an empty string', function(){
+                    var message = new Message();
+                    expect( message.get('nick') ).to.be.equal('');
                 });
+
+                it('should have a text property that defaults to an empty string', function(){
+                    var message = new Message();
+                    expect( message.get('text') ).to.be.equal('');
+                });
+
+                it('should set a nick and text when passed them', function(){
+                    var message = new Message({nick: 'Nick', text: 'some text'});
+                    expect( message.get('nick') ).to.be.equal('Nick');
+                    expect( message.get('text') ).to.be.equal('some text');
+                });
+
             });
 
         });
