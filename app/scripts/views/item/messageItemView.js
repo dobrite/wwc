@@ -11,6 +11,7 @@
 
         /* Return a ItemView class definition */
         return Backbone.Marionette.ItemView.extend({
+            tagName: "p",
 
             initialize: function() {
                 console.log("initialize a Message ItemView");

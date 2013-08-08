@@ -4,18 +4,21 @@
     var root = this;
 
     root.define([
+        'socketio',
         'boneio',
         'backbone',
         'communicator',
     ],
-    function( bone, Backbone, Communicator ) {
+    function( io, bone, Backbone, Communicator ) {
 
         return Backbone.Marionette.Controller.extend({
 
             initialize: function( options ) {
                 console.log("initialize a Boneio Controller");
 
-                var socket = options.io.connect();
+                var socket = io.connect("", {
+                    'auto connect': 'false'
+                });
 
                 bone.set('io.options', {
                     socket: socket

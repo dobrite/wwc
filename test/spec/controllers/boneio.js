@@ -4,22 +4,18 @@
     var root = this;
 
     root.define([
+        'socketio',
         'controllers/boneio'
         ],
-        function( Boneio ) {
+        function( io, Boneio ) {
 
             describe('Boneio Controller', function () {
 
                 it('should be an instance of Boneio Controller', function () {
-                    console.log(sinon);
-                    var io = sinon.spy();
-                    var boneio = new Boneio({io: io});
+                    var boneio = new Boneio({host: 'http://localhost:8080'});
                     expect( boneio ).to.be.an.instanceof( Boneio );
                 });
 
-                it('should have more test written', function(){
-                    expect( false ).to.be.ok;
-                });
             });
 
         });

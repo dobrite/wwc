@@ -30,7 +30,7 @@
         App.addInitializer( function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("APP:START");
-            var boneio = new BoneIO({io: io});
+            var boneio = new BoneIO(io);
             var message = new Message({nick: 'Nick', text: 'Yo!'});
 
             var messageItemView = new MessageItemView({model: message});

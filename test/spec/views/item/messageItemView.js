@@ -16,6 +16,11 @@
                     expect( messageItemView ).to.be.an.instanceof( MessageItemView );
                 });
 
+                it('should have a tagName of "p"', function () {
+                    var messageItemView = new MessageItemView();
+                    expect( messageItemView.tagName ).to.be.equal("p");
+                });
+
             });
 
         });

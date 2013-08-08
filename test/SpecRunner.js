@@ -5,6 +5,9 @@ require.config({
     deps: ['backbone.marionette', 'marionette.handlebars'],
 
     shim: {
+        boneio: {
+            exports: 'bone',
+        },
         mocha: {
             exports: 'mocha',
         },
