@@ -14,10 +14,16 @@
         return Backbone.Marionette.Controller.extend({
 
             initialize: function( options ) {
+                console.log("initialize a Boneio Controller");
+
                 this.io = io;
                 this.bone = bone;
 
-                console.log("initialize a Boneio Controller");
+            },
+
+            connect: function( options ) {
+
+                options = options || {};
 
                 this.socket = this.io.connect("", {
                     'auto connect': 'false'
@@ -27,7 +33,7 @@
                     socket: this.socket
                 });
 
-            }
+            },
         });
 
     });

@@ -6,7 +6,7 @@
     root.define([
         'backbone'
     ],
-    function( Backbone ) {
+    function( Backbone, RegionManager, Communicator ) {
 
         return Backbone.Marionette.Controller.extend({
 
