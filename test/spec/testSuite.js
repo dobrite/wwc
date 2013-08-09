@@ -7,6 +7,7 @@ define(function() {
             'spec/app/app.js',
             'spec/communicator/communicator.js',
             'spec/controllers/boneio.js',
+            'spec/controllers/chat.js',
             'spec/models/message.js',
             'spec/regionmanager/regionManager.js',
             'spec/regions/chatRegion.js',
