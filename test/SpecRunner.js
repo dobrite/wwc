@@ -72,7 +72,6 @@ require([
     'spec/testSuite'
 ],
 function( mocha, chai, sinon, sinonChai, $, testSuite ) {
-
     'use strict';
 
     mocha.ui('bdd');

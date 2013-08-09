@@ -14,14 +14,17 @@
         return Backbone.Marionette.Controller.extend({
 
             initialize: function( options ) {
+                this.io = io;
+                this.bone = bone;
+
                 console.log("initialize a Boneio Controller");
 
-                var socket = io.connect("", {
+                this.socket = this.io.connect("", {
                     'auto connect': 'false'
                 });
 
-                bone.set('io.options', {
-                    socket: socket
+                this.bone.set('io.options', {
+                    socket: this.socket
                 });
 
             }
