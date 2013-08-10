@@ -5,34 +5,37 @@
 
     root.define([
         'socketio',
-        'boneio',
         'backbone',
+        'underscore',
         'communicator',
     ],
-    function( io, bone, Backbone, Communicator ) {
+    function( io, Backbone, _, Communicator ) {
 
         return Backbone.Marionette.Controller.extend({
 
-            initialize: function( options ) {
+            initialize: function(options) {
                 console.log("initialize a Boneio Controller");
 
                 this.io = io;
-                this.bone = bone;
-
+                this.options = options || {};
             },
 
-            connect: function( options ) {
+            connect: function(host, options) {
+                options = this.merge(options);
 
-                options = options || {};
+                var socket = this.io.connect(host, options);
+                this.socket = socket.socket;
 
-                this.socket = this.io.connect("", {
-                    'auto connect': 'false'
+                this.socket.on('connect', function(data){
+                    Communicator.vent('io:connect', data);
+
+                    this.on('message', function(){
+                    });
                 });
+            },
 
-                this.bone.set('io.options', {
-                    socket: this.socket
-                });
-
+            merge: function(options) {
+                return _.extend(this.options, options || {});
             },
         });
 

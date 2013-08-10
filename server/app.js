@@ -49,3 +49,8 @@ server.listen(app.get('port'), function(){
     console.log('Express App started!');
 });
 
+io.sockets.on('connection', function(socket){
+    socket.on('nick', function(data){
+        io.sockets.emit('new nick', data.nick + " has joined.");
+    });
+});

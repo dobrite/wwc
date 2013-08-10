@@ -19,9 +19,7 @@
 
         /* Add application regions here */
         RegionManager.addRegions({
-            chatPane: "#chat-pane",
-            nickPane: "#nick-pane",
-            inputPane: '#input-pane'
+            mainPane: "#main",
         });
 
         /* Add initializers here */
@@ -30,12 +28,16 @@
             Communicator.vent.trigger("APP:START");
             var boneio = new BoneIO();
 
-            var message = new Message({nick: 'Nick', text: 'Yo!'});
+            //var message = new Message({nick: 'Nick', text: 'Yo!'});
             //var messages = new MesagesCollectionView();
 
-            var messageItemView = new MessageItemView({model: message});
+            //var messageItemView = new MessageItemView({model: message});
 
-            RegionManager.getRegion('chatPane').show(messageItemView);
+            //RegionManager.getRegion('mainPane').show();
+        });
+
+        App.on("initialize:after", function() {
+            console.log("initialize:after");
         });
 
         return App;

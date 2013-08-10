@@ -74,13 +74,12 @@ require([
 function( mocha, chai, sinon, sinonChai, $, testSuite ) {
     'use strict';
 
-    mocha.ui('bdd');
-    mocha.reporter('html');
-
-    //has to be a better way
     window.expect = chai.expect,
     window.should = chai.should(),
     window.assert = chai.assert;
+
+    mocha.ui('bdd');
+    mocha.reporter('html');
 
     /* on dom ready require all specs and run */
     $( function() {
