@@ -17,7 +17,10 @@
                 console.log("initialize a Boneio Controller");
 
                 this.io = io;
+                this.communicator = options.communicator || Communicator;
                 this.options = options || {};
+
+                _.bindAll(this, 'onConnect');
             },
 
             connect: function(host, options) {
@@ -26,11 +29,13 @@
                 var socket = this.io.connect(host, options);
                 this.socket = socket.socket;
 
-                this.socket.on('connect', function(data){
-                    Communicator.vent('io:connect', data);
+                this.socket.on('connect', this.onConnect);
+            },
 
-                    this.on('message', function(){
-                    });
+            onConnect: function() {
+                this.communicator.vent.trigger('io:connect');
+
+                this.on('message', function(){
                 });
             },
 

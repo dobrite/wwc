@@ -4,9 +4,10 @@
     var root = this;
 
     root.define([
-        'controllers/boneio'
+        'controllers/boneio',
+        'communicator'
         ],
-        function( Boneio ) {
+        function( Boneio, Communicator ) {
 
             var socketURL = 'http://0.0.0.0:8080';
 
@@ -37,6 +38,13 @@
                     expect( boneio.options ).to.be.equal(options);
                 });
 
+                it('initialize should be able to take a custom communicator', function(){
+                    var customCommunicator = sinon.spy();
+                    var options = {communicator: customCommunicator};
+                    var boneio = new Boneio(options);
+                    expect( boneio.communicator ).to.be.equal(customCommunicator);
+                });
+
                 it('merge should merge options', function(){
                     var options = {test: true, nick: "nick"};
                     var boneio = new Boneio(options);
@@ -59,22 +67,30 @@
                     boneio1.disconnect();
                 });
 
-                it.skip('communicator should emit an io:connect event on connection', function(done){
-                    var boneio1 = new Boneio();
-                    boneio1.connect(socketURL, testOptions);
-                    boneio1.socket.on('connect', function(data){
-                        expect(boneio1.socket.connected).to.be.true;
-                        done();
-                    });
-                });
+                describe('vent functions', function () {
 
-                it.skip('socket should be notified when another client connects', function(done){
-                    var boneio1 = new Boneio();
-                    boneio1.connect(socketURL, testOptions);
-                    boneio1.socket.on('connect', function(data){
-                        expect(boneio1.socket.connected).to.be.true;
-                        done();
+                    after(function () {
                     });
+
+                    it('communicator should emit an io:connect event on connection', function(done){
+                        var obj = {vent: {trigger: sinon.spy()}};
+                        var boneio1 = new Boneio({communicator: obj});
+                        boneio1.connect(socketURL, testOptions);
+                        boneio1.socket.on('connect', function(data){
+                            expect(obj.vent.trigger).to.have.been.calledWith('io:connect');
+                            done();
+                        });
+                    });
+
+                    it.skip('socket should be notified when another client connects', function(done){
+                        var boneio1 = new Boneio();
+                        boneio1.connect(socketURL, testOptions);
+                        boneio1.socket.on('connect', function(data){
+                            expect(boneio1.socket.connected).to.be.true;
+                            done();
+                        });
+                    });
+
                 });
 
             });

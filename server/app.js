@@ -20,9 +20,10 @@ var app = express();
 var server = http.createServer(app);
 
 // attach websocket server to app server
-io.listen(server);
+io = io.listen(server);
 
 app.configure(function(){
+    console.log('port %s', process.env.PORT);
     app.set('port', process.env.PORT || 3000);
 
     app.set('view engine', 'handlebars');
@@ -49,6 +50,7 @@ server.listen(app.get('port'), function(){
     console.log('Express App started!');
 });
 
+//socket io handlers
 io.sockets.on('connection', function(socket){
     socket.on('nick', function(data){
         io.sockets.emit('new nick', data.nick + " has joined.");
