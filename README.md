@@ -1,1 +1,3 @@
-Websocket chat using bone.io and generator-marionette.
+Websocket chat using socket.io and generator-marionette.
+
+See bower.json for dependencies.
