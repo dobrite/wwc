@@ -52,6 +52,9 @@ server.listen(app.get('port'), function(){
 
 //socket io handlers
 io.sockets.on('connection', function(socket){
+    socket.on('disconnect', function() {
+    });
+
     socket.on('nick', function(data){
         io.sockets.emit('new nick', data.nick + " has joined.");
     });

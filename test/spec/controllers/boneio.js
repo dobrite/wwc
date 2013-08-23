@@ -59,33 +59,45 @@
                     expect(mergedOptions).to.be.empty;
                 });
 
-                it('socket should be connected after calling connect', function(done){
-                    var boneio1 = new Boneio();
-                    boneio1.connect(socketURL, testOptions);
-                    done();
-                    expect(boneio1.socket.connected).to.be.true;
-                    boneio1.disconnect();
-                });
+                describe('connected functions', function () {
+                    var obj = {vent: {trigger: sinon.spy()}};
+                    var boneio = new Boneio({communicator: obj});
 
-                describe('vent functions', function () {
+                    beforeEach(function (done) {
+                        boneio.connect(socketURL, testOptions);
+                        done();
+                    });
 
-                    after(function () {
+                    afterEach(function (done) {
+                        boneio.disconnect();
+                        done();
+                    });
+
+                    it('socket should be connected after calling connect', function(done){
+                        expect(boneio.socket.connected).to.be.true;
+                        done();
                     });
 
                     it('communicator should emit an io:connect event on connection', function(done){
+                        expect(obj.vent.trigger).to.have.been.calledWith('io:connect');
+                        done();
+                    });
+
+                    it.skip('communicator should emit an io:disconnect event prior to disconnect', function(done){
                         var obj = {vent: {trigger: sinon.spy()}};
-                        var boneio1 = new Boneio({communicator: obj});
-                        boneio1.connect(socketURL, testOptions);
-                        boneio1.socket.on('connect', function(data){
-                            expect(obj.vent.trigger).to.have.been.calledWith('io:connect');
-                            done();
+                        var boneio = new Boneio({communicator: obj});
+                        boneio.connect(socketURL, testOptions);
+                        boneio.socket.on('disconnect', function(data){
+                            expect(obj.vent.trigger).to.have.been.calledWith('io:disconnect');
                         });
+                        boneio.disconnect();
+                        done();
                     });
 
                     it.skip('socket should be notified when another client connects', function(done){
-                        var boneio1 = new Boneio();
-                        boneio1.connect(socketURL, testOptions);
-                        boneio1.socket.on('connect', function(data){
+                        var boneio = new Boneio();
+                        boneio.connect(socketURL, testOptions);
+                        boneio.socket.on('connect', function(data){
                             expect(boneio1.socket.connected).to.be.true;
                             done();
                         });

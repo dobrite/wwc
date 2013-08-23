@@ -21,6 +21,7 @@
                 this.options = options || {};
 
                 _.bindAll(this, 'onConnect');
+                _.bindAll(this, 'onDisconnect');
             },
 
             connect: function(host, options) {
@@ -30,13 +31,19 @@
                 this.socket = socket.socket;
 
                 this.socket.on('connect', this.onConnect);
+                this.socket.on('disconnect', this.onDisconnect);
             },
 
             onConnect: function() {
                 this.communicator.vent.trigger('io:connect');
+            },
 
-                this.on('message', function(){
-                });
+            disconnect: function(){
+                this.socket.disconnect();
+            },
+
+            onDisconnect: function() {
+                this.communicator.vent.trigger('io:disconnect');
             },
 
             merge: function(options) {

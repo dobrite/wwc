@@ -75,8 +75,8 @@ function( mocha, chai, sinon, sinonChai, $, testSuite ) {
     'use strict';
 
     global.expect = chai.expect,
-    global.should = chai.should(),
-    global.assert = chai.assert;
+    //global.should = chai.should(),
+    //global.assert = chai.assert;
 
     mocha.ui('bdd');
     mocha.reporter('html');
