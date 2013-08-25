@@ -21,29 +21,41 @@
                 this.options = options || {};
 
                 _.bindAll(this, 'onConnect');
+                _.bindAll(this, 'onConnecting');
                 _.bindAll(this, 'onDisconnect');
+                _.bindAll(this, 'onJoin');
             },
 
-            connect: function(host, options) {
+            connect: function (host, options) {
                 options = this.merge(options);
 
                 var socket = this.io.connect(host, options);
                 this.socket = socket.socket;
 
                 this.socket.on('connect', this.onConnect);
+                this.socket.on('connecting', this.onConnecting);
                 this.socket.on('disconnect', this.onDisconnect);
+                this.socket.on('join', this.onJoin);
             },
 
-            onConnect: function() {
+            onConnect: function () {
                 this.communicator.vent.trigger('io:connect');
             },
 
-            disconnect: function(){
+            onConnecting: function () {
+                this.communicator.vent.trigger('io:connecting');
+            },
+
+            disconnect: function () {
                 this.socket.disconnect();
             },
 
-            onDisconnect: function() {
+            onDisconnect: function () {
                 this.communicator.vent.trigger('io:disconnect');
+            },
+
+            onJoin: function () {
+                this.communicator.vent.trigger('io:join');
             },
 
             merge: function(options) {

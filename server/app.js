@@ -46,16 +46,11 @@ app.get('/', function(req, res){
 });
 
 // start server
-server.listen(app.get('port'), function(){
+server.listen(app.get('port'), function () {
     console.log('Express App started!');
 });
 
 //socket io handlers
-io.sockets.on('connection', function(socket){
-    socket.on('disconnect', function() {
-    });
-
-    socket.on('nick', function(data){
-        io.sockets.emit('new nick', data.nick + " has joined.");
-    });
+io.sockets.on('connection', function (socket) {
+    socket.broadcast.emit('join', {msg: 'someone has joined.'});
 });

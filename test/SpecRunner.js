@@ -5,9 +5,6 @@ require.config({
     deps: ['backbone.marionette', 'marionette.handlebars'],
 
     shim: {
-        boneio: {
-            exports: 'bone',
-        },
         mocha: {
             exports: 'mocha',
         },
@@ -26,7 +23,6 @@ require.config({
         underscore: '../bower_components/underscore-amd/underscore',
 
         socketio: '../bower_components/socket.io-client/dist/socket.io',
-        boneio: '../bower_components/bone.io/bone.io',
 
         /* backbone plugins */
         'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
@@ -75,8 +71,6 @@ function( mocha, chai, sinon, sinonChai, $, testSuite ) {
     'use strict';
 
     global.expect = chai.expect,
-    //global.should = chai.should(),
-    //global.assert = chai.assert;
 
     mocha.ui('bdd');
     mocha.reporter('html');
@@ -87,12 +81,13 @@ function( mocha, chai, sinon, sinonChai, $, testSuite ) {
     $( function() {
         require( testSuite.specs, function() {
             if (window.mochaPhantomJS) {
+                console.log("Phantom");
                 mochaPhantomJS.run();
             }
             else {
+                console.log("Mocha");
                 mocha.run();
             }
-
         });
     });
 });

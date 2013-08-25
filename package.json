@@ -5,7 +5,7 @@
     "express": "~3.2.4",
     "request": "~2.21.0",
     "async": "~0.2.8",
-    "socket.io": "~0.9.14",
+    "socket.io": "~0.9.16",
     "express-hbs": "~0.2.0",
     "underscore": "~1.4.4",
     "bone.io": "~0.8.7"
