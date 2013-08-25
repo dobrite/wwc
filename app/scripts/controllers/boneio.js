@@ -29,13 +29,16 @@
             connect: function (host, options) {
                 options = this.merge(options);
 
-                var socket = this.io.connect(host, options);
-                this.socket = socket.socket;
-
+                this.socket = this.io.connect(host, options);
                 this.socket.on('connect', this.onConnect);
                 this.socket.on('connecting', this.onConnecting);
                 this.socket.on('disconnect', this.onDisconnect);
                 this.socket.on('join', this.onJoin);
+
+                this.socket.on('news', function (data) {
+                    console.log(data);
+                    this.socket.emit('my other event', { my: 'data' });
+                });
             },
 
             onConnect: function () {
@@ -54,7 +57,8 @@
                 this.communicator.vent.trigger('io:disconnect');
             },
 
-            onJoin: function () {
+            onJoin: function (data, callback) {
+                console.log("onJoin");
                 this.communicator.vent.trigger('io:join');
             },
 

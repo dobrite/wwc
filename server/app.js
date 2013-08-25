@@ -53,4 +53,8 @@ server.listen(app.get('port'), function () {
 //socket io handlers
 io.sockets.on('connection', function (socket) {
     socket.broadcast.emit('join', {msg: 'someone has joined.'});
+    //socket.emit('news', { hello: 'world' });
+    //socket.on('my other event', function (data) {
+    //    console.log(data);
+    //});
 });

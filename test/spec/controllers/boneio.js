@@ -79,7 +79,7 @@
                     });
 
                     it('socket should be connected after calling connect', function(){
-                        expect(boneio.socket.connected).to.be.true;
+                        expect(boneio.socket.socket.connected).to.be.true;
                     });
 
                     it('communicator should emit an io:connect event on connection', function(){
@@ -110,7 +110,7 @@
                     });
 
                     it('socket should be connecting after calling connect', function(){
-                        expect(boneio.socket.connecting).to.be.true;
+                        expect(boneio.socket.socket.connecting).to.be.true;
                     });
 
                     it('communicator should emit an io:connecting event on connection', function(){
@@ -140,11 +140,11 @@
 
                 });
 
-                describe.only('chat notification functions', function () {
+                describe('chat notification functions', function () {
 
                     var obj1 = {vent: {trigger: sinon.spy()}};
                     var boneio1 = new Boneio({communicator: obj1});
-                    var boneio2 = new Boneio({communicator: obj1});
+                    var boneio2 = new Boneio();
 
                     beforeEach(function (done) {
                         boneio1.connect(socketURL, testOptions);
@@ -153,12 +153,22 @@
                         });
                     });
 
+                    afterEach(function (done) {
+                        boneio1.socket.on('disconnect', function () {
+                            done();
+                        });
+                        boneio1.disconnect();
+                    });
+
                     it('socket should be notified when another client connects', function(done){
                         boneio2.connect(socketURL, testOptions);
                         boneio2.socket.on('connect', function(data) {
-                            boneio2.socket.on('disconnect', function(data) {
-                                expect(obj1.vent.trigger).to.have.been.calledWith('io:join');
+                            boneio2.socket.on('disconnect', function () {
+                                done();
                             });
+                        });
+                        boneio1.socket.on('join', function(data) {
+                            expect(obj1.vent.trigger).to.have.been.calledWith('io:join');
                             boneio2.disconnect();
                         });
                     });
