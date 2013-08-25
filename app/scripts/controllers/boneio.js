@@ -17,13 +17,17 @@
                 console.log("initialize a Boneio Controller");
 
                 this.io = io;
-                this.communicator = options.communicator || Communicator;
                 this.options = options || {};
 
                 _.bindAll(this, 'onConnect');
                 _.bindAll(this, 'onConnecting');
                 _.bindAll(this, 'onDisconnect');
                 _.bindAll(this, 'onJoin');
+                _.bindAll(this, 'onRecvChatMessage');
+            },
+
+            setCommunicator: function (communicator) {
+                this.communicator = communicator || Communicator;
             },
 
             connect: function (host, options) {
@@ -34,11 +38,7 @@
                 this.socket.on('connecting', this.onConnecting);
                 this.socket.on('disconnect', this.onDisconnect);
                 this.socket.on('join', this.onJoin);
-
-                this.socket.on('news', function (data) {
-                    console.log(data);
-                    this.socket.emit('my other event', { my: 'data' });
-                });
+                this.socket.on('chatMessage', this.onRecvChatMessage);
             },
 
             onConnect: function () {
@@ -57,9 +57,18 @@
                 this.communicator.vent.trigger('io:disconnect');
             },
 
-            onJoin: function (data, callback) {
-                console.log("onJoin");
-                this.communicator.vent.trigger('io:join');
+            onJoin: function (data) {
+                this.communicator.vent.trigger('io:join', data);
+            },
+
+            sendChatMessage: function (data) {
+                this.socket.emit('chatMessage', data);
+            },
+
+            onRecvChatMessage: function (data) {
+                console.log("onRecvChatMessage");
+                console.log(data);
+                this.communicator.vent.trigger('io:recvChatMessage', data);
             },
 
             merge: function(options) {

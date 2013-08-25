@@ -17,9 +17,15 @@
                 'reconnect': false
             };
 
-            var chatUser1 = {'name':'Tom'};
-            var chatUser2 = {'name':'Sally'};
-            var chatUser3 = {'name':'Dana'};
+            var createTestCommunicator = function () {
+                return {vent: {trigger: sinon.spy(), on: sinon.spy()}};
+            };
+
+            var createTestBoneio = function () {
+                var boneio = new Boneio();
+                boneio.setCommunicator(createTestCommunicator());
+                return boneio;
+            };
 
             describe('Boneio Controller', function () {
 
@@ -39,11 +45,11 @@
                     expect( boneio.options ).to.be.equal(options);
                 });
 
-                it('initialize should be able to take a custom communicator', function(){
-                    var customCommunicator = sinon.spy();
-                    var options = {communicator: customCommunicator};
-                    var boneio = new Boneio(options);
-                    expect( boneio.communicator ).to.be.equal(customCommunicator);
+                it('setCommunicator should take a custom communicator', function(){
+                    var testCom = createTestCommunicator();
+                    var boneio = new Boneio();
+                    boneio.setCommunicator(testCom);
+                    expect( boneio.communicator ).to.be.equal(testCom);
                 });
 
                 it('merge should merge options', function(){
@@ -61,8 +67,7 @@
                 });
 
                 describe('connected functions', function () {
-                    var obj = {vent: {trigger: sinon.spy()}};
-                    var boneio = new Boneio({communicator: obj});
+                    var boneio = createTestBoneio();
 
                     beforeEach(function (done) {
                         boneio.connect(socketURL, testOptions);
@@ -83,14 +88,13 @@
                     });
 
                     it('communicator should emit an io:connect event on connection', function(){
-                        expect(obj.vent.trigger).to.have.been.calledWith('io:connect');
+                        expect(boneio.communicator.vent.trigger).to.have.been.calledWith('io:connect');
                     });
 
                 });
 
                 describe('connecting functions', function () {
-                    var obj = {vent: {trigger: sinon.spy()}};
-                    var boneio = new Boneio({communicator: obj});
+                    var boneio = createTestBoneio();
 
                     beforeEach(function (done) {
                         boneio.connect(socketURL, testOptions);
@@ -114,14 +118,13 @@
                     });
 
                     it('communicator should emit an io:connecting event on connection', function(){
-                        expect(obj.vent.trigger).to.have.been.calledWith('io:connecting');
+                        expect(boneio.communicator.vent.trigger).to.have.been.calledWith('io:connecting');
                     });
 
                 });
 
                 describe('disconnected functions', function () {
-                    var obj = {vent: {trigger: sinon.spy()}};
-                    var boneio = new Boneio({communicator: obj});
+                    var boneio = createTestBoneio();
 
                     beforeEach(function (done) {
                         boneio.connect(socketURL, testOptions);
@@ -130,21 +133,29 @@
                         });
                     });
 
+                    it('socket should not be connected after calling connect', function(done){
+                        boneio.socket.on('disconnect', function(data){
+                            expect(boneio.socket.socket.connected).to.be.false;
+                            done();
+                        });
+                        boneio.disconnect();
+                    });
+
                     it('communicator should emit an io:disconnect event when it disconnects', function(done){
                         boneio.socket.on('disconnect', function(data){
                             done();
                         });
                         boneio.disconnect();
-                        expect(obj.vent.trigger).to.have.been.calledWith('io:disconnect');
+                        expect(boneio.communicator.vent.trigger).to.have.been.calledWith('io:disconnect');
                     });
 
                 });
 
                 describe('chat notification functions', function () {
 
-                    var obj1 = {vent: {trigger: sinon.spy()}};
-                    var boneio1 = new Boneio({communicator: obj1});
+                    var boneio1 = createTestBoneio();
                     var boneio2 = new Boneio();
+                    boneio2.setCommunicator(Communicator);
 
                     beforeEach(function (done) {
                         boneio1.connect(socketURL, testOptions);
@@ -168,9 +179,58 @@
                             });
                         });
                         boneio1.socket.on('join', function(data) {
-                            expect(obj1.vent.trigger).to.have.been.calledWith('io:join');
+                            expect(boneio1.communicator.vent.trigger).to.have.been.calledWith('io:join');
                             boneio2.disconnect();
                         });
+                    });
+
+                });
+
+                describe('chat message functions', function () {
+
+                    var boneio1 = new Boneio();
+                    boneio1.setCommunicator();
+                    var boneio2 = createTestBoneio();
+                    var boneio3 = createTestBoneio();
+
+                    beforeEach(function (done) {
+                        boneio1.connect(socketURL, testOptions);
+                        boneio1.socket.on('connect', function () {
+                            boneio2.connect(socketURL, testOptions);
+                            boneio2.socket.on('connect', function(data) {
+                                boneio3.connect(socketURL, testOptions);
+                                boneio3.socket.on('connect', function(data) {
+                                    done();
+                                });
+                            });
+                        });
+                    });
+
+                    afterEach(function (done) {
+                        boneio1.socket.on('disconnect', function () {
+                            boneio2.socket.on('disconnect', function () {
+                                boneio3.socket.on('disconnect', function () {
+                                    done();
+                                });
+                                boneio3.disconnect();
+                            });
+                            boneio2.disconnect();
+                        });
+                        boneio1.disconnect();
+                    });
+
+                    it('all sockets should be notified when another client sends a chat message', function(done){
+                        boneio1.socket.on('chatMessage', function () {
+                            boneio2.socket.on('chatMessage', function () {
+                                boneio3.socket.on('chatMessage', function () {
+                                    expect(boneio2.communicator.vent.trigger).to.have.been.calledWith('io:recvChatMessage', "chat");
+                                    expect(boneio3.communicator.vent.trigger).to.have.been.calledWith('io:recvChatMessage', "chat");
+                                    done();
+                                });
+                            });
+                        });
+                        boneio1.sendChatMessage("chat");
+                        console.log("trigger");
                     });
 
                 });
