@@ -28,6 +28,7 @@
 
             setCommunicator: function (communicator) {
                 this.communicator = communicator || Communicator;
+                this.communicator.vent.on('io:sendChatMessage', this.onSendChatMessage, this);
             },
 
             connect: function (host, options) {
@@ -61,7 +62,7 @@
                 this.communicator.vent.trigger('io:join', data);
             },
 
-            sendChatMessage: function (data) {
+            onSendChatMessage: function (data) {
                 this.socket.emit('chatMessage', data);
             },
 
