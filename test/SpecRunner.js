@@ -12,6 +12,7 @@ require.config({
 
     paths: {
         spec: '../../test/spec', // lives in the test directory
+        integration: '../../test/integration', // lives in the test directory
 
         mocha: '../bower_components/mocha/mocha',
         chai: '../bower_components/chai/chai',
@@ -65,9 +66,10 @@ require([
     'sinon',
     'sinon-chai',
     'jquery',
-    'spec/testSuite'
+    'spec/testSuite',
+    'integration/testSuite'
 ],
-function( mocha, chai, sinon, sinonChai, $, testSuite ) {
+function( mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite ) {
     'use strict';
 
     global.expect = chai.expect,
@@ -77,9 +79,9 @@ function( mocha, chai, sinon, sinonChai, $, testSuite ) {
 
     chai.use(sinonChai);
 
-    /* on dom ready require all specs and run */
+    /* on dom ready require all specs, integration tests and run */
     $( function() {
-        require( testSuite.specs, function() {
+        require( specTestSuite.specs.concat(integrationTestSuite.integrations), function() {
             if (window.mochaPhantomJS) {
                 console.log("Phantom");
                 mochaPhantomJS.run();

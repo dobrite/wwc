@@ -67,8 +67,6 @@
             },
 
             onRecvChatMessage: function (data) {
-                console.log("onRecvChatMessage");
-                console.log(data);
                 this.communicator.vent.trigger('io:recvChatMessage', data);
             },
 

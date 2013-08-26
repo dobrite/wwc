@@ -230,7 +230,6 @@
                             });
                         });
                         boneio1.communicator.vent.trigger('io:sendChatMessage', "chat");
-                        console.log("trigger");
                     });
 
                 });

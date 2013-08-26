@@ -25,11 +25,11 @@
         /* Add initializers here */
         App.addInitializer( function () {
             document.body.innerHTML = mainTemplate();
-            Communicator.vent.trigger("APP:START");
+            Communicator.vent.trigger("app:start");
             //var boneio = new BoneIO();
 
             //var message = new Message({nick: 'Nick', text: 'Yo!'});
-            //var messages = new MesagesCollectionView();
+            //var messages = new MessagesCollectionView();
 
             //var messageItemView = new MessageItemView({model: message});
 
