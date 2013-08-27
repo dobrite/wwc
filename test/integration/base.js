@@ -5,12 +5,19 @@
 
     root.define([
         'jquery',
+        'application'
         ],
-        function( $ ) {
+        function( $, App, require ) {
 
-            describe('Application App', function () {
-                it.only('should be an instance of Marionette.Application', function () {
+            App.start();
 
+            describe('The main page', function () {
+                it.only('should contain a container', function () {
+                    var webdriver = require('selenium-webdriver');
+                    var driver = new webdriver.Builder().withCapabilities(webdriver.Capabilities.chrome()).build();
+                    driver.get('http://localhost:8080/');
+                    console.log(driver.getTitle());
+                    //expect($('#container').length).to.be.equal(1);
                 });
 
 
