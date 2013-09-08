@@ -19,6 +19,8 @@
                 this.io = io;
                 this.options = options || {};
 
+                //check if we can replace this with self
+                //var self = this;
                 _.bindAll(this, 'onConnect');
                 _.bindAll(this, 'onConnecting');
                 _.bindAll(this, 'onDisconnect');

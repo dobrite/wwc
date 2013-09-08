@@ -81,7 +81,7 @@ function( mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite 
 
     /* on dom ready require all specs, integration tests and run */
     $( function() {
-        require( specTestSuite.specs.concat(integrationTestSuite.integrations), function() {
+        require( specTestSuite.specs, function() {//.concat(integrationTestSuite.integrations), function() {
             if (window.mochaPhantomJS) {
                 console.log("Phantom");
                 mochaPhantomJS.run();

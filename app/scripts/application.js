@@ -13,6 +13,8 @@
         'views/item/messageItemView',
     ],
     function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+        console.log("starting");
+
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();
