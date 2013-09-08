@@ -5,14 +5,14 @@
 
     root.define([
         'backbone',
-        'controllers/boneio',
+        'controllers/centrifuge',
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
         'models/message',
         'views/item/messageItemView',
     ],
-    function( Backbone, BoneIO, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+    function( Backbone, Centrifuge, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();

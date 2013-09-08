@@ -6,7 +6,7 @@ define(function() {
         specs: [
             'spec/app/app.js',
             'spec/communicator/communicator.js',
-            'spec/controllers/boneio.js',
+            'spec/controllers/centrifuge.js',
             'spec/controllers/chat.js',
             'spec/models/message.js',
             'spec/regionmanager/regionManager.js',
