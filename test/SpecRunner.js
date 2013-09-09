@@ -7,7 +7,7 @@ require.config({
     shim: {
         mocha: {
             exports: 'mocha',
-        },
+        }
     },
 
     paths: {
@@ -26,6 +26,8 @@ require.config({
         centrifuge: '../bower_components/centrifuge-client/centrifuge',
         heir: '../bower_components/heir/heir',
         'event-emitter': '../bower_components/event-emitter/EventEmitter',
+
+        'sockjs-client': '../bower_components/socksjs-client/sockjs-0.3.4.min',
 
         /* backbone plugins */
         'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',

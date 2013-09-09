@@ -29,6 +29,9 @@
                 deps: ['heir', 'event-emitter'],
                 exports: 'Centrifuge'
             },
+            "sockjs-client": {
+                exports: 'SockJS'
+            }
         },
 
         paths: {
@@ -45,7 +48,7 @@
             bootstrap: 'vendor/bootstrap',
 
             /* alias socksjs js client lib */
-            'socksjs-client': '../bower_components/socksjs-client/socksjs-0.3.4.min',
+            'sockjs-client': '../bower_components/socksjs-client/sockjs-0.3.4.min',
 
             /* alias centrifuge js client lib */
             centrifuge: '../bower_components/centrifuge-client/centrifuge',

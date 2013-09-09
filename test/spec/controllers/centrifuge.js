@@ -15,6 +15,12 @@
                     expect( centrifuge ).to.be.an.instanceof( Centrifuge );
                 });
 
+                it('should connect', function () {
+                    var centrifuge = new Centrifuge();
+                    centrifuge.connect();
+                    expect( centrifuge ).to.be.an.instanceof( Centrifuge );
+                });
+
             });
 
         });
