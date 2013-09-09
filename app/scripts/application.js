@@ -13,6 +13,8 @@
         'views/item/messageItemView',
     ],
     function( Backbone, Centrifuge, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+        console.log("application.js");
+
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();

@@ -25,10 +25,10 @@
                 deps: ['jquery'],
                 exports: 'jquery'
             },
-            boneio: {
-                deps: ['jquery'],
-                exports: 'bone'
-            }
+            centrifuge: {
+                deps: ['heir', 'event-emitter'],
+                exports: 'Centrifuge'
+            },
         },
 
         paths: {
@@ -44,11 +44,13 @@
             /* alias the bootstrap js lib */
             bootstrap: 'vendor/bootstrap',
 
-            /* alias socket.io js lib */
-            centrifuge: '../bower_components/centrifuge/centrifuge',
+            /* alias socksjs js client lib */
+            'socksjs-client': '../bower_components/socksjs-client/socksjs-0.3.4.min',
 
-            /* alias bone.io js lib */
-            boneio: '../bower_components/bone.io/bone.io',
+            /* alias centrifuge js client lib */
+            centrifuge: '../bower_components/centrifuge-client/centrifuge',
+            heir: '../bower_components/heir/heir',
+            'event-emitter': '../bower_components/event-emitter/EventEmitter',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',

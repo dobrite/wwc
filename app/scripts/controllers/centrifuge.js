@@ -4,15 +4,22 @@
     var root = this;
 
     root.define([
-        'backbone'
+        'centrifuge',
+        'backbone',
+        'underscore',
+        'communicator'
     ],
-    function( Backbone ) {
+    function( Centrifuge, Backbone, _, Communicator ) {
 
         return Backbone.Marionette.Controller.extend({
 
             initialize: function( options ) {
                 console.log("initialize a Centrifuge Controller");
+
+                this.options = options || {};
+
             }
+
         });
 
     });

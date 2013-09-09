@@ -16,10 +16,12 @@
     "backbone.marionette.handlebars": "~0.2.0",
     "mocha": "~1.12.0",
     "chai": "~1.7.2",
-    "bone.io": "https://github.com/techpines/bone.io.git",
     "sinonjs": "~1.7.1",
     "sinon-chai": "~2.4.0",
-    "centrifuge": "git@github.com:dobrite/centrifuge-client.git#master"
+    "socksjs-client": "git@github.com:dobrite/socksjs-client.git#master",
+    "centrifuge-client": "git@github.com:dobrite/centrifuge-client.git#amd",
+    "event-emitter": "git@github.com:Wolfy87/EventEmitter.git#master",
+    "heir": "~1.0.1"
   },
   "devDependencies": {}
 }

@@ -23,7 +23,9 @@ require.config({
         backbone: '../bower_components/backbone-amd/backbone',
         underscore: '../bower_components/underscore-amd/underscore',
 
-        socketio: '../bower_components/socket.io-client/dist/socket.io',
+        centrifuge: '../bower_components/centrifuge-client/centrifuge',
+        heir: '../bower_components/heir/heir',
+        'event-emitter': '../bower_components/event-emitter/EventEmitter',
 
         /* backbone plugins */
         'backbone.syphon': '../bower_components/backbone.syphon/lib/amd/backbone.syphon',
