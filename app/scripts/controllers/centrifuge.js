@@ -21,7 +21,7 @@
             },
 
             connect: function ( options ) {
-                var centrifuge = new Centrifuge.centrifuge({
+                var centrifuge = new Centrifuge({
                     url: 'http://localhost:8000/connection',
                     token: 'bed8d7cfd4f9284afa9c561501cf0f38',
                     project: '522d0945a4dd5f51e5523e59',
@@ -30,14 +30,16 @@
                     debug: true
                 });
 
-
                 centrifuge.on('connect', function(){
                     console.log("Yo!");
                 });
 
                 centrifuge.connect();
-            }
+            },
 
+            merge: function(options) {
+                return _.extend(this.options, options || {});
+            }
         });
 
     });
