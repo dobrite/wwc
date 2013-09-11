@@ -15,6 +15,11 @@
                     expect( centrifuge ).to.be.an.instanceof( Centrifuge );
                 });
 
+                it('initialize should default to empty options', function () {
+                    var centrifuge = new Centrifuge();
+                    expect( centrifuge.options ).to.be.empty;
+                });
+
                 it('should connect', function () {
                     var centrifuge = new Centrifuge();
                     centrifuge.connect();

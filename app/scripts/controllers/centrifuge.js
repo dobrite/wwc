@@ -21,6 +21,8 @@
             },
 
             connect: function (options) {
+                options = this.merge(options);
+
                 var centrifuge = new Centrifuge({
                     url: 'http://localhost:8000/connection',
                     token: 'bed8d7cfd4f9284afa9c561501cf0f38',
@@ -31,6 +33,7 @@
                 });
 
                 centrifuge.on('connect', function(){
+                    debugger;
                     console.log("Yo!");
                 });
 
