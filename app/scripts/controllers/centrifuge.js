@@ -10,17 +10,17 @@
         'communicator',
         'sockjs-client'
     ],
-    function( Centrifuge, Backbone, _, Communicator ) {
+    function (Centrifuge, Backbone, _, Communicator) {
 
         return Backbone.Marionette.Controller.extend({
 
-            initialize: function( options ) {
+            initialize: function (options) {
                 console.log("initialize a Centrifuge Controller");
 
                 this.options = options || {};
             },
 
-            connect: function ( options ) {
+            connect: function (options) {
                 var centrifuge = new Centrifuge({
                     url: 'http://localhost:8000/connection',
                     token: 'bed8d7cfd4f9284afa9c561501cf0f38',
@@ -37,7 +37,7 @@
                 centrifuge.connect();
             },
 
-            merge: function(options) {
+            merge: function (options) {
                 return _.extend(this.options, options || {});
             }
         });
