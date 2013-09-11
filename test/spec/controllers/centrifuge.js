@@ -20,6 +20,12 @@
                     expect( centrifuge.options ).to.be.empty;
                 });
 
+                it('initialize should take options', function(){
+                    var options = {test: true};
+                    var centrifuge = new Centrifuge(options);
+                    expect( centrifuge.options ).to.be.equal(options);
+                });
+
                 it('should connect', function () {
                     var centrifuge = new Centrifuge();
                     centrifuge.connect();
