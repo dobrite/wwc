@@ -20,26 +20,53 @@
                 this.options = options || {};
             },
 
+            setCommunicator: function (communicator) {
+                this.communicator = communicator || Communicator;
+                this.communicator.vent.on('io:sendChatMessage', this.onSendChatMessage, this);
+            },
+
             connect: function (options) {
                 options = this.merge(options);
 
-                var centrifuge = new Centrifuge({
-                    url: 'http://localhost:8000/connection',
-                    token: 'bed8d7cfd4f9284afa9c561501cf0f38',
-                    project: '522d0945a4dd5f51e5523e59',
-                    user: '2694',
-                    //protocols_whitelist: ["xhr-streaming"],
-                    debug: true
-                });
+                this.centrifuge = new Centrifuge(options);
 
-                centrifuge.on('connect', function(){
-                    debugger;
-                    console.log("Yo!");
-                });
+                this.centrifuge.on('connect', this.onConnect);
+                this.centrifuge.on('connecting', this.onConnecting);
+                this.centrifuge.on('disconnect', this.onDisconnect);
+                this.centrifuge.on('join', this.onJoin);
+                this.centrifuge.on('chatMessage', this.onRecvChatMessage);
 
-                centrifuge.connect();
+                this.centrifuge.connect();
             },
 
+            onConnect: function () {
+                console.log("Connect!");
+                this.communicator.vent.trigger('io:connect');
+            },
+
+            onConnecting: function () {
+                this.communicator.vent.trigger('io:connecting');
+            },
+
+            disconnect: function () {
+                this.socket.disconnect();
+            },
+
+            onDisconnect: function () {
+                this.communicator.vent.trigger('io:disconnect');
+            },
+
+            onJoin: function (data) {
+                this.communicator.vent.trigger('io:join', data);
+            },
+
+            onSendChatMessage: function (data) {
+                this.socket.emit('chatMessage', data);
+            },
+
+            onRecvChatMessage: function (data) {
+                this.communicator.vent.trigger('io:recvChatMessage', data);
+            },
             merge: function (options) {
                 return _.extend(this.options, options || {});
             }
