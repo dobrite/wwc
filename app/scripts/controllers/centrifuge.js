@@ -18,57 +18,91 @@
                 console.log("initialize a Centrifuge Controller");
 
                 this.options = options || {};
-            },
+                this.centrifuge = new Centrifuge();
 
-            setCommunicator: function (communicator) {
-                this.communicator = communicator || Communicator;
-                this.communicator.vent.on('io:sendChatMessage', this.onSendChatMessage, this);
+                if(typeof options.communicator !== 'undefined'){
+                    this.communicator = options.communicator;
+                }else{
+                    this.communicator = Communicator;
+                }
+
+                _.bindAll(this, 'onConnect');
+                _.bindAll(this, 'onDisconnect');
+                _.bindAll(this, 'onSubscribe');
+                _.bindAll(this, 'onUnsubscribe');
+                _.bindAll(this, 'onPublish');
+                _.bindAll(this, 'onPresence');
+                _.bindAll(this, 'onHistory');
+                _.bindAll(this, 'onMessage');
             },
 
             connect: function (options) {
                 options = this.merge(options);
 
-                this.centrifuge = new Centrifuge(options);
+                this.centrifuge.configure(options);
 
                 this.centrifuge.on('connect', this.onConnect);
-                this.centrifuge.on('connecting', this.onConnecting);
                 this.centrifuge.on('disconnect', this.onDisconnect);
-                this.centrifuge.on('join', this.onJoin);
-                this.centrifuge.on('chatMessage', this.onRecvChatMessage);
+                this.centrifuge.on('subscribe', this.onSubscribe);
+                this.centrifuge.on('unsubscribe', this.onUnsubscribe);
+                this.centrifuge.on('publish', this.onPublish);
+                this.centrifuge.on('presence', this.onPresence);
+                this.centrifuge.on('history', this.onHistory);
+                this.centrifuge.on('message', this.onMessage);
 
                 this.centrifuge.connect();
             },
 
             onConnect: function () {
                 console.log("Connect!");
-                this.communicator.vent.trigger('io:connect');
-            },
-
-            onConnecting: function () {
-                this.communicator.vent.trigger('io:connecting');
+                this.communicator.vent.trigger('ws:connect');
             },
 
             disconnect: function () {
-                this.socket.disconnect();
+                this.centrifuge.disconnect();
             },
 
             onDisconnect: function () {
-                this.communicator.vent.trigger('io:disconnect');
+                console.log("Disconnect!");
+                this.communicator.vent.trigger('ws:disconnect');
             },
 
-            onJoin: function (data) {
-                this.communicator.vent.trigger('io:join', data);
+            onSubscribe: function () {
+                console.log("Subscribe");
+                this.communicator.vent.trigger('ws:subscribe');
             },
 
-            onSendChatMessage: function (data) {
-                this.socket.emit('chatMessage', data);
+            onUnsubscribe: function () {
+                console.log("Unsubscribe");
+                this.communicator.vent.trigger('ws:unsubscribe');
             },
 
-            onRecvChatMessage: function (data) {
-                this.communicator.vent.trigger('io:recvChatMessage', data);
+            onPublish: function (data) {
+                console.log("Publish");
+                this.communicator.vent.trigger('ws:publish');
             },
+
+            onPresence: function (data) {
+                console.log("Presence");
+                this.communicator.vent.trigger('ws:presence');
+            },
+
+            onHistory: function (data) {
+                console.log("History");
+                this.communicator.vent.trigger('ws:history');
+            },
+
+            onMessage: function (data) {
+                console.log("Message");
+                this.communicator.vent.trigger('ws:message');
+            },
+
             merge: function (options) {
                 return _.extend(this.options, options || {});
+            },
+
+            on: function (eventName, func) {
+                this.on(eventName, func);
             }
         });
 
