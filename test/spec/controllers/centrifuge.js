@@ -9,8 +9,8 @@
         function( Centrifuge ) {
             var testOptions = {
                 url: 'http://localhost:8000/connection',
-                token: '2aaedeeddb1ba071de8fe8a7028dd6cf',
-                project: '52327c27a4dd5f2c74c3c15e',
+                token: 'af10cc02d75f6006ae75067623994270',
+                project: '5234d3f0a4dd5f3e61942bfb',
                 user: '2694',
                 //protocols_whitelist: ["xhr-streaming"],
                 debug: true
@@ -106,6 +106,72 @@
 
                 });
 
+                describe('subscribe functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            done();
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                    });
+
+                    it('communicator should emit a ws:subscribe:success event when it successfully subscribes', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.centrifuge.on('disconnect', function () {
+                                expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:subscribe:success');
+                                done();
+                            });
+                            testCentrifuge.disconnect();
+                        });
+                    });
+
+                    it('communicator should emit a ws:subscribe:error event on a subscribe error', function(done){
+                        testCentrifuge.subscribe('/doesntexist');
+                        testCentrifuge.subscription.on('subscribe:error', function () {
+                            testCentrifuge.centrifuge.on('disconnect', function () {
+                                expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:subscribe:error');
+                                done();
+                            });
+                            testCentrifuge.disconnect();
+                        });
+                    });
+
+                });
+
+                describe('unsubscribe functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            testCentrifuge.subscribe('/test/test');
+                            testCentrifuge.subscription.on('subscribe:success', function () {
+                                done();
+                            });
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                    });
+
+                    it('communicator should emit a ws:unsubscribe:success event when it successfully unsubscribes', function(done){
+                        testCentrifuge.subscription.on('unsubscribe:success', function () {
+                            testCentrifuge.disconnect();
+                        });
+                        testCentrifuge.centrifuge.on('disconnect', function () {
+                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:unsubscribe:success');
+                            done();
+                        });
+                        testCentrifuge.unsubscribe('/test/test');
+                    });
+                });
             });
         });
 
