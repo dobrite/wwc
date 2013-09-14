@@ -1,3 +1,1 @@
-Websocket chat using socket.io and generator-marionette.
-
-See bower.json for dependencies.
+Websocket chat using cenrifuge, sockJS, and generator-marionette.
