@@ -157,15 +157,16 @@
                         testCentrifuge.connect(testOptions);
                     });
 
-                    afterEach(function () {
-                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                    afterEach(function (done) {
+                        testCentrifuge.centrifuge.on('disconnect', function () {
+                            testCentrifuge.centrifuge.removeEvent('disconnect');
+                            done();
+                        });
+                        testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:unsubscribe:success event when it successfully unsubscribes', function(done){
                         testCentrifuge.subscription.on('unsubscribe:success', function () {
-                            testCentrifuge.disconnect();
-                        });
-                        testCentrifuge.centrifuge.on('disconnect', function () {
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:unsubscribe:success');
                             done();
                         });

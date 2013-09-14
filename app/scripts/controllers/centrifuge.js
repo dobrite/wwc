@@ -93,8 +93,6 @@
 
                 this.subscription.on('unsubscribe:success', this.onUnsubscribeSuccess);
                 this.subscription.on('unsubscribe:error', this.onUnsubscribeError);
-                this.centrifuge.on('unsubscribe:success', this.onUnsubscribeSuccess);
-                this.centrifuge.on('unsubscribe:error', this.onUnsubscribeError);
 
                 this.subscription.unsubscribe();
             },
