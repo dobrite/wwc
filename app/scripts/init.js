@@ -25,10 +25,6 @@
                 deps: ['jquery'],
                 exports: 'jquery'
             },
-            centrifuge: {
-                deps: ['heir', 'event-emitter'],
-                exports: 'Centrifuge'
-            },
             "sockjs-client": {
                 exports: 'SockJS'
             }
@@ -52,8 +48,6 @@
 
             /* alias centrifuge js client lib */
             centrifuge: '../bower_components/centrifuge-client/centrifuge',
-            heir: '../bower_components/heir/heir',
-            'event-emitter': '../bower_components/event-emitter/EventEmitter',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: '../bower_components/requirejs-text/text',
