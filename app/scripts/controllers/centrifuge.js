@@ -33,7 +33,8 @@
                 _.bindAll(this, 'onPublishError');
                 _.bindAll(this, 'onPresenceSuccess');
                 _.bindAll(this, 'onPresenceError');
-                _.bindAll(this, 'onHistory');
+                _.bindAll(this, 'onHistorySuccess');
+                _.bindAll(this, 'onHistoryError');
                 _.bindAll(this, 'onMessage');
                 _.bindAll(this, 'onError');
             },
@@ -45,7 +46,6 @@
 
                 this.centrifuge.on('connect', this.onConnect);
                 this.centrifuge.on('disconnect', this.onDisconnect);
-                this.centrifuge.on('history', this.onHistory);
                 this.centrifuge.on('message', this.onMessage);
                 this.centrifuge.on('error', this.onError);
 
@@ -73,6 +73,8 @@
                 this.subscription.on('publish:error', this.onPublishError);
                 this.subscription.on('presence:success', this.onPresenceSuccess);
                 this.subscription.on('presence:error', this.onPresenceError);
+                this.subscription.on('history:success', this.onHistorySuccess);
+                this.subscription.on('history:error', this.onHistoryError);
             },
 
             onSubscribeSuccess: function () {
@@ -101,12 +103,12 @@
 
             presence: function (data) {
                 this.subscription.presence(function (data) {
-                    console.log(data);
                 });
             },
 
             onPresenceSuccess: function (data) {
                 console.log("presence success");
+                console.log(data);
                 this.communicator.vent.trigger('ws:presence:success');
             },
 
@@ -115,8 +117,20 @@
                 this.communicator.vent.trigger('ws:presence:error');
             },
 
-            onHistory: function (data) {
-                this.communicator.vent.trigger('ws:history');
+            history: function (data) {
+                this.subscription.history(function (data) {
+                    console.log(data);
+                });
+            },
+
+            onHistorySuccess: function (data) {
+                console.log("history success");
+                this.communicator.vent.trigger('ws:history:success');
+            },
+
+            onHistoryError: function (data) {
+                console.log("history error");
+                this.communicator.vent.trigger('ws:history:error');
             },
 
             onMessage: function (data) {

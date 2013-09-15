@@ -157,6 +157,7 @@
                     afterEach(function () {
                         testCentrifuge.centrifuge.removeEvent('disconnect');
                         testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:publish:success event when it successfully publishes', function(done){
@@ -196,6 +197,7 @@
                     afterEach(function () {
                         testCentrifuge.centrifuge.removeEvent('disconnect');
                         testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:presence:success event when it successfully presences', function(done){
@@ -219,6 +221,68 @@
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:presence:error');
                             done();
                         });
+                    });
+                });
+
+                describe('history functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            done();
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                        testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.disconnect();
+                    });
+
+                    it('communicator should emit a ws:history:success event when it successfully get history', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.subscription.on('history:success', function () {
+                                testCentrifuge.centrifuge.on('disconnect', function () {
+                                    expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:history:success');
+                                    done();
+                                });
+                                testCentrifuge.disconnect();
+                            });
+                            testCentrifuge.history();
+                        });
+                    });
+
+                    it('communicator should emit a ws:history:error event on a history error', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.subscription.trigger('history:error');
+                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:history:error');
+                            done();
+                        });
+                    });
+                });
+
+                describe('message functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            done();
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.disconnect();
+                    });
+
+                    it('communicator should emit a ws:message event when it receives a message', function(){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.presence();
+                        testCentrifuge.subscription.trigger('message');
+                        expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:message');
                     });
                 });
 
