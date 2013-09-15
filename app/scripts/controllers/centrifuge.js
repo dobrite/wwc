@@ -31,8 +31,6 @@
                 _.bindAll(this, 'onDisconnect');
                 _.bindAll(this, 'onSubscribeSuccess');
                 _.bindAll(this, 'onSubscribeError');
-                _.bindAll(this, 'onUnsubscribeSuccess');
-                _.bindAll(this, 'onUnsubscribeError');
                 _.bindAll(this, 'onPublish');
                 _.bindAll(this, 'onPresence');
                 _.bindAll(this, 'onHistory');
@@ -91,20 +89,7 @@
             unsubscribe: function () {
                 console.log('unsubscribing');
 
-                this.subscription.on('unsubscribe:success', this.onUnsubscribeSuccess);
-                this.subscription.on('unsubscribe:error', this.onUnsubscribeError);
-
                 this.subscription.unsubscribe();
-            },
-
-            onUnsubscribeSuccess: function () {
-                console.log("Unsubscribe Success");
-                this.communicator.vent.trigger('ws:unsubscribe:success');
-            },
-
-            onUnsubscribeError: function () {
-                console.log("Unsubscribe Error");
-                this.communicator.vent.trigger('ws:unsubscribe:error');
             },
 
             onPublish: function (data) {

@@ -144,45 +144,6 @@
 
                 });
 
-                describe('unsubscribe functions', function () {
-                    var testCentrifuge = createTestCentrifuge();
-
-                    beforeEach(function (done) {
-                        testCentrifuge.centrifuge.on('connect', function () {
-                            testCentrifuge.subscribe('/test/test');
-                            testCentrifuge.subscription.on('subscribe:success', function () {
-                                done();
-                            });
-                        });
-                        testCentrifuge.connect(testOptions);
-                    });
-
-                    afterEach(function (done) {
-                        testCentrifuge.centrifuge.on('disconnect', function () {
-                            testCentrifuge.centrifuge.removeEvent('disconnect');
-                            testCentrifuge.centrifuge.removeEvent('connect');
-                            done();
-                        });
-                        testCentrifuge.disconnect();
-                    });
-
-                    it('communicator should emit a ws:unsubscribe:success event when it successfully unsubscribes', function(done){
-                        testCentrifuge.subscription.on('unsubscribe:success', function () {
-                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:unsubscribe:success');
-                            done();
-                        });
-                        testCentrifuge.unsubscribe();
-                    });
-
-                    it('communicator should emit a ws:unsubscribe:error event on an unsubscribe error', function(done){
-                        testCentrifuge.subscription.on('unsubscribe:error', function () {
-                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:unsubscribe:error');
-                            done();
-                        });
-                        testCentrifuge.subscription.trigger('unsubscribe:error');
-                    });
-
-                });
             });
         });
 
