@@ -144,6 +144,45 @@
 
                 });
 
+                describe('publish functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            done();
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                        testCentrifuge.centrifuge.removeEvent('connect');
+                    });
+
+                    it('communicator should emit a ws:publish:success event when it successfully publishes', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.subscription.on('publish:success', function () {
+                                testCentrifuge.centrifuge.on('disconnect', function () {
+                                    expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:publish:success');
+                                    done();
+                                });
+                                testCentrifuge.disconnect();
+                            });
+                            testCentrifuge.publish('test message');
+                        });
+                    });
+
+                    it('communicator should emit a ws:publish:error event on a publish error', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            console.log("here");
+                            testCentrifuge.subscription.trigger('publish:error');
+                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:publish:error');
+                            done();
+                        });
+                    });
+                });
             });
         });
 

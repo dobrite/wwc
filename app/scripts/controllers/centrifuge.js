@@ -15,8 +15,6 @@
         return Backbone.Marionette.Controller.extend({
 
             initialize: function (options) {
-                console.log("initialize a Centrifuge Controller");
-
                 this.options = options || {};
                 this.centrifuge = new Centrifuge();
                 this.subscription = null;
@@ -31,7 +29,8 @@
                 _.bindAll(this, 'onDisconnect');
                 _.bindAll(this, 'onSubscribeSuccess');
                 _.bindAll(this, 'onSubscribeError');
-                _.bindAll(this, 'onPublish');
+                _.bindAll(this, 'onPublishSuccess');
+                _.bindAll(this, 'onPublishError');
                 _.bindAll(this, 'onPresence');
                 _.bindAll(this, 'onHistory');
                 _.bindAll(this, 'onMessage');
@@ -55,7 +54,6 @@
             },
 
             onConnect: function () {
-                console.log("Connect!");
                 this.communicator.vent.trigger('ws:connect');
             },
 
@@ -64,57 +62,56 @@
             },
 
             onDisconnect: function () {
-                console.log("Disconnect!");
                 this.communicator.vent.trigger('ws:disconnect');
             },
 
             subscribe: function (channel) {
-                console.log('subscribing on: ' + channel);
                 this.subscription = this.centrifuge.subscribe(channel, this.onMessage);
 
                 this.subscription.on('subscribe:success', this.onSubscribeSuccess);
                 this.subscription.on('subscribe:error', this.onSubscribeError);
+                this.subscription.on('publish:success', this.onPublishSuccess);
+                this.subscription.on('publish:error', this.onPublishError);
             },
 
             onSubscribeSuccess: function () {
-                console.log("Subscribe Success");
                 this.communicator.vent.trigger('ws:subscribe:success');
             },
 
             onSubscribeError: function () {
-                console.log("Subscribe Error");
                 this.communicator.vent.trigger('ws:subscribe:error');
             },
 
             unsubscribe: function () {
-                console.log('unsubscribing');
-
                 this.subscription.unsubscribe();
             },
 
-            onPublish: function (data) {
-                console.log("Publish");
-                this.communicator.vent.trigger('ws:publish');
+            publish: function (data) {
+                this.subscription.publish(data);
+            },
+
+            onPublishSuccess: function (data) {
+                this.communicator.vent.trigger('ws:publish:success');
+            },
+
+            onPublishError: function (data) {
+                console.log("Publish Error");
+                this.communicator.vent.trigger('ws:publish:error');
             },
 
             onPresence: function (data) {
-                console.log("Presence");
                 this.communicator.vent.trigger('ws:presence');
             },
 
             onHistory: function (data) {
-                console.log("History");
                 this.communicator.vent.trigger('ws:history');
             },
 
             onMessage: function (data) {
-                console.log("Message");
                 this.communicator.vent.trigger('ws:message');
             },
 
             onError: function (data) {
-                console.log("Error");
-                console.log(data);
                 this.communicator.vent.trigger('ws:error');
             },
 
