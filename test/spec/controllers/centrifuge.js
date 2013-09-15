@@ -176,13 +176,52 @@
                     it('communicator should emit a ws:publish:error event on a publish error', function(done){
                         testCentrifuge.subscribe('/test/test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
-                            console.log("here");
                             testCentrifuge.subscription.trigger('publish:error');
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:publish:error');
                             done();
                         });
                     });
                 });
+
+                describe('presence functions', function () {
+                    var testCentrifuge = createTestCentrifuge();
+
+                    beforeEach(function (done) {
+                        testCentrifuge.centrifuge.on('connect', function () {
+                            done();
+                        });
+                        testCentrifuge.connect(testOptions);
+                    });
+
+                    afterEach(function () {
+                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                        testCentrifuge.centrifuge.removeEvent('connect');
+                    });
+
+                    it('communicator should emit a ws:presence:success event when it successfully presences', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.subscription.on('presence:success', function () {
+                                testCentrifuge.centrifuge.on('disconnect', function () {
+                                    expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:presence:success');
+                                    done();
+                                });
+                                testCentrifuge.disconnect();
+                            });
+                            testCentrifuge.presence();
+                        });
+                    });
+
+                    it('communicator should emit a ws:presence:error event on a presence error', function(done){
+                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscription.on('subscribe:success', function () {
+                            testCentrifuge.subscription.trigger('presence:error');
+                            expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:presence:error');
+                            done();
+                        });
+                    });
+                });
+
             });
         });
 

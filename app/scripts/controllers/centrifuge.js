@@ -31,7 +31,8 @@
                 _.bindAll(this, 'onSubscribeError');
                 _.bindAll(this, 'onPublishSuccess');
                 _.bindAll(this, 'onPublishError');
-                _.bindAll(this, 'onPresence');
+                _.bindAll(this, 'onPresenceSuccess');
+                _.bindAll(this, 'onPresenceError');
                 _.bindAll(this, 'onHistory');
                 _.bindAll(this, 'onMessage');
                 _.bindAll(this, 'onError');
@@ -44,8 +45,6 @@
 
                 this.centrifuge.on('connect', this.onConnect);
                 this.centrifuge.on('disconnect', this.onDisconnect);
-                this.centrifuge.on('publish', this.onPublish);
-                this.centrifuge.on('presence', this.onPresence);
                 this.centrifuge.on('history', this.onHistory);
                 this.centrifuge.on('message', this.onMessage);
                 this.centrifuge.on('error', this.onError);
@@ -72,6 +71,8 @@
                 this.subscription.on('subscribe:error', this.onSubscribeError);
                 this.subscription.on('publish:success', this.onPublishSuccess);
                 this.subscription.on('publish:error', this.onPublishError);
+                this.subscription.on('presence:success', this.onPresenceSuccess);
+                this.subscription.on('presence:error', this.onPresenceError);
             },
 
             onSubscribeSuccess: function () {
@@ -95,12 +96,23 @@
             },
 
             onPublishError: function (data) {
-                console.log("Publish Error");
                 this.communicator.vent.trigger('ws:publish:error');
             },
 
-            onPresence: function (data) {
-                this.communicator.vent.trigger('ws:presence');
+            presence: function (data) {
+                this.subscription.presence(function (data) {
+                    console.log(data);
+                });
+            },
+
+            onPresenceSuccess: function (data) {
+                console.log("presence success");
+                this.communicator.vent.trigger('ws:presence:success');
+            },
+
+            onPresenceError: function (data) {
+                console.log("presence error");
+                this.communicator.vent.trigger('ws:presence:error');
             },
 
             onHistory: function (data) {
