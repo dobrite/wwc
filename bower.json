@@ -19,7 +19,7 @@
     "sinonjs": "~1.7.1",
     "sinon-chai": "~2.4.0",
     "socksjs-client": "git@github.com:dobrite/socksjs-client.git#master",
-    "centrifuge-client": "git@github.com:dobrite/centrifuge-client.git#amd"
+    "centrifuge-client": "git@github.com:dobrite/centrifuge-client.git#master"
   },
   "devDependencies": {}
 }
