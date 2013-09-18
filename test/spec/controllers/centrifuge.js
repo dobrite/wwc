@@ -13,7 +13,7 @@
                 project: '5234d3f0a4dd5f3e61942bfb',
                 user: '2694',
                 //protocols_whitelist: ["xhr-streaming"],
-                //debug: true
+                debug: true
             };
 
             var createTestCommunicator = function () {
@@ -29,7 +29,7 @@
             describe('Centrifuge Controller', function () {
                 it('should be an instance of Centrifuge Controller', function () {
                     var centrifuge = new Centrifuge();
-                    expect( centrifuge ).to.be.an.instanceof( Centrifuge );
+                    expect(centrifuge).to.be.an.instanceof(Centrifuge);
                 });
 
                 it('initialize should default to empty options', function () {
