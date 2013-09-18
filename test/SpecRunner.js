@@ -24,8 +24,6 @@ require.config({
         underscore: '../bower_components/underscore-amd/underscore',
 
         centrifuge: '../bower_components/centrifuge-client/centrifuge',
-        heir: '../bower_components/heir/heir',
-        'event-emitter': '../bower_components/event-emitter/EventEmitter',
 
         'sockjs-client': '../bower_components/socksjs-client/sockjs-0.3.4.min',
 

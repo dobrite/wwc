@@ -5,14 +5,14 @@
 
     root.define([
         'backbone',
-        'controllers/centrifuge',
+        'controllers/websocketProxy',
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
         'models/message',
         'views/item/messageItemView',
     ],
-    function( Backbone, Centrifuge, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+    function( Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
         console.log("application.js");
 
         var mainTemplate = MainTemplate;
@@ -28,8 +28,6 @@
         App.addInitializer( function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("app:start");
-            //var boneio = new BoneIO();
-
             //var message = new Message({nick: 'Nick', text: 'Yo!'});
             //var messages = new MessagesCollectionView();
 
