@@ -21,13 +21,13 @@
 
                 _.extend(this.centrifuge, Backbone.Events);
                 _.bindAll(this, 'onEvent');
+
+                this.centrifuge.on('all', this.onEvent);
             },
 
             connect: function (options) {
                 _.extend(this.options, options || {});
-
                 this.centrifuge.configure(this.options);
-                this.centrifuge.on('all', this.onEvent);
                 this.centrifuge.connect();
             },
 
@@ -37,8 +37,9 @@
 
             disconnect: function () {
                 this.centrifuge.disconnect();
-                this.centrifuge.off('all');
-                this.centrifuge.once('all', this.onEvent);
+                this.centrifuge.on('disconnect', function () {
+                    this.centrifuge.off('all');
+                }, this);
             },
 
             subscribe: function (channel) {
@@ -50,7 +51,6 @@
             unsubscribe: function () {
                 this.subscription.unsubscribe();
                 this.subscription.off('all');
-                this.subscription.once('all', this.onEvent);
             },
 
             publish: function (data) {
