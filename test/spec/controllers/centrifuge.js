@@ -43,20 +43,6 @@
                     expect( centrifuge.options ).to.be.equal(options);
                 });
 
-                it('merge should merge options', function(){
-                    var options = {test: true, nick: "nick"};
-                    var centrifuge = new Centrifuge(options);
-                    var newOptions = {test: false};
-                    var mergedOptions = centrifuge.merge(newOptions);
-                    expect(mergedOptions.test).to.be.false;
-                });
-
-                it('merge should merge empty options', function(){
-                    var centrifuge = new Centrifuge();
-                    var mergedOptions = centrifuge.merge();
-                    expect(mergedOptions).to.be.empty;
-                });
-
                 describe('connected functions', function () {
                     var testCentrifuge = createTestCentrifuge();
 

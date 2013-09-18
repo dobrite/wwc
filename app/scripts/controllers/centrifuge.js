@@ -32,12 +32,10 @@
             },
 
             connect: function (options) {
-                options = this.merge(options);
+                _.extend(this.options, options || {});
 
-                this.centrifuge.configure(options);
-
+                this.centrifuge.configure(this.options);
                 this.centrifuge.on('all', this.onEvent);
-
                 this.centrifuge.connect();
             },
 
@@ -53,9 +51,7 @@
 
             subscribe: function (channel) {
                 this.subscription = this.centrifuge.subscribe(channel, this.onMessage);
-
                 _.extend(this.subscription, Backbone.Events);
-
                 this.subscription.on('all', this.onEvent);
             },
 
@@ -77,11 +73,7 @@
                 this.subscription.history(function (data) {
                     //something with data
                 });
-            },
-
-            merge: function (options) {
-                return _.extend(this.options, options || {});
-            },
+            }
 
         });
 
