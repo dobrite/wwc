@@ -16,18 +16,10 @@
 
             initialize: function (options) {
                 this.options = options || {};
+                this.communicator = options.communicator || Communicator;
                 this.centrifuge = new Centrifuge();
 
                 _.extend(this.centrifuge, Backbone.Events);
-
-                this.subscription = null;
-
-                if(typeof options.communicator !== 'undefined'){
-                    this.communicator = options.communicator;
-                }else{
-                    this.communicator = Communicator;
-                }
-
                 _.bindAll(this, 'onEvent');
             },
 
@@ -40,13 +32,13 @@
             },
 
             onEvent: function (event, params) {
-                if(typeof event !== 'undefined') {
-                    this.communicator.vent.trigger('ws:' + event, params);
-                }
+                this.communicator.vent.trigger('ws:' + event, params);
             },
 
             disconnect: function () {
                 this.centrifuge.disconnect();
+                this.centrifuge.off('all');
+                this.centrifuge.once('all', this.onEvent);
             },
 
             subscribe: function (channel) {
@@ -57,6 +49,8 @@
 
             unsubscribe: function () {
                 this.subscription.unsubscribe();
+                this.subscription.off('all');
+                this.subscription.once('all', this.onEvent);
             },
 
             publish: function (data) {
