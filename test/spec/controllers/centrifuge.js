@@ -13,7 +13,7 @@
                 project: '5234d3f0a4dd5f3e61942bfb',
                 user: '2694',
                 //protocols_whitelist: ["xhr-streaming"],
-                debug: true
+                //debug: true
             };
 
             var createTestCommunicator = function () {
@@ -69,6 +69,7 @@
 
                     afterEach(function (done) {
                         testCentrifuge.centrifuge.on('disconnect', function () {
+                            testCentrifuge.centrifuge.removeEvent();
                             done();
                         });
                         testCentrifuge.disconnect();
@@ -79,7 +80,8 @@
                     });
 
                     it('communicator should emit a ws:connect event on connection', function () {
-                        expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:connect');
+                        testCentrifuge.centrifuge.trigger('connect');
+                        expect(testCentrifuge.communicator.vent.trigger).to.calledWith('ws:connect');
                     });
                 });
 
@@ -92,6 +94,7 @@
                             testCentrifuge.disconnect();
                         });
                         testCentrifuge.centrifuge.on('disconnect', function () {
+                            testCentrifuge.centrifuge.removeEvent();
                             done();
                         });
                     });
@@ -117,11 +120,11 @@
                     });
 
                     afterEach(function () {
-                        testCentrifuge.centrifuge.removeEvent('disconnect');
+                        testCentrifuge.centrifuge.removeEvent();
                     });
 
                     it('communicator should emit a ws:subscribe:success event when it successfully subscribes', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.centrifuge.on('disconnect', function () {
                                 expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:subscribe:success');
@@ -132,7 +135,7 @@
                     });
 
                     it('communicator should emit a ws:subscribe:error event on a subscribe error', function(done){
-                        testCentrifuge.subscribe('/doesntexist');
+                        testCentrifuge.subscribe('doesntexist');
                         testCentrifuge.subscription.on('subscribe:error', function () {
                             testCentrifuge.centrifuge.on('disconnect', function () {
                                 expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:subscribe:error');
@@ -155,13 +158,12 @@
                     });
 
                     afterEach(function () {
-                        testCentrifuge.centrifuge.removeEvent('disconnect');
-                        testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.centrifuge.removeEvent();
                         testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:publish:success event when it successfully publishes', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.on('publish:success', function () {
                                 testCentrifuge.centrifuge.on('disconnect', function () {
@@ -175,7 +177,7 @@
                     });
 
                     it('communicator should emit a ws:publish:error event on a publish error', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.trigger('publish:error');
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:publish:error');
@@ -195,13 +197,12 @@
                     });
 
                     afterEach(function () {
-                        testCentrifuge.centrifuge.removeEvent('disconnect');
-                        testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.centrifuge.removeEvent();
                         testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:presence:success event when it successfully presences', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.on('presence:success', function () {
                                 testCentrifuge.centrifuge.on('disconnect', function () {
@@ -215,7 +216,7 @@
                     });
 
                     it('communicator should emit a ws:presence:error event on a presence error', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.trigger('presence:error');
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:presence:error');
@@ -235,13 +236,12 @@
                     });
 
                     afterEach(function () {
-                        testCentrifuge.centrifuge.removeEvent('disconnect');
-                        testCentrifuge.centrifuge.removeEvent('connect');
+                        testCentrifuge.centrifuge.removeEvent();
                         testCentrifuge.disconnect();
                     });
 
                     it('communicator should emit a ws:history:success event when it successfully get history', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.on('history:success', function () {
                                 testCentrifuge.centrifuge.on('disconnect', function () {
@@ -255,7 +255,7 @@
                     });
 
                     it('communicator should emit a ws:history:error event on a history error', function(done){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.subscription.on('subscribe:success', function () {
                             testCentrifuge.subscription.trigger('history:error');
                             expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:history:error');
@@ -279,7 +279,7 @@
                     });
 
                     it('communicator should emit a ws:message event when it receives a message', function(){
-                        testCentrifuge.subscribe('/test/test');
+                        testCentrifuge.subscribe('test:test');
                         testCentrifuge.presence();
                         testCentrifuge.subscription.trigger('message');
                         expect(testCentrifuge.communicator.vent.trigger).to.have.been.calledWith('ws:message');
