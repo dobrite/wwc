@@ -9,9 +9,8 @@
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
-        'jquery',
     ],
-    function (Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate, $) {
+    function (Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate) {
         console.log("application.js");
 
         var mainTemplate = MainTemplate;
