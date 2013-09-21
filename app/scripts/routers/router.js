@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var root = this;
@@ -9,8 +9,17 @@
         function(Backbone){
 
             return Backbone.Router.extend({
-                /* Backbone routes hash */
-                routes: {}
+                routes: {},
+
+                navigate: function (route, options) {
+                    options = options || {};
+                    Backbone.history.navigate(route, options);
+                },
+
+                getCurrentRoute: function () {
+                    return Backbone.history.fragment;
+                },
+
             });
     });
-}).call( this );
+}).call(this);

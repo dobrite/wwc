@@ -6,7 +6,7 @@
     root.require([
         'application',
     ],
-    function ( App ) {
+    function (App) {
         App.start();
     });
-}).call( this );
+}).call(this);

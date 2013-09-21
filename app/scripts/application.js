@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var root = this;
@@ -6,23 +6,23 @@
     root.define([
         'backbone',
         'controllers/websocketProxy',
+        'routers/router',
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
     ],
-    function (Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate) {
+    function (Backbone, WebsocketProxy, Router, RegionManager, Communicator, MainTemplate) {
         console.log("application.js");
 
         var mainTemplate = MainTemplate;
 
         var App = new Backbone.Marionette.Application();
+        var router = new Router();
 
-        /* Add application regions here */
         RegionManager.addRegions({
             mainPane: "#main",
         });
 
-        /* Add initializers here */
         App.addInitializer(function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("app:start");
@@ -36,8 +36,17 @@
 
         App.on("initialize:after", function () {
             console.log("initialize:after");
+
+            if(Backbone.history){
+                Backbone.history.start();
+
+                if(router.getCurrentRoute() === ""){
+                    console.log("login:show");
+                    App.trigger("login:show");
+                }
+            }
         });
 
         return App;
     });
-}).call( this );
+}).call(this);
