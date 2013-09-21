@@ -33,7 +33,7 @@
 
             //var messageItemView = new MessageItemView({model: message});
 
-            //RegionManager.getRegion('mainPane').show();
+            //RegionManager.getRegion('mainPane').show(messageItemView);
         });
 
         App.on("initialize:after", function() {

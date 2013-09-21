@@ -7,11 +7,11 @@
         'backbone',
         'communicator'
     ],
-    function( Backbone, Communicator ) {
+    function (Backbone, Communicator) {
 
         var RegionManager = Backbone.Marionette.Controller.extend({
 
-            initialize: function( options ) {
+            initialize: function (options) {
                 console.log("Initialize a Region Manager");
 
                 /* internal region manager */
@@ -24,33 +24,34 @@
             },
 
             /* add region facade */
-            addRegion: function( regionName, regionId ) {
-                var region = this.getRegion( regionName );
+            addRegion: function (regionName, regionId) {
+                var region = this.getRegion(regionName);
 
-                if( region ) {
+                if(region) {
                     console.log("REGION ALREADY CREATED TO JUST RETURN REF");
                     return region;
                 }
 
-                return this._regionManager.addRegion( regionName, regionId );
+                return this._regionManager.addRegion(regionName, regionId);
             },
 
             /* convenience function */
-            addRegions: function( regions ) {
-                this._regionManager.addRegions( regions );
+            addRegions: function (regions) {
+                this._regionManager.addRegions(regions);
             },
 
             /* remove region facade */
-            removeRegion: function( regionName ) {
-                this._regionManager.removeRegion( regionName );
+            removeRegion: function (regionName) {
+                this._regionManager.removeRegion(regionName);
             },
 
             /* get region facade */
-            getRegion: function( regionName ) {
-                return this._regionManager.get( regionName );
+            getRegion: function (regionName) {
+                return this._regionManager.get(regionName);
             }
         });
 
         return new RegionManager();
+
     });
-}).call( this );
+}).call(this);

@@ -6,14 +6,15 @@ define(function() {
         specs: [
             'spec/app/app.js',
             'spec/communicator/communicator.js',
-            'spec/controllers/websocketProxy.js',
             'spec/controllers/chat.js',
+            'spec/controllers/websocketProxy.js',
             'spec/models/message.js',
             'spec/regionmanager/regionManager.js',
             'spec/regions/chatRegion.js',
             'spec/routers/router.js',
             'spec/views/collection/messagesCollectionView.js',
-            'spec/views/item/messageItemView.js'
+            'spec/views/item/messageItemView.js',
+            'spec/views/loginView.js'
         ]
     };
 });
