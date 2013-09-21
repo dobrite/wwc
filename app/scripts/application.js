@@ -38,12 +38,14 @@
             console.log("initialize:after");
 
             if(Backbone.history){
-                Backbone.history.start();
+                require(["controllers/loginController"], function () {
+                    Backbone.history.start();
 
-                if(router.getCurrentRoute() === ""){
-                    console.log("login:show");
-                    App.trigger("login:show");
-                }
+                    if(router.getCurrentRoute() === ""){
+                        console.log("login:show");
+                        Communicator.vent.trigger("login:show");
+                    }
+                });
             }
         });
 

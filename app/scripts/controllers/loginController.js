@@ -4,17 +4,38 @@
     var root = this;
 
     root.define([
-        'backbone'
+        'backbone',
+        'application',
+        'regionManager',
+        'communicator',
+        'views/item/loginView',
     ],
-    function(Backbone) {
+    function(Backbone, App, RegionManager, Communicator, LoginItemView) {
 
-        return Backbone.Marionette.Controller.extend({
+        var LoginController = Backbone.Marionette.Controller.extend({
 
-            initialize: function(options) {
+            initialize: function (options) {
                 console.log("initialize a LoginController Controller");
-            }
+            },
+
+            showLogin: function () {
+                var loginItemView = new LoginItemView();
+                RegionManager.getRegion('mainPane').show(loginItemView);
+            },
 
         });
+
+        App.addInitializer(function () {
+            console.log("loginController addInitializer");
+
+            var loginController = new LoginController();
+
+            Communicator.vent.on('login:show', function () {
+                loginController.showLogin();
+            });
+        });
+
+        return LoginController;
 
     });
 }).call(this);
