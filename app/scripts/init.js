@@ -22,7 +22,9 @@
                 exports: 'Backbone'
             },
             bootstrap: {
-                deps: ['jquery'],
+                deps: [
+                    'jquery'
+                ],
                 exports: 'jquery'
             },
             "sockjs-client": {
@@ -41,7 +43,7 @@
             'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
             /* alias the bootstrap js lib */
-            bootstrap: 'vendor/bootstrap',
+            bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
 
             /* alias socksjs js client lib */
             'sockjs-client': '../bower_components/socksjs-client/sockjs-0.3.4.min',

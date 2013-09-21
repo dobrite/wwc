@@ -9,10 +9,9 @@
         'regionManager',
         'communicator',
         'hbs!tmpl/main',
-        'models/message',
-        'views/item/messageItemView',
+        'jquery',
     ],
-    function( Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate, Message, MessageItemView ) {
+    function (Backbone, WebsocketProxy, RegionManager, Communicator, MainTemplate, $) {
         console.log("application.js");
 
         var mainTemplate = MainTemplate;
@@ -25,7 +24,7 @@
         });
 
         /* Add initializers here */
-        App.addInitializer( function () {
+        App.addInitializer(function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("app:start");
             //var message = new Message({nick: 'Nick', text: 'Yo!'});
@@ -36,7 +35,7 @@
             //RegionManager.getRegion('mainPane').show(messageItemView);
         });
 
-        App.on("initialize:after", function() {
+        App.on("initialize:after", function () {
             console.log("initialize:after");
         });
 

@@ -13,8 +13,7 @@ define(function() {
             'spec/regions/chatRegion.js',
             'spec/routers/router.js',
             'spec/views/collection/messagesCollectionView.js',
-            'spec/views/item/messageItemView.js',
-            'spec/views/loginView.js'
+            'spec/views/item/messageItemView.js'
         ]
     };
 });
