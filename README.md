@@ -1,1 +1,1 @@
-Websocket chat using cenrifuge, sockJS, and generator-marionette.
+Websocket chat using cenrifuge, sockJS, and backbone-marionette.
