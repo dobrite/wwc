@@ -6,6 +6,10 @@ var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
 
+// removed grunt-bower-requirejs ~0.4.1
+// remoevd grunt-requirejs ~0.3.5
+// removed grunt-contrib-livereload 0.1.2 - grunt-contrib-watch supercedes it
+
 // # Globbing
 // for performance reasons we're only matching one level down:
 // 'test/spec/{,*/}*.js'
@@ -144,31 +148,6 @@ module.exports = function (grunt) {
             server: {
                 options: {
                     debugInfo: true
-                }
-            }
-        },
-
-
-        // require
-        requirejs: {
-            dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
-                options: {
-                    // `name` and `out` is set by grunt-usemin
-                    baseUrl: 'app/scripts',
-                    optimize: 'none',
-                    paths: {
-                        'templates': '../../.tmp/scripts/templates'
-                    },
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
-                    preserveLicenseComments: false,
-                    useStrict: true,
-                    wrap: true,
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
         },
