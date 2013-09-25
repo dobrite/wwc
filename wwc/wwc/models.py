@@ -6,7 +6,7 @@ from sqlalchemy import Text
 from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm import session_maker
+from sqlalchemy.orm import sessionmaker
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
