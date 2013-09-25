@@ -1,31 +1,33 @@
 import os
-import sys
 
 from setuptools import setup, find_packages
 
 here = os.path.abspath(os.path.dirname(__file__))
-README = open(os.path.join(here, 'README.txt')).read()
-CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+with open(os.path.join(here, 'README.txt')) as f:
+    README = f.read()
+with open(os.path.join(here, 'CHANGES.txt')) as f:
+    CHANGES = f.read()
 
 requires = [
     'pyramid',
-    'sqlalchemy',
-    'transaction',
-    'psycopg2',
-    'pyramid_tm',
     'pyramid_debugtoolbar',
+    'pyramid_tm',
+    'pyramid_mako',
+    'SQLAlchemy',
+    'psycopg2',
+    'transaction',
     'zope.sqlalchemy',
     'waitress',
     'centrifuge',
 ]
 
-entry_points = """\
+entry_points="""\
 [paste.app_factory]
 main = wwc:main
 
 [console_scripts]
 initialize_wwc_db = wwc.scripts.initializedb:main
-"""  # nopep8
+"""
 
 setup(
     name='wwc',
@@ -33,20 +35,19 @@ setup(
     description='Web-wide chat',
     long_description=README + '\n\n' + CHANGES,
     classifiers=[
-        "Programming Language :: Python"
-        "Framework :: Pyramid"
-        "Topic :: Internet :: WWW/HTTP"
-        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application"
+    "Programming Language :: Python",
+    "Framework :: Pyramid",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
     ],
     author='Dave O',
     author_email='davidobrite@gmail.com',
     url='',
-    keywords='web pyramid centrifuge',
+    keywords='web wsgi pyramid centrifuge',
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
+    test_suite='wwc',
     install_requires=requires,
-    tests_require=requires,
-    test_suite="wwc",
     entry_points=entry_points
 )
