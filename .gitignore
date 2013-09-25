@@ -1,27 +1,73 @@
-#created by yo marionette
-temp
+*.py[co]
+
+Packages
+*.egg
+*.egg-info
 dist
-.sass-cache
-app/bower_components
-.tmp/
-
-#github's default node gitignore
-lib-cov
-*.seed
-*.log
-*.csv
-*.dat
-*.out
-*.pid
-*.gz
-
-pids
-logs
-results
-
-npm-debug.log
-node_modules
-
-#custom
+build
+eggs
+parts
+bin
+lib
+var
+sdist
+develop-eggs
+*.egg-info
+.installed.cfg
+.*.sw*
 *.swp
-*.jar
+*.swo
+*.swn
+*.swm
+*.swl
+*.swk
+
+pyvenv.cfg
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+
+#Translations
+*.mo
+
+# Vagrant
+Vagrantfile
+.vagrant
+
+# Mr Developer
+.mr.developer.cfg
+
+# Generated files
+.sass-cache
+
+# generated.css
+static/css/*
+generated.js
+generated.css
+generated/
+
+__pycache__
+.DS_Store
+
+dump.rdb
+
+tmp/
+*#
+*~
+
+chromedriver.log
+
+src/
+
+*.sqlite
+
+# bower
+bower_components
+
+# node
+node_modules
+npm-debug.log
