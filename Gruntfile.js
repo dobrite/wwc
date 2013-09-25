@@ -1,22 +1,6 @@
 /* jslint node: true */
 'use strict';
 
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
-var mountFolder = function (connect, dir) {
-    return connect.static(require('path').resolve(dir));
-};
-
-// removed grunt-bower-requirejs ~0.4.1
-// remoevd grunt-requirejs ~0.3.5
-// removed grunt-contrib-livereload 0.1.2 - grunt-contrib-watch supercedes it
-
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to match all subfolders:
-// 'test/spec/**/*.js'
-// templateFramework: 'handlebars'
-
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -54,14 +38,13 @@ module.exports = function (grunt) {
                 options: {
                     livereload: true
                 }
-            }
-            /* not used at the moment
+            },
             handlebars: {
                 files: [
                     '<%= yeoman.app %>/templates/*.hbs'
                 ],
                 tasks: ['handlebars']
-            }*/
+            }
         },
 
         // testing server
