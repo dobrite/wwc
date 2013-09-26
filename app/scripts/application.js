@@ -5,10 +5,10 @@
 
     root.define([
         'backbone',
-        'controllers/websocketProxy',
-        'routers/router',
-        'regionManager',
-        'communicator',
+        'app/scripts/controllers/websocketProxy',
+        'app/scripts/routers/router',
+        'app/scripts/regionManager',
+        'app/scripts/communicator',
         'hbs!tmpl/main',
     ],
     function (Backbone, WebsocketProxy, Router, RegionManager, Communicator, MainTemplate) {
@@ -38,7 +38,7 @@
             console.log("initialize:after");
 
             if(Backbone.history){
-                require(["controllers/loginController"], function () {
+                require(["app/scripts/controllers/loginController"], function () {
                     Backbone.history.start();
 
                     if(router.getCurrentRoute() === ""){

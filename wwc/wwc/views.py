@@ -7,6 +7,10 @@ from .models import DBSession
 from .models import MyModel
 
 
+#@view_config(route_name='index')
+#def index_view(request):
+#    here = os.path.dirname(__file__)
+
 @view_config(route_name='home', renderer='mytemplate.mak')
 def my_view(request):
     try:

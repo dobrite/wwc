@@ -5,10 +5,10 @@
 
     root.require.config({
 
-        baseUrl: "/scripts",
+        baseUrl: "../../",
 
         /* starting point for application */
-        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'main'],
+        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'app/scripts/main'],
 
         shim: {
             handlebars: {
@@ -33,38 +33,38 @@
         },
 
         paths: {
-            jquery: '../bower_components/jquery/jquery',
-            backbone: '../bower_components/backbone-amd/backbone',
-            underscore: '../bower_components/underscore-amd/underscore',
+            jquery: 'app/bower_components/jquery/jquery',
+            backbone: 'app/bower_components/backbone-amd/backbone',
+            underscore: 'app/bower_components/underscore-amd/underscore',
 
             /* alias all marionette libs */
-            'backbone.marionette': '../bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
-            'backbone.wreqr': '../bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
-            'backbone.babysitter': '../bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
+            'backbone.marionette': 'app/bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
+            'backbone.wreqr': 'app/bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
+            'backbone.babysitter': 'app/bower_components/backbone.babysitter/lib/amd/backbone.babysitter',
 
             /* alias the bootstrap js lib */
-            bootstrap: '../bower_components/bootstrap/dist/js/bootstrap',
+            bootstrap: 'app/bower_components/bootstrap/dist/js/bootstrap',
 
             /* alias socksjs js client lib */
-            'sockjs-client': '../bower_components/socksjs-client/sockjs-0.3.4.min',
+            'sockjs-client': 'app/bower_components/socksjs-client/sockjs-0.3.4.min',
 
             /* alias centrifuge js client lib */
-            centrifuge: '../bower_components/centrifuge-client/centrifuge',
+            centrifuge: 'app/bower_components/centrifuge-client/centrifuge',
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
-            text: '../bower_components/requirejs-text/text',
-            tmpl: "../templates",
+            text: 'app/bower_components/requirejs-text/text',
+            tmpl: "app/templates",
 
             /* handlebars from the require handlerbars plugin below */
-            handlebars: '../bower_components/require-handlebars-plugin/Handlebars',
+            handlebars: 'app/bower_components/require-handlebars-plugin/Handlebars',
 
             /* require handlebars plugin - Alex Sexton */
-            i18nprecompile: '../bower_components/require-handlebars-plugin/hbs/i18nprecompile',
-            json2: '../bower_components/require-handlebars-plugin/hbs/json2',
-            hbs: '../bower_components/require-handlebars-plugin/hbs',
+            i18nprecompile: 'app/bower_components/require-handlebars-plugin/hbs/i18nprecompile',
+            json2: 'app/bower_components/require-handlebars-plugin/hbs/json2',
+            hbs: 'app/bower_components/require-handlebars-plugin/hbs',
 
             /* marionette and handlebars plugin */
-            'marionette.handlebars': '../bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'
+            'marionette.handlebars': 'app/bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'
         },
 
         hbs: {

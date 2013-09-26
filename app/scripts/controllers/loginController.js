@@ -5,10 +5,10 @@
 
     root.define([
         'backbone',
-        'application',
-        'regionManager',
-        'communicator',
-        'views/item/loginView',
+        'app/scripts/application',
+        'app/scripts/regionManager',
+        'app/scripts/communicator',
+        'app/scripts/views/item/loginView',
     ],
     function(Backbone, App, RegionManager, Communicator, LoginItemView) {
 
