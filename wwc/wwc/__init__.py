@@ -41,6 +41,7 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.include('pyramid_mako')
+    config.include('pyramid_redis_sessions')
     config.add_route('index.html', '/')
     add_static(config)
     add_horus(config)

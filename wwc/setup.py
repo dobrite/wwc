@@ -13,6 +13,7 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'pyramid_mako',
+    'pyramid_redis_sessions',
     'horus',
     'SQLAlchemy',
     'psycopg2',
