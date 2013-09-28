@@ -7,7 +7,7 @@
         'centrifuge',
         'backbone',
         'underscore',
-        'app/scripts/communicator',
+        'scripts/communicator',
         'sockjs-client'
     ],
     function (Centrifuge, Backbone, _, Communicator) {

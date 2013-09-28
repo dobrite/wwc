@@ -4,7 +4,7 @@
     var root = this;
 
     root.require([
-        'app/scripts/application',
+        'scripts/application',
     ],
     function (App) {
         App.start();

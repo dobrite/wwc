@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'views/item/loginView'
+        'scripts/views/item/loginView'
         ],
         function (LoginView) {
 
