@@ -10,7 +10,6 @@ from pyramid.paster import setup_logging
 from pyramid.scripts.common import parse_vars
 
 from ..models import DBSession
-from ..models import MyModel
 from ..models import Base
 
 def usage(argv):
@@ -31,5 +30,6 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
-        DBSession.add(model)
+        pass
+        #model = MyModel(name='one', value=1)
+        #DBSession.add(model)

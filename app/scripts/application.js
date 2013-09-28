@@ -38,7 +38,7 @@
             console.log("initialize:after");
 
             if(Backbone.history){
-                require(["app/scripts/controllers/loginController"], function () {
+                require(["scripts/controllers/loginController"], function () {
                     Backbone.history.start();
 
                     if(router.getCurrentRoute() === ""){

@@ -6,7 +6,6 @@ from pyramid.view import view_config
 from sqlalchemy.exc import DBAPIError
 
 from .models import DBSession
-from .models import MyModel
 
 
 _here = os.path.dirname(__file__)
