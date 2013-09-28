@@ -1,5 +1,8 @@
 *.py[co]
 
+# API keys, etc.
+secrets.ini
+
 Packages
 *.egg
 *.egg-info

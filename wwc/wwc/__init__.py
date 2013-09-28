@@ -1,4 +1,6 @@
 import os
+import logging
+from configparser import ConfigParser
 
 from pyramid.config import Configurator
 from sqlalchemy import engine_from_config
@@ -12,11 +14,20 @@ from .models import Base
 from .models import User
 from .models import Activation
 
+LOG = logging.getLogger(__name__)
+HERE = os.path.abspath(os.path.dirname(__file__))
+
+def get_secret_settings(section):
+    config_parser = ConfigParser()
+    with open(os.path.join(HERE, '..', 'secrets.ini')) as f:
+        config_parser.readfp(f)
+    return dict(config_parser.items(section))
+
 
 def add_static(config):
     """ Add static paths for Marionette app
     """
-    app_path = os.path.join('..', '..', 'app')
+    app_path = os.path.join(HERE, '..', '..', 'app')
     bower_path = os.path.join(app_path, 'bower_components')
     scripts_path = os.path.join(app_path, 'scripts')
     templates_path = os.path.join(app_path, 'templates')
@@ -42,6 +53,8 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
+    config.include('pyramid_mailer')
+    config.add_settings(get_secret_settings('mandrill'))
     config.add_route('index', '/')
     add_static(config)
     add_horus(config)
