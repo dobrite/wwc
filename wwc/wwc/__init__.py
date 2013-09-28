@@ -42,7 +42,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
-    config.add_route('index.html', '/')
+    config.add_route('index', '/')
     add_static(config)
     add_horus(config)
     config.scan()

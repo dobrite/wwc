@@ -16,7 +16,7 @@ with open(_index_path) as f:
 
 _index_response = Response(content_type='text/html', body=_index)
 
-@view_config(route_name='index.html')
+@view_config(route_name='index')
 def index_view(request):
     return _index_response
 
