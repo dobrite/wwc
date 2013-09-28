@@ -5,10 +5,10 @@
 
     root.define([
         'backbone',
-        'app/scripts/controllers/websocketProxy',
-        'app/scripts/routers/router',
-        'app/scripts/regionManager',
-        'app/scripts/communicator',
+        'scripts/controllers/websocketProxy',
+        'scripts/routers/router',
+        'scripts/regionManager',
+        'scripts/communicator',
         'hbs!tmpl/main',
     ],
     function (Backbone, WebsocketProxy, Router, RegionManager, Communicator, MainTemplate) {

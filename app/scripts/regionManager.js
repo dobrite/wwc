@@ -5,7 +5,7 @@
 
     root.define([
         'backbone',
-        'app/scripts/communicator'
+        'scripts/communicator'
     ],
     function (Backbone, Communicator) {
 

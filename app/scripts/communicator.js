@@ -25,4 +25,4 @@
 
         return new Communicator();
     });
-}).call( this );
+}).call(this);
