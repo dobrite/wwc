@@ -30,7 +30,7 @@ main = wwc:main
 
 [console_scripts]
 initialize_wwc_db = wwc.scripts.initializedb:main
-truncate_wwc_db = wwc.scripts.truncatedb:main
+delete_wwc_db = wwc.scripts.deletedb:main
 """
 
 setup(
