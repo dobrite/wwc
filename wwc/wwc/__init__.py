@@ -51,10 +51,10 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
+    config.add_settings(get_secret_settings('mandrill'))
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
     config.include('pyramid_mailer')
-    config.add_settings(get_secret_settings('mandrill'))
     config.add_route('index', '/')
     add_static(config)
     add_horus(config)
