@@ -16,6 +16,7 @@ requires = [
     'pyramid_redis_sessions',
     'pyramid_mailer',
     'horus',
+    'velruse',
     'SQLAlchemy',
     'psycopg2',
     'transaction',
