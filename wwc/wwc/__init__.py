@@ -52,9 +52,12 @@ def main(global_config, **settings):
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
     config.add_settings(get_secret_settings('mandrill'))
+    config.add_settings(get_secret_settings('velruse.reddit'))
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
     config.include('pyramid_mailer')
+    config.include('velruse.providers.reddit')
+    config.add_reddit_login_from_settings(prefix='velruse.reddit.')
     config.add_route('index', '/')
     add_static(config)
     add_horus(config)
