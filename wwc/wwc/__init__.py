@@ -17,6 +17,7 @@ from .models import Activation
 LOG = logging.getLogger(__name__)
 HERE = os.path.abspath(os.path.dirname(__file__))
 
+
 def get_secret_settings(section):
     config_parser = ConfigParser()
     with open(os.path.join(HERE, '..', 'secrets.ini')) as f:
@@ -36,6 +37,7 @@ def add_static(config):
     config.add_static_view('scripts', scripts_path, cache_max_age=0)
     config.add_static_view('templates', templates_path, cache_max_age=0)
 
+
 def add_horus(config):
     """ Add horus user models
     """
@@ -43,6 +45,7 @@ def add_horus(config):
     config.registry.registerUtility(User, IUserClass)
     config.registry.registerUtility(Activation, IActivationClass)
     config.include('horus')
+
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
@@ -63,4 +66,3 @@ def main(global_config, **settings):
     add_horus(config)
     config.scan()
     return config.make_wsgi_app()
-

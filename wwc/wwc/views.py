@@ -37,7 +37,7 @@ def login_complete_view(request):
 
 
 @view_config(
-    context='velruse.providers.reddit.RedditAuthenticationDenied',
+    context='velruse.AuthenticationDenied',
     renderer='wwc:templates/mytemplate.mak',
 )
 def login_complete_view(request):
