@@ -2,10 +2,11 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from sqlalchemy import Column
-from sqlalchemy import Index
-from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import Index
+from sqlalchemy import Column
+from sqlalchemy import Integer
+from sqlalchemy import Unicode
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -25,7 +26,7 @@ Base = declarative_base(cls=BaseModel)
 
 
 class User(UserMixin, Base):
-    pass
+    reddit_auth_token = Column(Unicode(255), nullable=False, default='test')
 
 
 class Group(GroupMixin, Base):

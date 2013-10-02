@@ -9,8 +9,9 @@ from pyramid.paster import setup_logging
 
 from pyramid.scripts.common import parse_vars
 
-from ..models import DBSession
+from ..models import User
 from ..models import Base
+from ..models import DBSession
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
@@ -30,4 +31,8 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        pass
+        user = User(
+            username='dave', email='dave@example.com',
+            password='secret'
+        )
+        DBSession.add(user)
