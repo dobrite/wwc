@@ -26,7 +26,9 @@ Base = declarative_base(cls=BaseModel)
 
 
 class User(UserMixin, Base):
-    reddit_auth_token = Column(Unicode(255), nullable=False, default='test')
+    pass
+    #reddit_auth_token = Column(Unicode(255), nullable=False, default='test')
+    #this needs to be one-to-many to the auth provider/token table
 
 
 class Group(GroupMixin, Base):
