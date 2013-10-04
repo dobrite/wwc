@@ -62,6 +62,7 @@ def main(global_config, **settings):
     config.include('velruse.providers.reddit')
     config.add_reddit_login_from_settings(prefix='velruse.reddit.')
     config.add_route('index', '/')
+    config.add_route('all', '/all')
     add_static(config)
     add_horus(config)
     config.scan()

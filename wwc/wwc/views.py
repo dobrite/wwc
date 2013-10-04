@@ -4,6 +4,7 @@ import json
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from .models import User
 from .models import DBSession
 
 
@@ -42,3 +43,9 @@ def login_complete_view(request):
 )
 def login_complete_view(request):
     return {'result': 'denied', }
+
+
+@view_config(route_name='all', renderer='json')
+def all(request):
+    user = User.get_all(request).all()
+    return user[0].__json__(request, convert_date=True)
