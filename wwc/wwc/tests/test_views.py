@@ -9,10 +9,13 @@ from wwc.tests import BaseTestCase
 class TestMyViewSuccessCondition(BaseTestCase):
     def test_all_view(self):
         from wwc.views import all
+        from wwc.tests.factories import UserFactory
+        UserFactory.FACTORY_SESSION = self.session
         request = testing.DummyRequest()
+        user = UserFactory()
         user = all(request)
-        self.assertEqual(user['one'].name, 'one')
-        self.assertEqual(user['project'], 'wwc')
+        self.assertEqual(user['username'], 'dave')
+        self.assertEqual(user['email'], 'dave@example.com')
 
 
 #class TestMyViewFailureCondition(unittest.TestCase):

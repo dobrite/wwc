@@ -1,3 +1,6 @@
+import os
+import pkg_resources
+
 from wwc.tests import BaseTestCase
 
 
@@ -8,7 +11,10 @@ class TestWWC(BaseTestCase):
 
         from wwc import main
 
-        settings = appconfig('config:test.ini', relative_to='./')
+        pkgroot = pkg_resources.get_distribution('wwc').location
+        test_ini_path = os.path.join(pkgroot, 'test.ini')
+        settings = appconfig('config:{}'.format(test_ini_path))
+
         wsgi_ = main({}, **settings)
 
         assert isinstance(wsgi_, Router)

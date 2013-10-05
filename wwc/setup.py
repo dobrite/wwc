@@ -30,8 +30,8 @@ requires = [
     'pyramid_debugtoolbar',
     'pyramid_tm',
     'pyramid_mako',
-    'pyramid_redis_sessions',
     'pyramid_mailer',
+    'pyramid_redis_sessions',
     'horus',
     'velruse',
     'SQLAlchemy',
@@ -40,15 +40,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'centrifuge',
-]
-
-tests_require = [
-    'pytest',
-    'mock',
-    'webtest',
-    'pytest-cov',
-    'pytest-xdist',
-    'pytest-cache',
+    'setuptools',
 ]
 
 entry_points = """\
@@ -75,10 +67,10 @@ setup(
     author_email='davidobrite@gmail.com',
     url='',
     keywords='web wsgi pyramid centrifuge',
-    packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     test_suite='wwc',
     install_requires=requires,
+    cmdclass={'test': PyTest},
     entry_points=entry_points
 )

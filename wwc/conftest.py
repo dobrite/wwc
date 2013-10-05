@@ -1,4 +1,5 @@
 def pytest_sessionstart():
+    import os
     from py.test import config
 
     # Only run database setup on master (in case of xdist/multiproc mode)
@@ -8,7 +9,10 @@ def pytest_sessionstart():
 
         from wwc.models import Base
 
-        settings = appconfig('config:test.ini', relative_to='./')
+        import pkg_resources
+        pkgroot = pkg_resources.get_distribution('wwc').location
+        test_ini_path = os.path.join(pkgroot, 'test.ini')
+        settings = appconfig('config:{}'.format(test_ini_path))
         engine = engine_from_config(settings, prefix='sqlalchemy.')
 
         print('Creating the tables on the test database {}'.format(engine))

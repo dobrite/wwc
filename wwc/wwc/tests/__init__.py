@@ -1,4 +1,6 @@
+import os
 import unittest
+import pkg_resources
 
 from pyramid import testing
 
@@ -14,12 +16,13 @@ from horus.interfaces import IUserClass
 from wwc.models import User
 from wwc.models import Activation
 
-settings = appconfig('config:test.ini', relative_to="./")
-
 
 class BaseTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        pkgroot = pkg_resources.get_distribution('wwc').location
+        test_ini_path = os.path.join(pkgroot, 'test.ini')
+        settings = appconfig('config:{}'.format(test_ini_path))
         cls.engine = engine_from_config(settings, prefix='sqlalchemy.')
         cls.Session = sessionmaker()
 
