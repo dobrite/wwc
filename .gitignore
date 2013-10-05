@@ -17,6 +17,7 @@ sdist
 develop-eggs
 *.egg-info
 .installed.cfg
+.cache
 .*.sw*
 *.swp
 *.swo
