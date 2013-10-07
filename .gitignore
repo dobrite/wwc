@@ -75,3 +75,7 @@ bower_components
 # node
 node_modules
 npm-debug.log
+
+# centrifuge
+centrifuge.db
+config.json
