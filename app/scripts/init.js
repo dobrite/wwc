@@ -5,7 +5,7 @@
 
     root.require.config({
 
-        baseUrl: "../",
+        baseUrl: "app/",
 
         /* starting point for application */
         deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'scripts/main'],

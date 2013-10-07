@@ -1,5 +1,4 @@
 import os
-import logging
 from configparser import ConfigParser
 
 from pyramid.config import Configurator
@@ -14,13 +13,11 @@ from .models import Base
 from .models import User
 from .models import Activation
 
-LOG = logging.getLogger(__name__)
-HERE = os.path.abspath(os.path.dirname(__file__))
-
 
 def get_secret_settings(section):
+    here = os.path.abspath(os.path.dirname(__file__))
     config_parser = ConfigParser()
-    with open(os.path.join(HERE, '..', 'secrets.ini')) as f:
+    with open(os.path.join(here, '..', 'secrets.ini')) as f:
         config_parser.readfp(f)
     return dict(config_parser.items(section))
 
@@ -28,14 +25,10 @@ def get_secret_settings(section):
 def add_static(config):
     """ Add static paths for Marionette app
     """
-    app_path = os.path.join(HERE, '..', '..', 'app')
-    bower_path = os.path.join(app_path, 'bower_components')
-    scripts_path = os.path.join(app_path, 'scripts')
-    templates_path = os.path.join(app_path, 'templates')
+    here = os.path.abspath(os.path.dirname(__file__))
+    app_path = os.path.join(here, '..', '..', 'app')
     config.add_static_view('static', 'static', cache_max_age=3600)
-    config.add_static_view('bower_components', bower_path, cache_max_age=0)
-    config.add_static_view('scripts', scripts_path, cache_max_age=0)
-    config.add_static_view('templates', templates_path, cache_max_age=0)
+    config.add_static_view('app', app_path, cache_max_age=0)
 
 
 def add_horus(config):
