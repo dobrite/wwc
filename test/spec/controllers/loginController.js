@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'controllers/loginController'
+        'scripts/controllers/loginController'
         ],
         function(LoginController) {
 

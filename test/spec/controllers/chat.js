@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'controllers/chat'
+        'scripts/controllers/chat'
         ],
         function( Chat ) {
 

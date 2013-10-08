@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'application',
+        'scripts/application',
         'backbone.marionette',
         'backbone.wreqr'
         ],

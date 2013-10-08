@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'models/message'
+        'scripts/models/message'
         ],
         function( Message ) {
 

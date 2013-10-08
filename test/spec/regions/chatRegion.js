@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'regions/chatRegion'
+        'scripts/regions/chatRegion'
         ],
         function( Chatregion ) {
 

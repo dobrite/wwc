@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'regionManager',
+        'scripts/regionManager',
         'backbone.marionette'
         ],
         function( RegionManager, Marionette ) {

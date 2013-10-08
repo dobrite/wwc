@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'routers/router'
+        'scripts/routers/router'
         ],
         function( Router ) {
 

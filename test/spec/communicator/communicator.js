@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'communicator',
+        'scripts/communicator',
         'backbone.marionette',
         'backbone.wreqr'
         ],

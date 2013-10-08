@@ -4,7 +4,7 @@
     var root = this;
 
     root.define([
-        'views/collection/messagesCollectionView'
+        'scripts/views/collection/messagesCollectionView'
         ],
         function( MessagesCollectionView ) {
 

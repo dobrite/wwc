@@ -4,13 +4,13 @@
     var root = this;
 
     root.define([
-        'controllers/websocketProxy'
+        'scripts/controllers/websocketProxy'
         ],
         function( WebsocketProxy ) {
             var testOptions = {
                 url: 'http://localhost:8000/connection',
-                token: 'af10cc02d75f6006ae75067623994270',
-                project: '5234d3f0a4dd5f3e61942bfb',
+                token: '15f928437b0fa1fdd58921f19c854f29',
+                project: '52522b73a4dd5f27c53999d6',
                 user: '2694',
                 //protocols_whitelist: ["xhr-streaming"],
                 debug: true
@@ -46,10 +46,10 @@
                     var testWebsocketProxy = createTestWebsocketProxy();
 
                     beforeEach(function (done) {
-                        testWebsocketProxy.connect(testOptions);
                         testWebsocketProxy.centrifuge.on('connect', function () {
                             done();
                         });
+                        testWebsocketProxy.connect(testOptions);
                     });
 
                     afterEach(function (done) {

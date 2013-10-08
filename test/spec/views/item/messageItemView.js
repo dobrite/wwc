@@ -1,11 +1,11 @@
-(function() {
+(function () {
     'use strict';
 
     var root = this;
 
     root.define([
-        'views/item/messageItemView',
-        'models/message'
+        'scripts/views/item/messageItemView',
+        'scripts/models/message'
         ],
         function( MessageItemView, Message ) {
 
@@ -25,4 +25,4 @@
 
         });
 
-}).call( this );
+}).call(this);

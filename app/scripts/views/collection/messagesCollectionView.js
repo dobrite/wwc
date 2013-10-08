@@ -5,7 +5,7 @@
 
     root.define([
         'backbone',
-        'views/item/messageItemView'
+        'scripts/views/item/messageItemView'
     ],
     function( Backbone, MessageItemView ) {
 
