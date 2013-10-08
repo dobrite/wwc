@@ -7,8 +7,9 @@
         'backbone',
         'scripts/regionManager',
         'scripts/communicator',
+        'hbs!tmlp/chat',
     ],
-    function( Backbone, RegionManager, Communicator ) {
+    function( Backbone, RegionManager, Communicator, ChatLayoutTmpl ) {
 
         return Backbone.Marionette.Layout.extend({
 
