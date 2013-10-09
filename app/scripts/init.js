@@ -53,7 +53,7 @@
 
             /* Alias text.js for template loading and shortcut the templates dir to tmpl */
             text: 'bower_components/requirejs-text/text',
-            tmpl: 'templates',
+            templates: 'templates',
 
             /* handlebars from the require handlerbars plugin below */
             handlebars: 'bower_components/require-handlebars-plugin/Handlebars',

@@ -9,7 +9,7 @@
         'scripts/routers/router',
         'scripts/regionManager',
         'scripts/communicator',
-        'hbs!tmpl/main',
+        'hbs!templates/main',
     ],
     function (Backbone, WebsocketProxy, Router, RegionManager, Communicator, MainTemplate) {
         console.log("application.js");
@@ -38,7 +38,10 @@
             console.log("initialize:after");
 
             if(Backbone.history){
-                require(["scripts/controllers/loginController"], function () {
+                require([
+                    "scripts/controllers/loginController",
+                    "scripts/controllers/chatController",
+                ], function () {
                     Backbone.history.start();
 
                     if(router.getCurrentRoute() === ""){

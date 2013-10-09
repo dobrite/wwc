@@ -7,21 +7,21 @@
         'backbone',
         'scripts/regionManager',
         'scripts/communicator',
-        'hbs!tmlp/chat',
+        'hbs!templates/chat',
     ],
-    function( Backbone, RegionManager, Communicator, ChatLayoutTmpl ) {
+    function( Backbone, RegionManager, Communicator, ChatLayoutTemplate) {
 
         return Backbone.Marionette.Layout.extend({
 
             template: {
                 type: 'handlebars',
-                template: ChatLayoutTmpl
+                template: ChatLayoutTemplate
             },
 
             regions: {
-                chat: "#chat-pane",
-                nick: "#nick-pane",
-                input: "#input-pane",
+                chatRegion: "#chat-pane",
+                nickRegion: "#nick-pane",
+                inputRegion: "#input-pane",
             }
 
         });

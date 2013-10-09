@@ -20,6 +20,13 @@
 
             showLogin: function () {
                 var loginItemView = new LoginItemView();
+
+                loginItemView.on("login:submit", function (data) {
+                    console.log("loginItemView login:submit");
+                    //login logic here
+                    Communicator.vent.trigger("login:submit");
+                });
+
                 RegionManager.getRegion('mainPane').show(loginItemView);
             },
 

@@ -5,9 +5,9 @@
 
     root.define([
         'backbone',
-        'hbs!tmpl/item/loginView_tmpl'
+        'hbs!templates/item/loginView_tmpl'
     ],
-    function(Backbone, LoginViewTmpl) {
+    function(Backbone, LoginViewTemplate) {
 
         /* Return a ItemView class definition */
         return Backbone.Marionette.ItemView.extend({
@@ -18,17 +18,24 @@
 
             template: {
                 type: 'handlebars',
-                template: LoginViewTmpl
+                template: LoginViewTemplate
             },
 
             /* ui selector cache */
             ui: {},
 
             /* Ui events hash */
-            events: {},
+            events: {
+                "click .js-submit": "loginSubmit"
+            },
 
             /* on render callback */
-            onRender: function () {}
+            onRender: function () {},
+
+            loginSubmit: function (event) {
+                event.preventDefault();
+                this.trigger("login:submit");
+            }
         });
 
     });
