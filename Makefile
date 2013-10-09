@@ -8,3 +8,6 @@ build:
 
 clean:
 	rm -rf bin/ include/ lib/ .installed.cfg .mr.developer.cfg develop-eggs/ eggs/ parts/ src/
+
+dev:
+	bin/pserve wwc/development.ini
