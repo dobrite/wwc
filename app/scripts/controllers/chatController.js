@@ -20,15 +20,19 @@
             showChat: function () {
                 require([
                     'scripts/layouts/chatLayout',
-                    'scripts/views/item/chatView',
+                    'scripts/views/item/messageItemView',
+                    'scripts/models/messageModel',
                     'scripts/views/item/nickView',
                     'scripts/views/item/inputView',
-                ], function (ChatLayout, ChatItemView, NickItemView, InputItemView) {
+                ], function (ChatLayout, MessageItemView, Message, NickItemView, InputItemView) {
                     var chatLayout = new ChatLayout();
 
                     RegionManager.getRegion('mainPane').show(chatLayout);
 
-                    chatLayout.chatRegion.show(new ChatItemView());
+                    var message = new Message({nick: 'Nick', text: 'Yo!'});
+                    //var messages = new MessagesCollectionView();
+
+                    chatLayout.messageRegion.show(new MessageItemView({model: message}));
                     chatLayout.nickRegion.show(new NickItemView());
                     chatLayout.inputRegion.show(new InputItemView());
                 });

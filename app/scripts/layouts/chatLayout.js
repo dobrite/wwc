@@ -19,7 +19,7 @@
             },
 
             regions: {
-                chatRegion: "#chat-pane",
+                messageRegion: "#message-pane",
                 nickRegion: "#nick-pane",
                 inputRegion: "#input-pane",
             }

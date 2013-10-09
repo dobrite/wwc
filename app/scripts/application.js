@@ -26,12 +26,6 @@
         App.addInitializer(function () {
             document.body.innerHTML = mainTemplate();
             Communicator.vent.trigger("app:start");
-            //var message = new Message({nick: 'Nick', text: 'Yo!'});
-            //var messages = new MessagesCollectionView();
-
-            //var messageItemView = new MessageItemView({model: message});
-
-            //RegionManager.getRegion('mainPane').show(messageItemView);
         });
 
         App.on("initialize:after", function () {
