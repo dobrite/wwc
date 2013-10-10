@@ -5,11 +5,11 @@
 
     root.define([
         'backbone',
+        'scripts/communicator',
         'hbs!templates/item/inputViewTemplate'
     ],
-    function(Backbone, InputViewTemplate) {
+    function(Backbone, Communicator, InputViewTemplate) {
 
-        /* Return a ItemView class definition */
         return Backbone.Marionette.ItemView.extend({
 
             initialize: function () {
@@ -21,14 +21,24 @@
                 template: InputViewTemplate
             },
 
-            /* ui selector cache */
-            ui: {},
+            ui: {
+                input: ".js-input"
+            },
 
-            /* Ui events hash */
-            events: {},
+            events: {
+                "click .js-input-btn": "inputSubmit"
+            },
 
             /* on render callback */
             onRender: function () {},
+
+            inputSubmit: function (event) {
+                var chatMessage = this.ui.input.val();
+
+                if(chatMessage !== ''){
+                    console.log(chatMessage);
+                }
+            },
 
         });
 

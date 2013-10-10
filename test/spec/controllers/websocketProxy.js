@@ -119,6 +119,17 @@
                         });
                     });
 
+                    it('communicator should emit a ws:ready event when it successfully subscribes', function(done){
+                        testWebsocketProxy.subscribe('test:test');
+                        testWebsocketProxy.subscription.on('ready', function () {
+                            testWebsocketProxy.centrifuge.on('disconnect', function () {
+                                expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:ready');
+                                done();
+                            });
+                            testWebsocketProxy.disconnect();
+                        });
+                    });
+
                     it('communicator should emit a ws:subscribe:error event on a subscribe error', function(done){
                         testWebsocketProxy.subscribe('doesntexist');
                         testWebsocketProxy.subscription.on('subscribe:error', function () {

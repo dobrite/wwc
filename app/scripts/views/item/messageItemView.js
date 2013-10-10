@@ -29,9 +29,7 @@
             events: {},
 
             /* on render callback */
-            onRender: function() {
-                console.log("render");
-            }
+            onRender: function() {},
         });
 
     });

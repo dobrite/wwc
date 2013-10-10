@@ -35,7 +35,7 @@
             loginSubmit: function (event) {
                 event.preventDefault();
                 this.trigger("login:submit");
-            }
+            },
         });
 
     });

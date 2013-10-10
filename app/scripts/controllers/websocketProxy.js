@@ -21,8 +21,11 @@
 
                 _.extend(this.centrifuge, Backbone.Events);
                 _.bindAll(this, 'onEvent');
+                _.bindAll(this, 'setCommandHandlers');
 
                 this.centrifuge.on('all', this.onEvent);
+
+                this.setCommandHandlers();
             },
 
             connect: function (options) {
@@ -67,7 +70,14 @@
                 this.subscription.history(function (data) {
                     //something with data
                 });
-            }
+            },
+
+            setCommandHandlers: function () {
+                console.log("setting command handlers");
+                this.communicator.command.setHandler("ws:connect", function (options) {
+                    this.connect(options);
+                }, this);
+            },
 
         });
 

@@ -37,7 +37,12 @@
                     chatLayout.nickRegion.show(new NickItemView());
                     chatLayout.inputRegion.show(new InputItemView());
                 });
-            }
+            },
+
+            connect: function() {
+                console.log("connecting");
+                Communicator.command.execute("ws:connect", {});
+            },
 
         });
 
@@ -50,6 +55,7 @@
             //Communicator.vent.on('chat:show', function () {
             Communicator.vent.on('login:submit', function () {
                 chatController.showChat();
+                chatController.connect();
             });
         });
 

@@ -5,13 +5,18 @@
 
     root.define([
         'backbone',
+        'scripts/communicator',
         'scripts/models/messageModel',
     ],
-    function( Backbone, MessageModel ) {
+    function( Backbone, Communicator, MessageModel ) {
 
-        return Backbone.Collection.extend({
+        var MessageCollection =  Backbone.Collection.extend({
             model: MessageModel
         });
+
+        //Communicator.vent.on('ws:');
+
+        return MessageCollection;
 
     });
 }).call(this);
