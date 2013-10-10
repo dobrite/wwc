@@ -1,19 +1,17 @@
-(function() {
+(function () {
     'use strict';
 
     var root = this;
 
     root.define([
-        'backbone'
-        ],
-        function( Backbone ) {
+        'backbone',
+        'scripts/models/messageModel',
+    ],
+    function( Backbone, MessageModel ) {
 
-            return Backbone.Model.extend({
-                defaults: {
-                    nick: '',
-                    text: '',
-                },
-
+        return Backbone.Collection.extend({
+            model: MessageModel
         });
+
     });
-}).call( this );
+}).call(this);
