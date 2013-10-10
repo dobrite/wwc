@@ -5,7 +5,7 @@
 
     root.define([
         'scripts/views/item/messageItemView',
-        'scripts/models/message'
+        'scripts/models/messageModel',
         ],
         function( MessageItemView, Message ) {
 
