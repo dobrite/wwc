@@ -11,3 +11,6 @@ clean:
 
 dev:
 	bin/pserve wwc/development.ini
+
+ws:
+	bin/centrifuge --config=config.json
