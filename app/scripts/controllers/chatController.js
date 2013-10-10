@@ -21,17 +21,17 @@
                 require([
                     'scripts/layouts/chatLayout',
                     'scripts/views/collection/messagesCollectionView',
-                    'scripts/models/messageModel',
+                    'scripts/models/collection/messageCollection',
                     'scripts/views/item/nickView',
                     'scripts/views/item/inputView',
-                ], function (ChatLayout, MessagesCollectionView, Message, NickItemView, InputItemView) {
+                ], function (ChatLayout, MessagesCollectionView, MessageCollection, NickItemView, InputItemView) {
+
+                    var message = new MessageCollection([{nick: 'Nick', text: "Yo!"}]);
+                    var messages = new MessagesCollectionView({collection: message});
+
                     var chatLayout = new ChatLayout();
 
                     RegionManager.getRegion('mainPane').show(chatLayout);
-
-                    var message = new Message({nick: 'Nick', text: 'Yo!'});
-                    var MessageCollection = Backbone.Collection.extend({model: Message});
-                    var messages = new MessagesCollectionView({collection: new MessageCollection([{nick: 'Nick', text: 'Yo!'}])});
 
                     chatLayout.messageRegion.show(messages);
                     chatLayout.nickRegion.show(new NickItemView());
