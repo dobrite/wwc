@@ -77,6 +77,9 @@
                 this.communicator.command.setHandler("ws:connect", function (options) {
                     this.connect(options);
                 }, this);
+                this.communicator.command.setHandler("ws:message", function (message) {
+                    this.publish(message);
+                }, this);
             },
 
         });

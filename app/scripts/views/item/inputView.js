@@ -38,6 +38,7 @@
                 if(chatMessage !== ''){
                     console.log(chatMessage);
                 }
+
             },
 
         });
