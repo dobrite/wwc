@@ -24,7 +24,6 @@
             token: '15f928437b0fa1fdd58921f19c854f29',
             project: '52522b73a4dd5f27c53999d6',
             user: '2694',
-            //protocols_whitelist: ["xhr-streaming"],
             debug: true
         };
 
