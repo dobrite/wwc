@@ -17,10 +17,11 @@ require.config({
         spec: '../test/spec', // lives in the test directory
         integration: '../test/integration', // lives in the test directory
 
-        mocha: 'bower_components/mocha/mocha',
-        chai: 'bower_components/chai/chai',
-        sinon: 'bower_components/sinonjs/sinon',
-        'sinon-chai': 'bower_components/sinon-chai/lib/sinon-chai',
+        mocha: '../node_modules/mocha/mocha',
+        chai: '../node_modules/chai/chai',
+        sinon: '../node_modules/sinon/lib/sinon',
+        'sinon-chai': '../node_modules/sinon-chai/lib/sinon-chai',
+        Squire: '../node_modules/squirejs/src/Squire',
 
         jquery: 'bower_components/jquery/jquery',
         backbone: 'bower_components/backbone-amd/backbone',
@@ -71,10 +72,11 @@ require([
     'sinon',
     'sinon-chai',
     'jquery',
+    'Squire',
     'spec/test_suite',
     'integration/test_suite'
 ],
-function (mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite) {
+function (mocha, chai, sinon, sinonChai, $, Squire, specTestSuite, integrationTestSuite) {
     'use strict';
 
     global.expect = chai.expect,
