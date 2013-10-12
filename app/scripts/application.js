@@ -1,61 +1,40 @@
-(function () {
-    'use strict';
+define([
+    'backbone',
+    'scripts/communicator',
+    'scripts/main_router',
+    'scripts/region_manager',
+    'hbs!templates/main',
+],
+function (Backbone, communicator, mainRouter, regionManager, mainTemplate) {
+    console.log("application.js");
 
-    var root = this;
+    var app = new Backbone.Marionette.Application();
 
-    root.define([
-        'backbone',
-        'scripts/controllers/websocketProxy',
-        'scripts/routers/router',
-        'scripts/regionManager',
-        'scripts/communicator',
-        'hbs!templates/main',
-    ],
-    function (Backbone, WebsocketProxy, Router, RegionManager, Communicator, MainTemplate) {
-        console.log("application.js");
-
-        var mainTemplate = MainTemplate;
-
-        var App = new Backbone.Marionette.Application();
-        var router = new Router();
-
-        var wsOptions = {
-            url: 'http://localhost:8000/connection',
-            token: '15f928437b0fa1fdd58921f19c854f29',
-            project: '52522b73a4dd5f27c53999d6',
-            user: '2694',
-            debug: true
-        };
-
-        var websocketProxy = new WebsocketProxy(wsOptions);
-
-        RegionManager.addRegions({
-            mainPane: "#main",
-        });
-
-        App.addInitializer(function () {
-            document.body.innerHTML = mainTemplate();
-            Communicator.vent.trigger("app:start");
-        });
-
-        App.on("initialize:after", function () {
-            console.log("initialize:after");
-
-            if(Backbone.history){
-                require([
-                    "scripts/controllers/loginController",
-                    "scripts/controllers/chatController",
-                ], function () {
-                    Backbone.history.start();
-
-                    if(router.getCurrentRoute() === ""){
-                        console.log("login:show");
-                        Communicator.vent.trigger("login:show");
-                    }
-                });
-            }
-        });
-
-        return App;
+    regionManager.addRegions({
+        mainPane: "#main",
     });
-}).call(this);
+
+    app.addInitializer(function () {
+        document.body.innerHTML = mainTemplate();
+        communicator.vent.trigger("app:start");
+    });
+
+    app.on("initialize:after", function () {
+        console.log("initialize:after");
+
+        if(Backbone.history){
+            require([
+                "scripts/chat/chat_app",
+            ], function () {
+                Backbone.history.start();
+
+                if(mainRouter.getCurrentRoute() === ""){
+                    console.log("login:show");
+                    communicator.vent.trigger("chat:room", "general");
+                }
+            });
+        }
+    });
+
+    return app;
+});
