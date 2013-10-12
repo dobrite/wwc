@@ -6,7 +6,7 @@
     root.define([
         'backbone',
         'scripts/application',
-        'scripts/regionManager',
+        'scripts/region_manager',
         'scripts/communicator',
         'scripts/views/item/loginView',
     ],

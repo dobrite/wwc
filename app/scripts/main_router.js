@@ -1,27 +1,26 @@
-(function () {
-    'use strict';
+define([
+    'backbone'
+],
+function(Backbone){
 
-    var root = this;
+    var MainRouter = Backbone.Router.extend({
 
-    root.define([
-        'backbone'
-    ],
-    function(Backbone){
+        initialize: function () {
+            console.log("i");
+        },
 
-        var MainRouter = Backbone.Router.extend({
-            routes: {},
+        routes: {},
 
-            navigate: function (route, options) {
-                options = options || {};
-                Backbone.history.navigate(route, options);
-            },
+        navigate: function (route, options) {
+            options = options || {};
+            Backbone.history.navigate(route, options);
+        },
 
-            getCurrentRoute: function () {
-                return Backbone.history.fragment;
-            },
+        getCurrentRoute: function () {
+            return Backbone.history.fragment;
+        },
 
-        });
-
-        return new MainRouter();
     });
-}).call(this);
+
+    return new MainRouter();
+});

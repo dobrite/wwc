@@ -5,11 +5,11 @@
 
     root.define([
         'backbone',
-        'scripts/regionManager',
         'scripts/communicator',
+        'scripts/region_manager',
         'hbs!templates/chat',
     ],
-    function( Backbone, RegionManager, Communicator, ChatLayoutTemplate) {
+    function( Backbone, Communicator, RegionManager, ChatLayoutTemplate) {
 
         return Backbone.Marionette.Layout.extend({
 

@@ -2,7 +2,10 @@ require.config({
     baseUrl: '../app',
     urlArgs: 'cb=' + Math.random(),
 
-    deps: ['backbone.marionette', 'marionette.handlebars'],
+    deps: [
+        'backbone.marionette',
+        'marionette.handlebars'
+    ],
 
     shim: {
         mocha: {
@@ -71,7 +74,7 @@ require([
     'spec/test_suite',
     'integration/test_suite'
 ],
-function( mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite ) {
+function (mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite) {
     'use strict';
 
     global.expect = chai.expect,
@@ -82,8 +85,8 @@ function( mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite 
     chai.use(sinonChai);
 
     /* on dom ready require all specs, integration tests and run */
-    $( function() {
-        require( specTestSuite.specs, function() { //.concat(integrationTestSuite.integrations), function() {
+    $(function () {
+        require (specTestSuite.specs, function () { //.concat(integrationTestSuite.integrations), function() {
             if (window.mochaPhantomJS) {
                 console.log("Phantom");
                 mochaPhantomJS.run();

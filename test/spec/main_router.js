@@ -1,22 +1,21 @@
-(function() {
-    'use strict';
+define([
+    'scripts/main_router'
+],
+function (mainRouter) {
 
-    var root = this;
+    describe('Router mainRouter', function () {
 
-    root.define([
-        'scripts/routers/router'
-        ],
-        function( Router ) {
-
-            describe('Router Router', function () {
-
-                it('should be an instance of Router Router', function () {
-                    var router = new Router();
-                    expect( router ).to.be.an.instanceof( Router );
-                });
-
-            });
-
+        it('navigate should delegate to Backbone.history', function () {
+            var {Backbone: {history: {navigate: sinon.spy()}}};
+            expect( mainRouter ).to.be.an.instanceof(MainRouter);
         });
 
-}).call( this );
+
+        it('navigate should delegate to Backbone.history', function () {
+            var {Backbone: {history: {navigate: sinon.spy()}}};
+            expect( mainRouter ).to.be.an.instanceof(MainRouter);
+        });
+
+    });
+
+});

@@ -4,19 +4,19 @@
     var root = this;
 
     root.define([
-        'scripts/regionManager',
+        'scripts/region_manager',
         'backbone.marionette'
-        ],
-        function( RegionManager, Marionette ) {
+    ],
+    function (RegionManager, Marionette) {
 
-            describe('regionManager RegionManager', function () {
+        describe('regionManager RegionManager', function () {
 
-                it('should be an instance of Marionette.Controller', function () {
-                    expect( RegionManager ).to.be.an.instanceof( Marionette.Controller );
-                });
-
+            it('should be an instance of Marionette.Controller', function () {
+                expect( RegionManager ).to.be.an.instanceof( Marionette.Controller );
             });
 
         });
+
+    });
 
 }).call( this );
