@@ -19,7 +19,7 @@ require.config({
 
         mocha: '../node_modules/mocha/mocha',
         chai: '../node_modules/chai/chai',
-        sinon: '../node_modules/sinon/lib/sinon',
+        sinon: '../node_modules/sinon/pkg/sinon',
         'sinon-chai': '../node_modules/sinon-chai/lib/sinon-chai',
         Squire: '../node_modules/squirejs/src/Squire',
 
@@ -72,11 +72,10 @@ require([
     'sinon',
     'sinon-chai',
     'jquery',
-    'Squire',
     'spec/test_suite',
     'integration/test_suite'
 ],
-function (mocha, chai, sinon, sinonChai, $, Squire, specTestSuite, integrationTestSuite) {
+function (mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite) {
     'use strict';
 
     global.expect = chai.expect,

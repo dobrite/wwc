@@ -1,57 +1,51 @@
-(function() {
-    'use strict';
+define([
+    'backbone',
+    'scripts/communicator'
+],
+function (Backbone, Communicator) {
 
-    var root = this;
+    var RegionManager = Backbone.Marionette.Controller.extend({
 
-    root.define([
-        'backbone',
-        'scripts/communicator'
-    ],
-    function (Backbone, Communicator) {
+        initialize: function (options) {
+            console.log("Initialize a Region Manager");
 
-        var RegionManager = Backbone.Marionette.Controller.extend({
+            /* internal region manager */
+            this._regionManager = new Backbone.Marionette.RegionManager();
 
-            initialize: function (options) {
-                console.log("Initialize a Region Manager");
+            /* event API */
+            Communicator.reqres.setHandler("rm:addRegion", this.addRegion, this);
+            Communicator.reqres.setHandler("rm:removeRegion", this.removeRegion, this);
+            Communicator.reqres.setHandler("rm:getRegion", this.getRegion, this);
+        },
 
-                /* internal region manager */
-                this._regionManager = new Backbone.Marionette.RegionManager();
+        /* add region facade */
+        addRegion: function (regionName, regionId) {
+            var region = this.getRegion(regionName);
 
-                /* event API */
-                Communicator.reqres.setHandler("rm:addRegion", this.addRegion, this);
-                Communicator.reqres.setHandler("rm:removeRegion", this.removeRegion, this);
-                Communicator.reqres.setHandler("rm:getRegion", this.getRegion, this);
-            },
-
-            /* add region facade */
-            addRegion: function (regionName, regionId) {
-                var region = this.getRegion(regionName);
-
-                if(region) {
-                    console.log("REGION ALREADY CREATED TO JUST RETURN REF");
-                    return region;
-                }
-
-                return this._regionManager.addRegion(regionName, regionId);
-            },
-
-            /* convenience function */
-            addRegions: function (regions) {
-                this._regionManager.addRegions(regions);
-            },
-
-            /* remove region facade */
-            removeRegion: function (regionName) {
-                this._regionManager.removeRegion(regionName);
-            },
-
-            /* get region facade */
-            getRegion: function (regionName) {
-                return this._regionManager.get(regionName);
+            if(region) {
+                console.log("REGION ALREADY CREATED TO JUST RETURN REF");
+                return region;
             }
-        });
 
-        return new RegionManager();
+            return this._regionManager.addRegion(regionName, regionId);
+        },
 
+        /* convenience function */
+        addRegions: function (regions) {
+            this._regionManager.addRegions(regions);
+        },
+
+        /* remove region facade */
+        removeRegion: function (regionName) {
+            this._regionManager.removeRegion(regionName);
+        },
+
+        /* get region facade */
+        getRegion: function (regionName) {
+            return this._regionManager.get(regionName);
+        }
     });
-}).call(this);
+
+    return new RegionManager();
+
+});

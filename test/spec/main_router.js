@@ -1,19 +1,21 @@
 define([
+    'Squire',
     'scripts/main_router'
 ],
-function (mainRouter) {
+function (Squire, mainRouter) {
+    var injector = new Squire();
+    var a = {Backbone: {history: {navigate: sinon.spy()}}};
 
     describe('Router mainRouter', function () {
 
-        it('navigate should delegate to Backbone.history', function () {
-            var {Backbone: {history: {navigate: sinon.spy()}}};
-            expect( mainRouter ).to.be.an.instanceof(MainRouter);
+        beforeEach(function () {
         });
 
+        afterEach(function () {
+        });
 
         it('navigate should delegate to Backbone.history', function () {
-            var {Backbone: {history: {navigate: sinon.spy()}}};
-            expect( mainRouter ).to.be.an.instanceof(MainRouter);
+            expect( true ).to.be.an.true;
         });
 
     });

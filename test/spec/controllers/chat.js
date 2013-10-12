@@ -1,22 +1,15 @@
-(function() {
-    'use strict';
+define([
+    'scripts/controllers/chatController',
+],
+function (Chat) {
 
-    var root = this;
+    describe('Chat Controller', function () {
 
-    root.define([
-        'scripts/controllers/chatController',
-        ],
-        function( Chat ) {
-
-            describe('Chat Controller', function () {
-
-                it('should be an instance of Chat Controller', function () {
-                    var chat = new Chat();
-                    expect( chat ).to.be.an.instanceof( Chat );
-                });
-
-            });
-
+        it('should be an instance of Chat Controller', function () {
+            var chat = new Chat();
+            expect( chat ).to.be.an.instanceof( Chat );
         });
 
-}).call( this );
+    });
+
+});

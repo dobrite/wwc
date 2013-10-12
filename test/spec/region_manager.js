@@ -1,22 +1,15 @@
-(function() {
-    'use strict';
+define([
+    'backbone',
+    'scripts/region_manager',
+],
+function (Backbone, RegionManager) {
 
-    var root = this;
+    describe('regionManager RegionManager', function () {
 
-    root.define([
-        'scripts/region_manager',
-        'backbone.marionette'
-    ],
-    function (RegionManager, Marionette) {
-
-        describe('regionManager RegionManager', function () {
-
-            it('should be an instance of Marionette.Controller', function () {
-                expect( RegionManager ).to.be.an.instanceof( Marionette.Controller );
-            });
-
+        it('should be an instance of Marionette.Controller', function () {
+            expect( RegionManager ).to.be.an.instanceof( Backbone.Marionette.Controller );
         });
 
     });
 
-}).call( this );
+});

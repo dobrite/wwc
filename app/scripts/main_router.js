@@ -6,7 +6,6 @@ function(Backbone){
     var MainRouter = Backbone.Router.extend({
 
         initialize: function () {
-            console.log("i");
         },
 
         routes: {},
