@@ -68,8 +68,8 @@ require([
     'sinon',
     'sinon-chai',
     'jquery',
-    'spec/testSuite',
-    'integration/testSuite'
+    'spec/test_suite',
+    'integration/test_suite'
 ],
 function( mocha, chai, sinon, sinonChai, $, specTestSuite, integrationTestSuite ) {
     'use strict';
