@@ -1,25 +1,32 @@
 define([
-    'backbone'
+    'backbone',
 ],
-function(Backbone){
+function (Backbone) {
 
     var MainRouter = Backbone.Router.extend({
 
-        initialize: function () {
+        initialize: function (options) {
+            this.options = options || (options = {});
+            this.history = options.history || Backbone.history;
+        },
+
+        startHistory: function () {
+            this.history.start();
         },
 
         routes: {},
 
         navigate: function (route, options) {
-            options = options || {};
-            Backbone.history.navigate(route, options);
+            options = options || this.options;
+            this.history.navigate(route, options);
         },
 
         getCurrentRoute: function () {
-            return Backbone.history.fragment;
-        },
+            return this.history.fragment;
+        }
 
     });
 
-    return new MainRouter();
+    return MainRouter;
+
 });

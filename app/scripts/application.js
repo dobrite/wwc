@@ -10,30 +10,32 @@ function (Backbone, communicator, mainRouter, regionManager, mainTemplate) {
 
     var app = new Backbone.Marionette.Application();
 
-    regionManager.addRegions({
+    app.addRegions({
         mainPane: "#main",
     });
 
     app.addInitializer(function () {
         document.body.innerHTML = mainTemplate();
+        communicator.vent.trigger("app:starting");
+    });
+
+    app.on("start", function () {
         communicator.vent.trigger("app:start");
     });
 
     app.on("initialize:after", function () {
         console.log("initialize:after");
 
-        if(Backbone.history){
-            require([
-                "scripts/chat/chat_app",
-            ], function () {
-                Backbone.history.start();
+        require([
+            "scripts/chat/chat_app",
+        ], function () {
+            mainRouter.history.start();
 
-                if(mainRouter.getCurrentRoute() === ""){
-                    console.log("login:show");
-                    communicator.vent.trigger("chat:room", "general");
-                }
-            });
-        }
+            if(mainRouter.getCurrentRoute() === ""){
+                console.log("login:show");
+                communicator.vent.trigger("chat:room", "general");
+            }
+        });
     });
 
     return app;
