@@ -5,8 +5,10 @@
 
     root.require([
         'scripts/application',
+        'scripts/main_router',
     ],
-    function (App) {
+    function (App, MainRouter) {
+        var mainRouter = new MainRouter();
         App.start();
     });
 }).call(this);

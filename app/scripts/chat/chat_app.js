@@ -27,7 +27,7 @@ define([
         };
 
         communicator.vent.on("chat:room", function(room){
-            mainRouter.navigate(room);
+            communicator.command.execute("mr:navigate", room, {});
             API.showRoom(room);
         });
 

@@ -1,16 +1,21 @@
 define([
     'backbone',
+    'scripts/communicator',
 ],
-function (Backbone) {
+function (Backbone, communicator) {
 
     var MainRouter = Backbone.Router.extend({
 
         initialize: function (options) {
             this.options = options || (options = {});
             this.history = options.history || Backbone.history;
+            this.communicator = options.communicator || communicator;
+
+            this.setCommunicatorHandlers();
         },
 
         startHistory: function () {
+            console.log("starting history");
             this.history.start();
         },
 
@@ -23,7 +28,23 @@ function (Backbone) {
 
         getCurrentRoute: function () {
             return this.history.fragment;
-        }
+        },
+
+        setCommunicatorHandlers: function () {
+
+            this.communicator.vent.on("app:start", function () {
+                this.startHistory();
+            }, this);
+
+            this.communicator.reqres.setHandler("mr:route", function () {
+                return this.getCurrentRoute();
+            }, this);
+
+            this.communicator.command.setHandler("mr:navigate", function (route, options) {
+                this.navigate(route, options);
+            }, this);
+
+        },
 
     });
 
