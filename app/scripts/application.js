@@ -5,10 +5,11 @@ define([
     'scripts/region_manager',
     'hbs!templates/main',
 ],
-function (Backbone, communicator, mainRouter, regionManager, mainTemplate) {
+function (Backbone, communicator, MainRouter, regionManager, mainTemplate) {
     console.log("application.js");
 
     var app = new Backbone.Marionette.Application();
+    var mainRouter = new MainRouter();
 
     app.addRegions({
         mainPane: "#main",

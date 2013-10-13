@@ -12,7 +12,15 @@ function (WebsocketProxy) {
     };
 
     var createTestCommunicator = function () {
-        return {vent: {trigger: sinon.spy(), on: sinon.spy()}};
+        return {
+            vent: {
+                trigger: sinon.spy(),
+                on: sinon.spy()
+            },
+            command: {
+                setHandler: sinon.spy()
+            }
+        };
     };
 
     var createTestWebsocketProxy = function () {

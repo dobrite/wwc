@@ -5,13 +5,13 @@ define([
     'scripts/communicator',
     'sockjs-client'
 ],
-function (Centrifuge, Backbone, _, Communicator) {
+function (Centrifuge, Backbone, _, communicator) {
 
     var WebsocketProxy = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
             this.options = options || (options = {});
-            this.communicator = options.communicator || Communicator;
+            this.communicator = options.communicator || communicator;
             this.centrifuge = new Centrifuge();
 
             _.extend(this.centrifuge, Backbone.Events);
@@ -68,7 +68,6 @@ function (Centrifuge, Backbone, _, Communicator) {
         },
 
         setCommandHandlers: function () {
-            console.log("setting command handlers");
             this.communicator.command.setHandler("ws:connect", function (options) {
                 this.connect(options);
             }, this);
