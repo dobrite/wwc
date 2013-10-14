@@ -37,7 +37,7 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
                 //ContactManager.execute("set:active:header", "about");
             });
         },
-        showChat: function () {
+        showChat: function (room) {
             require([
                 "scripts/region_manager",
             ],
@@ -45,23 +45,23 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
                 console.log("showChat");
                 regionManager.getRegion('mainPane').show(chatLayout);
                 commonController.showCommon();
-                communicator.vent.trigger("show:chat:room", "general");
+                communicator.vent.trigger("show:chat:room", room);
             });
         },
     };
 
     communicator.vent.on("show:chat:room", function (room) {
-        communicator.command.execute("mr:navigate", room, {});
+        communicator.command.execute("router:navigate", "room/" + room, {});
         API.showChatRoom(room);
     });
 
-    communicator.vent.on("show:chat", function () {
+    communicator.vent.on("show:chat", function (room) {
         console.log("show:chat");
-        API.showChat();
+        API.showChat(room);
     });
 
     app.addInitializer(function(){
-        console.log("chat_app initialize:after");
+        console.log("chat_app initialize");
 
         new ChatRouter({
             controller: API

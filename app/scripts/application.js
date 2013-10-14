@@ -15,24 +15,14 @@ function (Backbone, communicator, regionManager, mainTemplate) {
 
     app.addInitializer(function () {
         document.body.innerHTML = mainTemplate();
-        communicator.vent.trigger("app:starting");
     });
 
     app.on("initialize:after", function () {
-        console.log("initialize:after");
-    });
+        require(["scripts/chat/chat_app"], function () {
+            communicator.command.execute("router:history:start");
 
-    app.on("start", function () {
-        console.log("app:start");
-        communicator.vent.trigger("app:start");
-
-        require([
-            "scripts/chat/chat_app",
-        ], function () {
-
-            if(communicator.reqres.request("mr:route") === ""){
-                console.log("triggering chat:room");
-                communicator.vent.trigger("show:chat");
+            if(communicator.reqres.request("router:route") === ""){
+                communicator.vent.trigger("show:chat", "general");
             }
 
         });

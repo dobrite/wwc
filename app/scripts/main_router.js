@@ -32,15 +32,15 @@ function (Backbone, communicator) {
 
         setCommunicatorHandlers: function () {
 
-            this.communicator.vent.on("app:start", function () {
-                this.startHistory();
-            }, this);
-
-            this.communicator.reqres.setHandler("mr:route", function () {
+            this.communicator.reqres.setHandler("router:route", function () {
                 return this.getCurrentRoute();
             }, this);
 
-            this.communicator.command.setHandler("mr:navigate", function (route, options) {
+            this.communicator.command.setHandler("router:history:start", function () {
+                this.startHistory();
+            }, this);
+
+            this.communicator.command.setHandler("router:navigate", function (route, options) {
                 this.navigate(route, options);
             }, this);
 

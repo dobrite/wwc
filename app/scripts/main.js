@@ -7,8 +7,8 @@
         'scripts/application',
         'scripts/main_router',
     ],
-    function (App, MainRouter) {
+    function (app, MainRouter) {
         var mainRouter = new MainRouter();
-        App.start();
+        app.start();
     });
 }).call(this);

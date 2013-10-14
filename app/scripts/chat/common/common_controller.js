@@ -3,8 +3,9 @@ define([
     "scripts/communicator",
     "scripts/chat/common/common_layout",
     "scripts/chat/common/input/input_controller",
+    "scripts/chat/common/channel/channel_controller",
 ],
-function(Backbone, communicator, CommonLayout, InputController){
+function(Backbone, communicator, CommonLayout, InputController, ChannelController){
 
     var CommonController = Backbone.Marionette.Controller.extend({
 
@@ -20,16 +21,16 @@ function(Backbone, communicator, CommonLayout, InputController){
                 region: this.commonLayout.inputRegion
             });
 
-            //this.channelController = new ChannelController({
-            //    region: this.commonLayout.channelRegion
-            //});
+            this.channelController = new ChannelController({
+                region: this.commonLayout.channelRegion
+            });
 
         },
 
         showCommon: function () {
             this.region.show(this.commonLayout);
             this.inputController.showInput();
-            //this.channelController.showChannels();
+            this.channelController.showChannels();
         },
 
         onClose: function () {
