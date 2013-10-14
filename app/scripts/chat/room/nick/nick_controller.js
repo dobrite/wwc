@@ -13,15 +13,13 @@ function (Backbone, communicator, NickCollection, NickCollectionView) {
             this.region = options.region;
 
             var nicks = new NickCollection([
-                {nick: 'Dave'},
-                {nick: 'Bill'},
+                {nick:"Dave"},
+                {nick:"Bill"},
             ]);
 
             this.nickCollectionView = new NickCollectionView({
                 collection: nicks
             });
-
-
             //subscribe to room
         },
 

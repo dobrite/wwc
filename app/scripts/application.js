@@ -32,7 +32,7 @@ function (Backbone, communicator, regionManager, mainTemplate) {
 
             if(communicator.reqres.request("mr:route") === ""){
                 console.log("triggering chat:room");
-                communicator.vent.trigger("chat:room", "general");
+                communicator.vent.trigger("show:chat");
             }
 
         });

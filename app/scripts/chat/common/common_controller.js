@@ -1,24 +1,35 @@
 define([
     "backbone",
-    "scripts/application",
     "scripts/communicator",
-    "scripts/main_router",
     "scripts/chat/common/common_layout",
+    "scripts/chat/common/input/input_controller",
 ],
-function(Backbone, app, communicator, mainRouter, CommonLayout){
+function(Backbone, communicator, CommonLayout, InputController){
 
     var CommonController = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
+            console.log("initializing a new CommonController");
+
             options = options || (options = {});
+            this.region = options.region || {};
+
+            this.commonLayout = new CommonLayout();
+
+            this.inputController = new InputController({
+                region: this.commonLayout.inputRegion
+            });
+
+            //this.channelController = new ChannelController({
+            //    region: this.commonLayout.channelRegion
+            //});
+
         },
 
         showCommon: function () {
-            //TODO fix with common specific stuff
-            //var roomLayout = new RoomLayout();
-
-            //roomLayout.messageRegion.show(messageView);
-            //roomLayout.nickRegion.show(nickView);
+            this.region.show(this.commonLayout);
+            this.inputController.showInput();
+            //this.channelController.showChannels();
         },
 
         onClose: function () {

@@ -1,14 +1,14 @@
 define([
     'backbone',
-    'scripts/communicator',
     'hbs!templates/item/input_template'
 ],
-function (Backbone, Communicator, InputTemplate) {
+function (Backbone, InputTemplate) {
 
-    return Backbone.Marionette.ItemView.extend({
+    var InputItemView = Backbone.Marionette.ItemView.extend({
+        tagName: "p",
 
-        initialize: function () {
-            console.log("initialize a inputView ItemView");
+        initialize: function() {
+            console.log("initialize a InputItemView");
         },
 
         template: {
@@ -16,26 +16,16 @@ function (Backbone, Communicator, InputTemplate) {
             template: InputTemplate
         },
 
-        ui: {
-            input: ".js-input"
-        },
+        /* ui selector cache */
+        ui: {},
 
-        events: {
-            "click .js-input-btn": "inputSubmit"
-        },
+        /* Ui events hash */
+        events: {},
 
         /* on render callback */
-        onRender: function () {},
-
-        inputSubmit: function (event) {
-            var chatMessage = this.ui.input.val();
-
-            if(chatMessage !== ''){
-                console.log(chatMessage);
-            }
-
-        },
-
+        onRender: function() {},
     });
+
+    return InputItemView;
 
 });
