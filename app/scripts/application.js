@@ -2,7 +2,7 @@ define([
     'backbone',
     'scripts/communicator',
     'scripts/region_manager',
-    'hbs!templates/main',
+    'hbs!templates/main_template',
 ],
 function (Backbone, communicator, regionManager, mainTemplate) {
     console.log("application.js");
@@ -23,6 +23,7 @@ function (Backbone, communicator, regionManager, mainTemplate) {
     });
 
     app.on("start", function () {
+        console.log("app:start");
         communicator.vent.trigger("app:start");
 
         require([
@@ -30,7 +31,7 @@ function (Backbone, communicator, regionManager, mainTemplate) {
         ], function () {
 
             if(communicator.reqres.request("mr:route") === ""){
-                console.log("login:show");
+                console.log("triggering chat:room");
                 communicator.vent.trigger("chat:room", "general");
             }
 
