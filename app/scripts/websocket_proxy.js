@@ -11,6 +11,7 @@ function (Centrifuge, Backbone, _, communicator) {
 
         initialize: function (options) {
             this.options = options || (options = {});
+            this.namespace = options.namespace;
             this.communicator = options.communicator || communicator;
             this.centrifuge = new Centrifuge();
 
@@ -23,9 +24,12 @@ function (Centrifuge, Backbone, _, communicator) {
         },
 
         connect: function (options) {
-            _.extend(this.options, options || {});
-            this.centrifuge.configure(this.options);
-            this.centrifuge.connect();
+            if(!this.centrifuge.isConnected()){
+                _.extend(this.options, options || {});
+                this.namespace = this.options.namespace;
+                this.centrifuge.configure(this.options);
+                this.centrifuge.connect();
+            }
         },
 
         onEvent: function (event, params) {
@@ -40,7 +44,10 @@ function (Centrifuge, Backbone, _, communicator) {
         },
 
         subscribe: function (channel) {
-            this.subscription = this.centrifuge.subscribe(channel, this.onMessage);
+            var endpoint = this.namespace + ":" + channel;
+
+            //this.onMessage calls a centrifuge method
+            this.subscription = this.centrifuge.subscribe(endpoint, this.onMessage);
             _.extend(this.subscription, Backbone.Events);
             this.subscription.on('all', this.onEvent);
         },
@@ -67,12 +74,19 @@ function (Centrifuge, Backbone, _, communicator) {
         },
 
         setCommandHandlers: function () {
+
             this.communicator.command.setHandler("ws:connect", function (options) {
                 this.connect(options);
             }, this);
-            this.communicator.command.setHandler("ws:message", function (message) {
+
+            this.communicator.command.setHandler("ws:subscribe", function (channel) {
+                this.subscribe(channel);
+            }, this);
+
+            this.communicator.command.setHandler("ws:publish", function (message) {
                 this.publish(message);
             }, this);
+
         },
 
     });

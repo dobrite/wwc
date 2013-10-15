@@ -3,6 +3,7 @@ require([
 ],
 function (WebsocketProxy) {
     var testOptions = {
+        namespace: 'test',
         url: 'http://localhost:8000/connection',
         token: '15f928437b0fa1fdd58921f19c854f29',
         project: '52522b73a4dd5f27c53999d6',
@@ -112,7 +113,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:subscribe:success event when it successfully subscribes', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.centrifuge.on('disconnect', function () {
                         expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:subscribe:success');
@@ -123,7 +124,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:ready event when it successfully subscribes', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('ready', function () {
                     testWebsocketProxy.centrifuge.on('disconnect', function () {
                         expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:ready');
@@ -162,7 +163,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:publish:success event when it successfully publishes', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.on('publish:success', function () {
                         testWebsocketProxy.centrifuge.on('disconnect', function () {
@@ -176,7 +177,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:publish:error event on a publish error', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.trigger('publish:error');
                     expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:publish:error');
@@ -201,7 +202,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:presence:success event when it successfully presences', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.on('presence:success', function () {
                         testWebsocketProxy.centrifuge.on('disconnect', function () {
@@ -215,7 +216,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:presence:error event on a presence error', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.trigger('presence:error');
                     expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:presence:error');
@@ -240,7 +241,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:history:success event when it successfully get history', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.on('history:success', function () {
                         testWebsocketProxy.centrifuge.on('disconnect', function () {
@@ -254,7 +255,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:history:error event on a history error', function(done){
-                testWebsocketProxy.subscribe('test:test');
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.on('subscribe:success', function () {
                     testWebsocketProxy.subscription.trigger('history:error');
                     expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:history:error');
@@ -278,8 +279,7 @@ function (WebsocketProxy) {
             });
 
             it('communicator should emit a ws:message event when it receives a message', function(){
-                testWebsocketProxy.subscribe('test:test');
-                testWebsocketProxy.presence();
+                testWebsocketProxy.subscribe('test');
                 testWebsocketProxy.subscription.trigger('message');
                 expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:message');
             });

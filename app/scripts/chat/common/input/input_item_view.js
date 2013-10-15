@@ -6,7 +6,8 @@ define([
 function (Backbone, communicator, InputTemplate) {
 
     var InputItemView = Backbone.Marionette.ItemView.extend({
-        tagName: "p",
+        tagName: "div",
+        className: "input-group",
 
         initialize: function() {
             console.log("initialize a InputItemView");

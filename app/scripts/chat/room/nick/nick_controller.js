@@ -20,7 +20,6 @@ function (Backbone, communicator, NickCollection, NickCollectionView) {
             this.nickCollectionView = new NickCollectionView({
                 collection: nicks
             });
-            //subscribe to room
         },
 
         showNicks: function () {

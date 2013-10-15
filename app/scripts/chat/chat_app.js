@@ -2,10 +2,12 @@ define([
     "backbone",
     "scripts/application",
     "scripts/communicator",
+    "scripts/websocket_proxy",
     "scripts/chat/chat_layout",
-    "scripts/chat/common/common_controller",
+    "scripts/chat/common/channel/channel_controller",
+    "scripts/chat/common/input/input_controller",
 ],
-function (Backbone, app, communicator, ChatLayout, CommonController) {
+function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelController, InputController) {
 
     var ChatRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
@@ -15,8 +17,12 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
 
     var chatLayout = new ChatLayout();
 
-    var commonController = new CommonController({
-        region: chatLayout.commonRegion
+    var channelController = new ChannelController({
+        region: chatLayout.channelRegion
+    });
+
+    var inputController = new InputController({
+        region: chatLayout.inputRegion
     });
 
     var API = {
@@ -32,7 +38,6 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
 
                 //TODO do we need this?
                 //ContactManager.startSubApp(null);
-                //commonController.showCommon();
                 roomController.showRoom();
                 //ContactManager.execute("set:active:header", "about");
             });
@@ -42,9 +47,9 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
                 "scripts/region_manager",
             ],
             function (regionManager, CommonController) {
-                console.log("showChat");
                 regionManager.getRegion('mainPane').show(chatLayout);
-                commonController.showCommon();
+                channelController.showChannels();
+                inputController.showInput();
                 communicator.vent.trigger("show:chat:room", room);
             });
         },
@@ -52,12 +57,17 @@ function (Backbone, app, communicator, ChatLayout, CommonController) {
 
     communicator.vent.on("show:chat:room", function (room) {
         communicator.command.execute("router:navigate", "room/" + room, {});
-        API.showChatRoom(room);
+        communicator.command.execute("ws:subscribe", room);
+        communicator.vent.on("ws:subscribe:success", function () {
+            API.showChatRoom(room);
+        });
     });
 
     communicator.vent.on("show:chat", function (room) {
-        console.log("show:chat");
-        API.showChat(room);
+        communicator.command.execute("ws:connect");
+        communicator.vent.on("ws:connect", function () {
+            API.showChat(room);
+        });
     });
 
     app.addInitializer(function(){

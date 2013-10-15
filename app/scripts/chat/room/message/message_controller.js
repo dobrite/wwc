@@ -17,8 +17,8 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
                 collection: messages
             });
 
-            communicator.vent.on("chat:input:message", function (message) {
-                messages.add({nick: 'Blah', text: message});
+            communicator.vent.on("ws:publish:success", function (message) {
+                messages.add({nick: 'Blah', text: message[0].params.data});
             });
         },
 

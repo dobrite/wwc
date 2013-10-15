@@ -9,8 +9,6 @@ function (Backbone, Communicator, MessageModel) {
         model: MessageModel
     });
 
-    //Communicator.vent.on('ws:');
-
     return MessageCollection;
 
 });

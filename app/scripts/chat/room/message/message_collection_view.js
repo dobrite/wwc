@@ -18,6 +18,9 @@ function (Backbone, MessageItemView) {
         /* Ui events hash */
         events: {},
 
+        collectionEvents: {
+        },
+
         /* on render callback */
         onRender: function() {}
     });

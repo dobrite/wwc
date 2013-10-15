@@ -14,8 +14,9 @@ function (Backbone, Communicator, RegionManager, ChatTemplate) {
         },
 
         regions: {
+            channelRegion: "#channel-pane",
             roomRegion: "#room-pane",
-            commonRegion: "#common-pane",
+            inputRegion: "#input-pane",
         }
 
     });
