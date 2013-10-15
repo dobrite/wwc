@@ -1,11 +1,13 @@
 define([
-    'backbone'
+    'backbone',
+    'moment',
 ],
-function (Backbone) {
+function (Backbone, moment) {
 
     return Backbone.Model.extend({
 
         defaults: {
+            ts: moment().format("HH:mm"),
             nick: '',
             text: '',
         },

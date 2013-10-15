@@ -15,7 +15,8 @@
     "require-handlebars-plugin": "~0.4.0",
     "backbone.marionette.handlebars": "~0.2.0",
     "socksjs-client": "git@github.com:dobrite/socksjs-client.git",
-    "centrifuge-client": "git@github.com:dobrite/centrifuge-client.git"
+    "centrifuge-client": "git@github.com:dobrite/centrifuge-client.git",
+    "momentjs": "~2.3.1"
   },
   "devDependencies": {}
 }

@@ -17,7 +17,9 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
                 collection: messages
             });
 
-            //subscribe to room
+            communicator.vent.on("chat:input:message", function (message) {
+                messages.add({nick: 'Blah', text: message});
+            });
         },
 
         showMessages: function () {

@@ -4,6 +4,8 @@
     var root = this;
 
     root.require.config({
+        //no global moment object
+        noGlobal: true,
 
         baseUrl: "app",
 
@@ -44,6 +46,8 @@
 
             /* alias the bootstrap js lib */
             bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
+
+            moment: "bower_components/momentjs/moment",
 
             /* alias socksjs js client lib */
             'sockjs-client': 'bower_components/socksjs-client/sockjs-0.3.4.min',
