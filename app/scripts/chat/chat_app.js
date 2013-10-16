@@ -57,10 +57,7 @@ function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelContro
 
     communicator.vent.on("show:chat:room", function (room) {
         communicator.command.execute("router:navigate", "room/" + room, {});
-        communicator.command.execute("ws:subscribe", {channel: room});
-        communicator.vent.on("ws:subscribe:success", function () {
-            API.showChatRoom(room);
-        });
+        API.showChatRoom(room);
     });
 
     communicator.vent.on("show:chat", function (room) {

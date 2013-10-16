@@ -33,6 +33,7 @@ function (Centrifuge, Backbone, _, communicator) {
         },
 
         onEvent: function (event, params) {
+            console.log(event);
             this.communicator.vent.trigger('ws:' + event, params);
         },
 
@@ -50,7 +51,6 @@ function (Centrifuge, Backbone, _, communicator) {
 
             this.subscription = this.centrifuge.subscribe(endpoint);
             _.extend(this.subscription, Backbone.Events);
-            //_.bindAll(this.subscription, 'onEvent');
             this.subscription.on('all', this.onEvent);
         },
 
