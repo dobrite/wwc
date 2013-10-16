@@ -43,12 +43,14 @@ function (Centrifuge, Backbone, _, communicator) {
             }, this);
         },
 
-        subscribe: function (channel) {
-            var endpoint = this.namespace + ":" + channel;
+        subscribe: function (options) {
+            var namespace = options.namespace || this.namespace;
+            var channel = options.channel;
+            var endpoint = namespace + ":" + channel;
 
-            //this.onMessage calls a centrifuge method
-            this.subscription = this.centrifuge.subscribe(endpoint, this.onMessage);
+            this.subscription = this.centrifuge.subscribe(endpoint);
             _.extend(this.subscription, Backbone.Events);
+            //_.bindAll(this.subscription, 'onEvent');
             this.subscription.on('all', this.onEvent);
         },
 
