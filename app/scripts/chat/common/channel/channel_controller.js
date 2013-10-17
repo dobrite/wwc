@@ -1,7 +1,7 @@
 define([
     "backbone",
     "scripts/communicator",
-    "scripts/models/collection/channel_collection",
+    "scripts/entities/collection/channel_collection",
     "scripts/chat/common/channel/channel_collection_view",
 ],
 function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {

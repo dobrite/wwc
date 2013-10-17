@@ -1,7 +1,7 @@
 define([
     'backbone',
     'scripts/communicator',
-    'scripts/models/user_model',
+    'scripts/entities/model/user_model',
 ],
 function (Backbone, Communicator, UserModel) {
 

@@ -1,7 +1,7 @@
 define([
     "backbone",
     "scripts/communicator",
-    "scripts/models/collection/message_collection",
+    "scripts/entities/collection/message_collection",
     "scripts/chat/room/message/message_collection_view",
 ],
 function (Backbone, communicator, MessageCollection, MessageCollectionView) {

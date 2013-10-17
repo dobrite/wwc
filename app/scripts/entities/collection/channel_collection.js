@@ -1,7 +1,7 @@
 define([
     'backbone',
     'scripts/communicator',
-    'scripts/models/channel_model',
+    'scripts/entities/model/channel_model',
 ],
 function (Backbone, Communicator, ChannelModel) {
 
