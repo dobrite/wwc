@@ -12,14 +12,14 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var channels = new ChannelCollection([{channel: "channel"}]);
             this.channelCollectionView = new ChannelCollectionView({
-                collection: channels
+                collection: new ChannelCollection()
             });
         },
 
-        showChannels: function () {
+        showChannels: function (room) {
             this.region.show(this.channelCollectionView);
+            this.channelCollectionView.collection.add({channel: room});
         },
 
         onClose: function () {

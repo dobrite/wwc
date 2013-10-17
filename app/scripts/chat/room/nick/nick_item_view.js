@@ -16,13 +16,10 @@ function (Backbone, NickTemplate) {
             template: NickTemplate
         },
 
-        /* ui selector cache */
         ui: {},
 
-        /* Ui events hash */
         events: {},
 
-        /* on render callback */
         onRender: function() {},
     });
 

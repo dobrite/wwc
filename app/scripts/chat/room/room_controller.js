@@ -27,6 +27,7 @@ function (Backbone, communicator, RoomLayout, NickController, MessageController)
             });
 
             communicator.command.execute("ws:subscribe", {channel: this.room});
+
         },
 
         showRoom: function () {

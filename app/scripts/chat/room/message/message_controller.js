@@ -12,13 +12,17 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var messages = new MessageCollection([{nick: 'Nick', text: "Yo!"}]);
+            var messages = new MessageCollection();
             this.messageCollectionView = new MessageCollectionView({
                 collection: messages
             });
 
-            communicator.vent.on("ws:publish:success", function (message) {
-                messages.add({nick: 'Blah', text: message[0].params.data});
+            //communicator.vent.on("ws:publish:success", function (message) {
+            //    messages.add({nick: 'Blah', text: message[0].params.data});
+            //});
+
+            communicator.vent.on("ws:message", function (message) {
+                messages.add({nick: 'Blah', text: message[0].data});
             });
         },
 

@@ -16,13 +16,10 @@ function (Backbone, MessageTemplate) {
             template: MessageTemplate
         },
 
-        /* ui selector cache */
         ui: {},
 
-        /* Ui events hash */
         events: {},
 
-        /* on render callback */
         onRender: function() {},
     });
 

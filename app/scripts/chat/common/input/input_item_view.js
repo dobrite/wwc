@@ -18,18 +18,15 @@ function (Backbone, communicator, InputTemplate) {
             template: InputTemplate
         },
 
-        /* ui selector cache */
         ui: {
             input: ".js-input"
         },
 
-        /* Ui events hash */
         events: {
             "keypress .js-input": "inputEnter",
             "click .js-input-btn": "inputSubmit",
         },
 
-        /* on render callback */
         onRender: function() {},
 
         inputSubmit: function () {

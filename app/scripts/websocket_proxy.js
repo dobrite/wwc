@@ -52,6 +52,7 @@ function (Centrifuge, Backbone, _, communicator) {
             this.subscription = this.centrifuge.subscribe(endpoint);
             _.extend(this.subscription, Backbone.Events);
             this.subscription.on('all', this.onEvent);
+            console.log(this.subscription);
         },
 
         unsubscribe: function () {

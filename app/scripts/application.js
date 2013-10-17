@@ -30,11 +30,15 @@ function (Backbone, communicator, regionManager, WebsocketProxy, mainTemplate) {
     });
 
     app.on("initialize:after", function () {
-        require(["scripts/chat/chat_app"], function () {
+        require([
+            "scripts/chat/chat_app",
+            "scripts/login/login_app"
+        ],
+        function () {
             communicator.command.execute("router:history:start");
 
             if(communicator.reqres.request("router:route") === ""){
-                communicator.vent.trigger("show:chat", "general");
+                communicator.vent.trigger("login:show");
             }
 
         });
