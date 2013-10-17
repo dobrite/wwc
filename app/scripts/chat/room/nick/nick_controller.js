@@ -1,10 +1,10 @@
 define([
     "backbone",
     "scripts/communicator",
-    "scripts/entities/collection/user_collection",
     "scripts/chat/room/nick/nick_collection_view",
+    "scripts/entities/user_entities",
 ],
-function (Backbone, communicator, NickCollection, NickCollectionView) {
+function (Backbone, communicator, NickCollectionView) {
 
     var NickController = Backbone.Marionette.Controller.extend({
 
@@ -12,10 +12,7 @@ function (Backbone, communicator, NickCollection, NickCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var nicks = new NickCollection([
-                {nick:"Dave"},
-                {nick:"Bill"},
-            ]);
+            var nicks = communicator.reqres.request("entities:users");
 
             this.nickCollectionView = new NickCollectionView({
                 collection: nicks
