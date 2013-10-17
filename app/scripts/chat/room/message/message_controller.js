@@ -17,13 +17,12 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
                 collection: messages
             });
 
-            //communicator.vent.on("ws:publish:success", function (message) {
-            //    messages.add({nick: 'Blah', text: message[0].params.data});
-            //});
+            this.self = communicator.reqres.request("entities:user:self");
 
             communicator.vent.on("ws:message", function (message) {
-                messages.add({nick: 'Blah', text: message[0].data});
-            });
+                var nick = this.self.get('nick');
+                messages.add({nick: nick, text: message[0].data});
+            }, this);
         },
 
         showMessages: function () {

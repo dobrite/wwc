@@ -20,9 +20,11 @@ function(Backbone, app, communicator, LoginItemView, UserModel) {
 
             loginItemView.on("login:submit", function (data) {
                 var nick = loginItemView.ui.nick.val();
-                var user = new UserModel({nick: nick});
+                var self = {nick: nick, self: true};
+                communicator.command.execute("entities:user:add", self);
+
                 //login logic here
-                communicator.vent.trigger("login:submit", user);
+                communicator.vent.trigger("login:submit");
             });
 
             this.region.show(loginItemView);

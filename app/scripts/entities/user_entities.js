@@ -24,11 +24,26 @@ function (Backbone, communicator, UserCollection) {
             //TODO replace with server lookup
             //and remove "module" scope users var
             return users;
+        },
+        addUser: function (user) {
+            users.add(user);
+        },
+        getSelf: function () {
+            //only one
+            return users.where({self: true})[0];
         }
     };
 
-    communicator.reqres.setHandler("entities:users", function () {
+    communicator.reqres.setHandler("entities:users:get", function () {
         return API.getUsers();
+    });
+
+    communicator.reqres.setHandler("entities:user:self", function () {
+        return API.getSelf();
+    });
+
+    communicator.command.setHandler("entities:user:add", function (user) {
+        API.addUser(user);
     });
 
     return ;

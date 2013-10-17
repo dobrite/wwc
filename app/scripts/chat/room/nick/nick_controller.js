@@ -12,10 +12,10 @@ function (Backbone, communicator, NickCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var nicks = communicator.reqres.request("entities:users");
+            var users = communicator.reqres.request("entities:users:get");
 
             this.nickCollectionView = new NickCollectionView({
-                collection: nicks
+                collection: users
             });
         },
 
