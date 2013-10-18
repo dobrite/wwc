@@ -22,6 +22,14 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         ws.publish(message);
     });
 
+    communicator.reqres.setHandler("ws:presence", function () {
+        return ws.presence();
+    });
+
+    communicator.reqres.setHandler("ws:history", function () {
+        return ws.history();
+    });
+
     return ;
 
 });

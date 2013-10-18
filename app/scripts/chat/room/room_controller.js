@@ -1,11 +1,12 @@
 define([
     "backbone",
+    "jquery",
     "scripts/communicator",
     "scripts/chat/room/room_layout",
     "scripts/chat/room/nick/nick_controller",
     "scripts/chat/room/message/message_controller",
 ],
-function (Backbone, communicator, RoomLayout, NickController, MessageController) {
+function (Backbone, $, communicator, RoomLayout, NickController, MessageController) {
 
     var RoomController = Backbone.Marionette.Controller.extend({
 
@@ -31,9 +32,22 @@ function (Backbone, communicator, RoomLayout, NickController, MessageController)
         },
 
         showRoom: function () {
+
             this.region.show(this.roomLayout);
             this.messageController.showMessages();
             this.nickController.showNicks();
+            var presence_promise = communicator.reqres.request("ws:presence", function () {});
+
+            $.when(presence_promise).done(function (data) {
+                console.log(data);
+            });
+
+            var history_promise = communicator.reqres.request("ws:history", function () {});
+
+            $.when(history_promise).done(function (data) {
+                console.log(data);
+            });
+
         },
 
         onClose: function () {

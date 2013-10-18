@@ -2,9 +2,10 @@ define([
     'centrifuge',
     'backbone',
     'underscore',
+    'jquery',
     'sockjs-client'
 ],
-function (Centrifuge, Backbone, _) {
+function (Centrifuge, Backbone, _, $) {
 
     var WebsocketProxy = Backbone.Marionette.Controller.extend({
 
@@ -61,17 +62,23 @@ function (Centrifuge, Backbone, _) {
         },
 
         presence: function () {
+            var defer = $.Deferred();
+
             this.subscription.presence(function (data) {
-                //something with data
-                console.log(data);
+                defer.resolve(data);
             });
+
+            return defer.promise();
         },
 
         history: function () {
+            var defer = $.Deferred();
+
             this.subscription.history(function (data) {
-                //something with data
-                console.log(data);
+                defer.resolve(data);
             });
+
+            return defer.promise();
         },
 
     });
