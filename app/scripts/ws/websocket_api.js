@@ -1,39 +1,26 @@
 define([
     "backbone",
+    "underscore",
     "scripts/communicator",
     "scripts/ws/websocket_proxy",
     "scripts/chat_config",
 ],
-function (Backbone, communicator, WebsocketProxy, config) {
+function (Backbone, _, communicator, WebsocketProxy, config) {
 
-    var users = WebsocketProxy(communicator, config);
+    var wsConfig = _.extend({communicator: communicator}, config);
+    var ws = new WebsocketProxy(wsConfig);
 
-    var API = {
-        getUsers: function () {
-            //TODO replace with server lookup
-            //and remove "module" scope users var
-            return users;
-        },
-        addUser: function (user) {
-            users.add(user);
-        },
-        getSelf: function () {
-            //only one
-            return users.where({self: true})[0];
-        }
-    };
+    communicator.command.setHandler("ws:connect", function (options) {
+        ws.connect(options);
+    });
 
-    this.communicator.command.setHandler("ws:connect", function (options) {
-        this.connect(options);
-    }, this);
+    communicator.command.setHandler("ws:subscribe", function (channel) {
+        ws.subscribe(channel);
+    });
 
-    this.communicator.command.setHandler("ws:subscribe", function (channel) {
-        this.subscribe(channel);
-    }, this);
-
-    this.communicator.command.setHandler("ws:publish", function (message) {
-        this.publish(message);
-    }, this);
+    communicator.command.setHandler("ws:publish", function (message) {
+        ws.publish(message);
+    });
 
     return ;
 

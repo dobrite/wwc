@@ -9,7 +9,6 @@ function () {
         project: '52522b73a4dd5f27c53999d6',
         user: '2694',
         debug: true,
-        communicator: communicator
     };
 
     return config;

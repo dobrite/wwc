@@ -20,6 +20,7 @@ function (Backbone, communicator, regionManager, WebsocketProxy, mainTemplate) {
 
     app.on("initialize:after", function () {
         require([
+            "scripts/ws/websocket_api",
             "scripts/chat/chat_app",
             "scripts/login/login_app"
         ],
