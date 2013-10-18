@@ -2,25 +2,22 @@ define([
     'centrifuge',
     'backbone',
     'underscore',
-    'scripts/communicator',
     'sockjs-client'
 ],
-function (Centrifuge, Backbone, _, communicator) {
+function (Centrifuge, Backbone, _) {
 
     var WebsocketProxy = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
             this.options = options || (options = {});
             this.namespace = options.namespace;
-            this.communicator = options.communicator || communicator;
+            this.communicator = options.communicator;
             this.centrifuge = new Centrifuge();
 
             _.extend(this.centrifuge, Backbone.Events);
             _.bindAll(this, 'onEvent');
 
             this.centrifuge.on('all', this.onEvent);
-
-            this.setCommandHandlers();
         },
 
         connect: function (options) {
@@ -67,29 +64,15 @@ function (Centrifuge, Backbone, _, communicator) {
         presence: function () {
             this.subscription.presence(function (data) {
                 //something with data
+                console.log(data);
             });
         },
 
         history: function () {
             this.subscription.history(function (data) {
                 //something with data
+                console.log(data);
             });
-        },
-
-        setCommandHandlers: function () {
-
-            this.communicator.command.setHandler("ws:connect", function (options) {
-                this.connect(options);
-            }, this);
-
-            this.communicator.command.setHandler("ws:subscribe", function (channel) {
-                this.subscribe(channel);
-            }, this);
-
-            this.communicator.command.setHandler("ws:publish", function (message) {
-                this.publish(message);
-            }, this);
-
         },
 
     });

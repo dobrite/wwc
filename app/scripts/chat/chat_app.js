@@ -2,7 +2,7 @@ define([
     "backbone",
     "scripts/application",
     "scripts/communicator",
-    "scripts/websocket_proxy",
+    "scripts/ws/websocket_proxy",
     "scripts/chat/chat_layout",
     "scripts/chat/common/channel/channel_controller",
     "scripts/chat/common/input/input_controller",

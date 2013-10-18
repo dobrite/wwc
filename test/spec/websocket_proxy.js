@@ -1,5 +1,5 @@
 require([
-    'scripts/websocket_proxy'
+    'scripts/ws/websocket_proxy'
 ],
 function (WebsocketProxy) {
     var testOptions = {
@@ -31,7 +31,7 @@ function (WebsocketProxy) {
 
     describe('WebsocketProxy Controller', function () {
         it('should be an instance of WebsocketProxy Controller', function () {
-            var websocketProxy = new WebsocketProxy();
+            var websocketProxy = createTestWebsocketProxy();
             expect(websocketProxy).to.be.an.instanceof(WebsocketProxy);
         });
 
@@ -42,6 +42,7 @@ function (WebsocketProxy) {
 
         it('initialize should take options', function () {
             var options = {test: true};
+            console.log(options);
             var websocketProxy = new WebsocketProxy(options);
             expect(websocketProxy.options).to.be.equal(options);
         });
@@ -80,20 +81,28 @@ function (WebsocketProxy) {
             beforeEach(function (done) {
                 testWebsocketProxy.connect(testOptions);
                 testWebsocketProxy.centrifuge.on('connect', function () {
-                    testWebsocketProxy.disconnect();
-                });
-                testWebsocketProxy.centrifuge.on('disconnect', function () {
-                    testWebsocketProxy.centrifuge.removeEvent();
                     done();
                 });
             });
 
-            it('centrifuge should not be connected after calling disconnect', function(){
-                expect(testWebsocketProxy.centrifuge.isConnected()).to.be.false;
+            it('centrifuge should not be connected after calling disconnect', function(done){
+                expect(testWebsocketProxy.centrifuge.isConnected()).to.be.true;
+                testWebsocketProxy.centrifuge.on('disconnect', function () {
+                    testWebsocketProxy.centrifuge.removeEvent();
+                    expect(testWebsocketProxy.centrifuge.isConnected()).to.be.false;
+                    done();
+                });
+                testWebsocketProxy.disconnect();
             });
 
-            it('communicator should emit a ws:disconnect event when it disconnects', function(){
-                expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:disconnect');
+            it('communicator should emit a ws:disconnect event when it disconnects', function(done){
+                expect(testWebsocketProxy.centrifuge.isConnected()).to.be.true;
+                testWebsocketProxy.centrifuge.on('disconnect', function () {
+                    testWebsocketProxy.centrifuge.removeEvent();
+                    expect(testWebsocketProxy.communicator.vent.trigger).to.have.been.calledWith('ws:disconnect');
+                    done();
+                });
+                testWebsocketProxy.disconnect();
             });
 
         });
