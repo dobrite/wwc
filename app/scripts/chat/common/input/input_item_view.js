@@ -30,7 +30,9 @@ function (Backbone, communicator, InputTemplate) {
         onRender: function() {},
 
         inputSubmit: function () {
-            if(this.ui.input.val()){
+            var chatMessage = this.ui.input.val();
+
+            if(chatMessage){
                 this.ui.input.val('');
                 communicator.vent.trigger("chat:input:message", chatMessage);
             }
