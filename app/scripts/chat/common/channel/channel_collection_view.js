@@ -16,14 +16,12 @@ function (Backbone, ChannelItemView) {
 
         itemView: ChannelItemView,
 
-        /* ui selector cache */
         ui: {},
 
-        /* Ui events hash */
         events: {},
 
-        /* on render callback */
-        onRender: function() {}
+        onRender: function() {},
+
     });
 
     return ChannelCollectionView;

@@ -16,13 +16,19 @@ function (Backbone, ChannelTemplate) {
             template: ChannelTemplate
         },
 
-        /* ui selector cache */
-        ui: {},
+        ui: {
+            tab: ".js-tab"
+        },
 
-        /* Ui events hash */
-        events: {},
+        events: {
+            "click .js-tab": "onTabClick"
+        },
 
-        /* on render callback */
+        onTabClick: function (event) {
+            event.preventDefault();
+            this.ui.tab.tab("show");
+        },
+
         onRender: function() {},
     });
 
