@@ -5,7 +5,7 @@ define([
 function (Backbone, ChannelTemplate) {
 
     var ChannelItemView = Backbone.Marionette.ItemView.extend({
-        tagName: "div",
+        tagName: "li",
 
         initialize: function() {
             console.log("initialize a ChannelItemView");

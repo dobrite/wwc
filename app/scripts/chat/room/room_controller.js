@@ -42,7 +42,7 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
                 console.log(data);
             });
 
-            var history_promise = communicator.reqres.request("ws:history", function () {});
+            var history_promise = communicator.reqres.request("ws:history");
 
             $.when(history_promise).done(function (data) {
                 console.log(data);
