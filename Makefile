@@ -11,7 +11,7 @@ clean:
 	rm -rf bin/ include/ lib/ .installed.cfg .mr.developer.cfg develop-eggs/ eggs/ parts/ src/ node_modules/ app/bower_components/
 
 dev:
-	bin/pserve wwc/development.ini
+	bin/pserve wwc/development.ini --reload
 
 ws:
 	bin/centrifuge --config=config.json
