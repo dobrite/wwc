@@ -4,6 +4,8 @@ import json
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from velruse import login_url
+
 from .models import User
 from .models import DBSession
 
@@ -24,9 +26,9 @@ def index_view(request):
 
 @view_config(
     context='velruse.providers.reddit.RedditAuthenticationComplete',
-    renderer='wwc:templates/mytemplate.mak',
+    renderer='wwc:templates/result.mak',
 )
-def login_complete_view(request):
+def reddit_login_complete_view(request):
     context = request.context
     result = {
         'provider_type': context.provider_type,

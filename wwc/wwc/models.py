@@ -49,7 +49,6 @@ class TimeMixin(object):
     created_on = Column(DateTime, server_default=UTCNow())
     modified_on = Column(DateTime, onupdate=datetime.utcnow)
 
-
 class User(UserMixin, TimeMixin, Base):
     pass
     #reddit_auth_token = Column(Unicode(255), nullable=False, default='test')
