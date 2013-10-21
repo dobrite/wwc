@@ -34,6 +34,7 @@ requires = [
     'pyramid_redis_sessions',
     'horus',
     'velruse',
+    'deform',
     'SQLAlchemy',
     'psycopg2',
     'transaction',
