@@ -4,10 +4,14 @@ import json
 from pyramid.response import Response
 from pyramid.view import view_config
 
+from deform import Form
+
 from velruse import login_url
 
-from .models import User
-from .models import DBSession
+from wwc.models import User
+from wwc.models import DBSession
+
+from wwc.schemas import RedditLoginSchema
 
 
 _here = os.path.dirname(__file__)
@@ -25,18 +29,38 @@ def index_view(request):
 
 
 @view_config(
+    route_name='test',
+    renderer='wwc:templates/result.mak',
+)
+def index_view(request):
+    schema = RedditLoginSchema()
+    form = Form(schema, buttons=('submit',))
+    username = "username"
+    reqts = form.get_widget_resources()
+    return {
+        'form': form.render(username=username),
+        'reqts': reqts
+    }
+
+
+@view_config(
     context='velruse.providers.reddit.RedditAuthenticationComplete',
     renderer='wwc:templates/result.mak',
 )
 def reddit_login_complete_view(request):
+    schema = RedditLoginSchema()
+    form = Form(schema, buttons=('submit',))
     context = request.context
-    result = {
-        'provider_type': context.provider_type,
-        'provider_name': context.provider_name,
-        'profile': context.profile,
-        'credentials': context.credentials,
-    }
-    return {'result': json.dumps(result, indent=4), }
+    username = context.profile['preferredUsername']
+    #result = {
+    #    'provider_type': context.provider_type,
+    #    'provider_name': context.provider_name,
+    #    'profile': context.profile,
+    #    'credentials': context.credentials,
+    #}
+    #return {'result': json.dumps(result, indent=4), }
+    reqts = form.get_widget_resources()
+    return {'form': form.render(username=username)}
 
 
 @view_config(

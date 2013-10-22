@@ -21,20 +21,45 @@ class BaseTestCase(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         pkgroot = pkg_resources.get_distribution('wwc').location
-        test_ini_path = os.path.join(pkgroot, 'test.ini')
-        settings = appconfig('config:{}'.format(test_ini_path))
+        test_ini = os.path.join(pkgroot, 'test.ini')
+        settings = appconfig('config:{}'.format(test_ini))
         cls.engine = engine_from_config(settings, prefix='sqlalchemy.')
         cls.Session = sessionmaker()
 
     def setUp(self):
         self.config = testing.setUp()
-        self.connection = connection = self.engine.connect()
+        connection = self.engine.connect()
         self.trans = connection.begin()
         self.session = self.Session(bind=connection)
 
-        self.config.registry.registerUtility(self.session, IDBSession)
-        self.config.registry.registerUtility(Activation, IActivationClass)
-        self.config.registry.registerUtility(User, IUserClass)
+        #self.config.registry.registerUtility(self.session, IDBSession)
+        #self.config.registry.registerUtility(Activation, IActivationClass)
+        #self.config.registry.registerUtility(User, IUserClass)
+
+    def tearDown(self):
+        testing.tearDown()
+        self.trans.rollback()
+        self.session.close()
+
+
+class IntegrationTestBase(unittest.TestCase):
+    def setUp(self):
+        pkgroot = pkg_resources.get_distribution('wwc').location
+        test_ini = os.path.join(pkgroot, 'test.ini')
+        settings = appconfig('config:{}'.format(test_ini))
+
+        engine = engine_from_config(settings, prefix="sqlalchemy.")
+        connection = engine.connect()
+        self.trans = connection.begin()
+
+        Session = sessionmaker()
+        self.session = Session(bind=connection)
+
+        config = testing.setUp()
+        from wwc import main
+        app = main(config, **settings)
+        from webtest import TestApp
+        self.testapp = TestApp(app)
 
     def tearDown(self):
         testing.tearDown()

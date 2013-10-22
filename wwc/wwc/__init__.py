@@ -29,6 +29,7 @@ def add_static(config):
     app_path = os.path.join(here, '..', '..', 'app')
     config.add_static_view('static', 'static', cache_max_age=3600)
     config.add_static_view('app', app_path, cache_max_age=0)
+    config.add_static_view('static_deform', 'deform:static')
 
 
 def add_horus(config):
@@ -57,6 +58,7 @@ def main(global_config, **settings):
     config.add_route('index', '/')
     config.add_route('logina', '/logina')
     config.add_route('all', '/all')
+    config.add_route('test', '/test')
     add_static(config)
     add_horus(config)
     config.scan()

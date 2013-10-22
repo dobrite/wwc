@@ -50,8 +50,7 @@ class TimeMixin(object):
     modified_on = Column(DateTime, onupdate=datetime.utcnow)
 
 class User(UserMixin, TimeMixin, Base):
-    pass
-    #reddit_auth_token = Column(Unicode(255), nullable=False, default='test')
+    reddit_auth_token = Column(Unicode(255))
     #this needs to be one-to-many to the auth provider/token table
 
 
