@@ -38,7 +38,7 @@ def index_view(request):
     username = "username"
     reqts = form.get_widget_resources()
     return {
-        'form': form.render(username=username),
+        'form': form.render({'username': username}),
         'reqts': reqts
     }
 
@@ -52,15 +52,11 @@ def reddit_login_complete_view(request):
     form = Form(schema, buttons=('submit',))
     context = request.context
     username = context.profile['preferredUsername']
-    #result = {
-    #    'provider_type': context.provider_type,
-    #    'provider_name': context.provider_name,
-    #    'profile': context.profile,
-    #    'credentials': context.credentials,
-    #}
-    #return {'result': json.dumps(result, indent=4), }
     reqts = form.get_widget_resources()
-    return {'form': form.render(username=username)}
+    return {
+        'form': form.render({'username': username}),
+        'reqts': reqts
+    }
 
 
 @view_config(
