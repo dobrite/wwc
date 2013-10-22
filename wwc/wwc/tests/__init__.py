@@ -32,9 +32,9 @@ class BaseTestCase(unittest.TestCase):
         self.trans = connection.begin()
         self.session = self.Session(bind=connection)
 
-        #self.config.registry.registerUtility(self.session, IDBSession)
+        self.config.registry.registerUtility(self.session, IDBSession)
         #self.config.registry.registerUtility(Activation, IActivationClass)
-        #self.config.registry.registerUtility(User, IUserClass)
+        self.config.registry.registerUtility(User, IUserClass)
 
     def tearDown(self):
         testing.tearDown()

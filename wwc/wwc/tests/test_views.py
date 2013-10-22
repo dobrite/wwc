@@ -10,11 +10,11 @@ class TestViews(BaseTestCase):
             profile = {
                 "accounts": [{
                     "userid": "abc123",
-                    "username": "username",
+                    "username": "r_username",
                     "domain": "reddit.com"
                 }],
-                "displayName": "username",
-                "preferredUsername": "username"
+                "displayName": "r_username",
+                "preferredUsername": "r_username"
             }
             credentials = {"oauthAccessToken": "super-secret"}
             provider_name = "reddit"
@@ -28,13 +28,13 @@ class TestViews(BaseTestCase):
         request = testing.DummyRequest()
         user = UserFactory()
         user = all(request)
-        self.assertEqual(user['username'], 'dave')
-        self.assertEqual(user['email'], 'dave@example.com')
+        assert user['username'] == 'dave'
+        assert user['email'] == 'dave@example.com'
 
     def test_reddit_login_complete_view(self):
         from wwc.views import reddit_login_complete_view
         request = testing.DummyRequest()
         request.context = self._make_context()
-        form = reddit_login_complete_view(request)
-        self.assertEqual(user['username'], 'dave')
-        self.assertEqual(user['email'], 'dave@example.com')
+        resp = reddit_login_complete_view(request)
+        assert 'reqts' in resp
+        assert 'r_username' in resp['form']
