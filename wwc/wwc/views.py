@@ -14,6 +14,9 @@ from wwc.models import DBSession
 from wwc.schemas import RedditLoginSchema
 
 
+
+
+
 _here = os.path.dirname(__file__)
 _index_path = os.path.join(_here, '..', '..', 'app', 'index.html')
 
@@ -66,6 +69,13 @@ def reddit_login_complete_view(request):
         'form': form.render({'username': username}),
         'reqts': reqts,
     }
+
+
+@view_config(
+    route_name='reddit_register',
+    renderer='wwc:templates/result.mak',
+)
+def reddit_register(self):
 
 
 @view_config(
