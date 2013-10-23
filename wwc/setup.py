@@ -41,6 +41,7 @@ requires = [
     'zope.sqlalchemy',
     'waitress',
     'centrifuge',
+    'cent',
     'setuptools',
 ]
 
