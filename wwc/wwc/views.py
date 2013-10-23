@@ -32,7 +32,7 @@ def index_view(request):
     route_name='test',
     renderer='wwc:templates/result.mak',
 )
-def index_view(request):
+def test_view(request):
     schema = RedditLoginSchema()
     form = Form(schema, buttons=('submit',))
     username = "username"
@@ -50,12 +50,21 @@ def index_view(request):
 def reddit_login_complete_view(request):
     schema = RedditLoginSchema()
     form = Form(schema, buttons=('submit',))
+    reqts = form.get_widget_resources()
+    if 'submit' in request.params:
+        controls = request.POST.items()
+        try:
+            appstruct = form.validate(controls)
+        except deform.ValidationFailure as e:
+            return {
+                'form': e.render(),
+                'reqts': reqts,
+            }
     context = request.context
     username = context.profile['preferredUsername']
-    reqts = form.get_widget_resources()
     return {
         'form': form.render({'username': username}),
-        'reqts': reqts
+        'reqts': reqts,
     }
 
 
