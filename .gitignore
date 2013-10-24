@@ -25,6 +25,7 @@ develop-eggs
 *.swm
 *.swl
 *.swk
+*.bak
 
 pyvenv.cfg
 
@@ -79,3 +80,4 @@ npm-debug.log
 # centrifuge
 centrifuge.db
 config.json
+.centrc
