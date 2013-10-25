@@ -52,6 +52,8 @@ main = wwc:main
 [console_scripts]
 initialize_wwc_db = wwc.scripts.initializedb:main
 delete_wwc_db = wwc.scripts.deletedb:main
+initialize_cent_config = wwc.scripts.initialize_cent_config:main
+initialize_cent_projects = wwc.scripts.initialize_cent_projects:main
 """
 
 setup(

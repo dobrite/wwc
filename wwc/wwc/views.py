@@ -14,9 +14,6 @@ from wwc.models import DBSession
 from wwc.schemas import RedditLoginSchema
 
 
-
-
-
 _here = os.path.dirname(__file__)
 _index_path = os.path.join(_here, '..', '..', 'app', 'index.html')
 
@@ -46,36 +43,60 @@ def test_view(request):
     }
 
 
+#@view_config(
+#    context='velruse.providers.reddit.RedditAuthenticationComplete',
+#    renderer='wwc:templates/result.mak',
+#)
+#def reddit_login_complete_view(request):
+#    schema = RedditLoginSchema()
+#    form = Form(schema, buttons=('submit',))
+#    reqts = form.get_widget_resources()
+#    context = request.context
+#    username = context.profile['preferredUsername']
+#    return {
+#        'form': form.render({'username': username}),
+#        'reqts': reqts,
+#    }
+
+
 @view_config(
     context='velruse.providers.reddit.RedditAuthenticationComplete',
     renderer='wwc:templates/result.mak',
 )
 def reddit_login_complete_view(request):
-    schema = RedditLoginSchema()
-    form = Form(schema, buttons=('submit',))
-    reqts = form.get_widget_resources()
-    if 'submit' in request.params:
-        controls = request.POST.items()
-        try:
-            appstruct = form.validate(controls)
-        except deform.ValidationFailure as e:
-            return {
-                'form': e.render(),
-                'reqts': reqts,
-            }
-    context = request.context
-    username = context.profile['preferredUsername']
-    return {
-        'form': form.render({'username': username}),
-        'reqts': reqts,
-    }
+    """
+    compute token
+    redirect or serve backbone w/ inserted into template:
+    we could check websocket support for url
+    no debug - or debug if development.ini
 
+    var config = {
+        namespace: 'test',
+        url: 'http://localhost:8000/connection',
+        token: '15f928437b0fa1fdd58921f19c854f29',
+        project: '52522b73a4dd5f27c53999d6',
+        user: '2694',
+        debug: true,
+    };
 
-@view_config(
-    route_name='reddit_register',
-    renderer='wwc:templates/result.mak',
-)
-def reddit_register(self):
+    return config;
+    """
+
+#@view_config(
+#    route_name='reddit_register',
+#    renderer='wwc:templates/result.mak',
+#)
+#def reddit_register(self):
+#    pass
+#if 'submit' in request.params:
+#    controls = request.POST.items()
+#    try:
+#        appstruct = form.validate(controls)
+#    except deform.ValidationFailure as e:
+#        return {
+#            'form': e.render(),
+#            'reqts': reqts,
+#        }
 
 
 @view_config(

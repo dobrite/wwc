@@ -1,4 +1,6 @@
 import os
+import pkg_resources
+
 from configparser import ConfigParser
 
 from pyramid.config import Configurator
@@ -8,16 +10,17 @@ from hem.interfaces import IDBSession
 from horus.interfaces import IUserClass
 from horus.interfaces import IActivationClass
 
-from .models import DBSession
-from .models import Base
-from .models import User
-from .models import Activation
+from wwc.models import DBSession
+from wwc.models import Base
+from wwc.models import User
+from wwc.models import Activation
 
 
 def get_secret_settings(section):
-    here = os.path.abspath(os.path.dirname(__file__))
+    pkgroot = pkg_resources.get_distribution('wwc').location
+    secrets_ini = os.path.join(pkgroot, 'secrets.ini')
     config_parser = ConfigParser()
-    with open(os.path.join(here, '..', 'secrets.ini')) as f:
+    with open(secrets_ini) as f:
         config_parser.readfp(f)
     return dict(config_parser.items(section))
 

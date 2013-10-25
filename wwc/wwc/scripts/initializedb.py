@@ -9,9 +9,9 @@ from pyramid.paster import setup_logging
 
 from pyramid.scripts.common import parse_vars
 
-from ..models import User
-from ..models import Base
-from ..models import DBSession
+from wwc.models import User
+from wwc.models import Base
+from wwc.models import DBSession
 
 def usage(argv):
     cmd = os.path.basename(argv[0])
