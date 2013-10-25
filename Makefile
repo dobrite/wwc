@@ -15,3 +15,6 @@ dev:
 
 ws:
 	bin/centrifuge --config=config.json
+
+shell:
+	bin/pshell -p bpython wwc/development.ini

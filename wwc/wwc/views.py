@@ -3,6 +3,7 @@ import json
 
 from pyramid.response import Response
 from pyramid.view import view_config
+from pyramid.httpexceptions import HTTPFound
 
 from deform import Form
 
@@ -12,6 +13,8 @@ from wwc.models import User
 from wwc.models import DBSession
 
 from wwc.schemas import RedditLoginSchema
+
+from wwc.utils import get_client_token
 
 
 _here = os.path.dirname(__file__)
@@ -25,7 +28,10 @@ _index_response = Response(content_type='text/html', body=_index)
 
 @view_config(route_name='index')
 def index_view(request):
-    return _index_response
+    if 'wwc.token' in request.cookies:
+        return _index_response
+    else:
+        return HTTPFound(location='/login/reddit')
 
 
 @view_config(
@@ -33,6 +39,7 @@ def index_view(request):
     renderer='wwc:templates/result.mak',
 )
 def test_view(request):
+    import pdb;pdb.set_trace()
     schema = RedditLoginSchema()
     form = Form(schema, buttons=('submit',))
     username = "username"
@@ -64,6 +71,14 @@ def test_view(request):
     renderer='wwc:templates/result.mak',
 )
 def reddit_login_complete_view(request):
+    project_id = request.registry.settings['centrifuge.project_id']
+    secret_key = request.registry.settings['centrifuge.secret']
+    username = request.context.profile['preferredUsername']
+    token = get_client_token(secret_key, project_id, username)
+    redirect = HTTPFound(location='/')
+    redirect.set_cookie('wwc.token', token)
+    return redirect
+
     """
     compute token
     redirect or serve backbone w/ inserted into template:
