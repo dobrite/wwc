@@ -1,13 +1,16 @@
 define([
 ],
 function () {
+    var getCookie = function () {
+        return document.cookie.replace(/(?:(?:^|.*;\s*)wwc.token\s*\=\s*([^;]*).*$)|^.*$/, "$1");
+    };
 
     var config = {
-        namespace: 'test',
+        namespace: 'wwc',
         url: 'http://localhost:8000/connection',
-        token: '15f928437b0fa1fdd58921f19c854f29',
-        project: '52522b73a4dd5f27c53999d6',
-        user: '2694',
+        token: getCookie(),
+        project: '526a5d5ca4dd5f5690bf42c7',
+        user: 'Kikkymonk',
         debug: true,
     };
 
