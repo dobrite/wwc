@@ -29,9 +29,13 @@ _index_response = Response(content_type='text/html', body=_index)
 @view_config(route_name='index')
 def index_view(request):
     if 'wwc.token' in request.cookies:
-        return _index_response
-    else:
-        return HTTPFound(location='/login/reddit')
+        username = request.cookies.get('wwc.username', '')
+        project_id  = request.cookies.get('wwc.project_id', '')
+        secret_key = request.registry.settings['centrifuge.secret']
+        token = get_client_token(secret_key, project_id, username)
+        if request.cookies['wwc.token'] == token:
+            return _index_response
+    return HTTPFound(location='/login/reddit')
 
 
 @view_config(
@@ -39,7 +43,6 @@ def index_view(request):
     renderer='wwc:templates/result.mak',
 )
 def test_view(request):
-    import pdb;pdb.set_trace()
     schema = RedditLoginSchema()
     form = Form(schema, buttons=('submit',))
     username = "username"
@@ -77,6 +80,8 @@ def reddit_login_complete_view(request):
     token = get_client_token(secret_key, project_id, username)
     redirect = HTTPFound(location='/')
     redirect.set_cookie('wwc.token', token)
+    redirect.set_cookie('wwc.username', username)
+    redirect.set_cookie('wwc.project_id', project_id)
     return redirect
 
     """
