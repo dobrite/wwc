@@ -62,13 +62,13 @@ function (Centrifuge, Backbone, _, $) {
 
         presence: function (func) {
             this.subscription.presence(function (data) {
-                func(data[0]); //rec an array of one
+                func(data[0].data); //rec an array of one
             });
         },
 
         history: function (func) {
             this.subscription.history(function (data) {
-                func(data[0]); //rec an array of one
+                func(data[0].data); //rec an array of one
             });
         },
 

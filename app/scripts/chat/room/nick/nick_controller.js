@@ -10,15 +10,19 @@ function (Backbone, communicator, NickCollectionView) {
         initialize: function (options) {
             options = options || (options = {});
             this.region = options.region;
+            this.nicks = options.nicks;
 
-            //var users = communicator.reqres.request("entities:users:get");
+            this.nicks.on("all", function (event) {
+                console.log(event);
+            });
 
-            //this.nickCollectionView = new NickCollectionView({
-            //    collection: users
-            //});
+            this.nickCollectionView = new NickCollectionView({
+                collection: this.nicks,
+            });
         },
 
         showNicks: function () {
+            console.log("showing nicks");
             this.region.show(this.nickCollectionView);
         },
 

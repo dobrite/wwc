@@ -20,20 +20,21 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
             this.roomLayout = new RoomLayout();
 
             this.nickController = new NickController({
-                region: this.roomLayout.nickRegion
+                region: this.roomLayout.nickRegion,
+                nicks: this.roomModel.get('users'),
             });
 
-            this.messageController = new MessageController({
-                region: this.roomLayout.messageRegion
-            });
+            //this.messageController = new MessageController({
+            //    region: this.roomLayout.messageRegion
+            //});
 
         },
 
         showRoom: function () {
 
             this.region.show(this.roomLayout);
-            this.messageController.showMessages();
             this.nickController.showNicks();
+            //this.messageController.showMessages();
 
         },
 

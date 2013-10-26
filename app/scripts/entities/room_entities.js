@@ -17,7 +17,9 @@ function (Backbone, _, communicator, RoomRelationalModel, RoomCollection) {
             communicator.command.execute("ws:subscribe", {channel: room});
             communicator.vent.on("ws:subscribe:success", function () {
                 communicator.command.execute("ws:presence", function (data) {
+                    console.log(_.values(data));
                     roomRelationalModel.get('users').add(_.values(data));
+                    console.log(data);
                 });
 
                 communicator.command.execute("ws:history", function (data) {
