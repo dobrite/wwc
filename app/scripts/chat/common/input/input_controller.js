@@ -14,6 +14,7 @@ function (Backbone, communicator, InputItemView) {
 
             this.inputItemView = new InputItemView();
 
+            //maybe a triggerMethod?
             this.listenTo(communicator.vent, "chat:input:message", this.publishMessage);
         },
 

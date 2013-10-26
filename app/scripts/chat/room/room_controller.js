@@ -27,7 +27,7 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
                 region: this.roomLayout.messageRegion
             });
 
-            communicator.command.execute("ws:subscribe", {channel: this.room});
+            communicator.command.execute("ws:subscribe", {channel: this.room.get('name')});
 
         },
 

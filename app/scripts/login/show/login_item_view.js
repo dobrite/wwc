@@ -22,13 +22,22 @@ function(Backbone, LoginViewTemplate) {
         events: {},
 
         triggers: {
-            "click .js-submit": "login:submit",
+            "click .js-submit": "submit",
         },
 
         onRender: function () {},
 
         onClose: function () {
             console.log("loginview close");
+        },
+
+        onSubmit: function () {
+            var room = this.ui.room.val();
+            if (room !== '') {
+                this.trigger("login:submit", room);
+            }else{
+                //TODO show error
+            }
         },
 
     });

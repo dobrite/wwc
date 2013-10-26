@@ -20,9 +20,10 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             });
         },
 
-        showChannels: function (room) {
+        showChannels: function () {
             this.region.show(this.channelCollectionView);
-            this.channelCollectionView.collection.add({channel: room});
+            //move somewhere else
+            //this.channelCollectionView.collection.add({channel: room});
         },
 
         onClose: function () {

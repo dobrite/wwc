@@ -7,8 +7,8 @@ function (Backbone, communicator, RoomRelationalModel) {//, RoomCollection, Mess
 
     var initializeRooms = function () {
 
-        var general = RoomRelationalModel( { name: 'general' } );
-        var dave = new UserModel({nick: 'dave', inRoom: general});
+        //var general = RoomRelationalModel( { name: 'general' } );
+        //var dave = new UserModel({nick: 'dave', inRoom: general});
         //var users = new UserCollection([
         //    {nick: "@Chanserv"},
         //    {nick: "Dave"},
@@ -19,7 +19,7 @@ function (Backbone, communicator, RoomRelationalModel) {//, RoomCollection, Mess
 
     };
 
-    var users = initializeRooms();
+    var rooms = initializeRooms();
 
     var API = {
         //getUsers: function () {

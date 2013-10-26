@@ -2,13 +2,24 @@ define([
     "backbone",
     "scripts/application",
     "scripts/communicator",
-    "scripts/ws/websocket_proxy",
     "scripts/chat/chat_layout",
     "scripts/chat/common/channel/channel_controller",
     "scripts/chat/common/input/input_controller",
+    "scripts/chat/room/room_controller",
+    "scripts/entities/relation/room_relation",
+    "scripts/region_manager",
 ],
-function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelController, InputController) {
-    //TODO do we need websocketproxy up there?
+function (
+    Backbone,
+    app,
+    communicator,
+    ChatLayout,
+    ChannelController,
+    InputController,
+    RoomController,
+    RoomRelationalModel,
+    regionManager
+) {
 
     var ChatRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
@@ -26,62 +37,41 @@ function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelContro
         region: chatLayout.inputRegion
     });
 
+    //move this into room_entities and only talk to it via communiactor
+    var roomControllers = {};
+
     var API = {
         createChatRoom: function (room) {
 
             /* called to create a room
              */
 
-            require([
-                "scripts/chat/room/room_controller",
-            ],
-            function (RoomController) {
-                var roomController = new RoomController({
-                    region: chatLayout.roomRegion,
-                    room: room,
-                    //room: new RoomRelationalModel(),
-                });
-
-                roomController.showRoom();
+            roomControllers[room] = new RoomController({
+                region: chatLayout.roomRegion,
+                room: new RoomRelationalModel({name: room}),
             });
+
         },
         showChatRoom: function (room) {
 
-            /* called to show the room portion
-             * of the app, message and nick
+            /* called to show a specific room
              * i.e. to switch between rooms
              */
 
-            require([
-                "scripts/chat/room/room_controller",
-            ],
-            function (RoomController) {
-                var roomController = new RoomController({
-                    region: chatLayout.roomRegion,
-                    room: room
-                });
+            console.log("showing room: " + room);
+            roomControllers[room].showRoom();
 
-                //TODO do we need this?
-                //ContactManager.startSubApp(null);
-                roomController.showRoom();
-                //ContactManager.execute("set:active:header", "about");
-            });
         },
-        showChat: function (room) {
+        showChat: function () {
 
             /* called to show the chat portion of the app
              * input, channel, and room
              */
 
-            require([
-                "scripts/region_manager",
-            ],
-            function (regionManager, CommonController) {
-                regionManager.getRegion('mainPane').show(chatLayout);
-                channelController.showChannels(room);
-                inputController.showInput();
-                communicator.vent.trigger("chat:show:room", room);
-            });
+            console.log("showing chat");
+            regionManager.getRegion('mainPane').show(chatLayout);
+            channelController.showChannels();
+            inputController.showInput();
         },
     };
 
@@ -91,16 +81,15 @@ function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelContro
     });
 
     communicator.vent.on("chat:show", function () {
-        communicator.command.execute("ws:connect");
-        communicator.vent.on("ws:connect", function () {
-            API.showChat("general");
-        });
+        //TODO show last active chatroom
     });
 
-    communicator.vent.on("login:submit", function () {
+    communicator.vent.on("login:submit", function (room) {
         communicator.command.execute("ws:connect");
         communicator.vent.on("ws:connect", function () {
-            API.showChat("general");
+            API.createChatRoom(room);
+            API.showChat();
+            communicator.vent.trigger("chat:show:room", room);
         });
     });
 

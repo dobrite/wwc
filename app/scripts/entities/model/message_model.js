@@ -4,7 +4,7 @@ define([
 ],
 function (Backbone, moment) {
 
-    return Backbone.Model.extend({
+    return Backbone.RelationalModel.extend({
 
         defaults: {
             ts: moment().format("HH:mm"),

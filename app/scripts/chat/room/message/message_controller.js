@@ -13,15 +13,17 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             this.region = options.region;
 
             var messages = new MessageCollection();
+
             this.messageCollectionView = new MessageCollectionView({
                 collection: messages
             });
 
-            this.self = communicator.reqres.request("entities:user:self");
+            //this.self = communicator.reqres.request("entities:user:self");
 
             communicator.vent.on("ws:message", function (message) {
-                var nick = this.self.get('nick');
-                messages.add({nick: nick, text: message[0].data});
+                console.log(message);
+                //var nick = this.self.get('nick');
+                //messages.add({nick: nick, text: message[0].data});
             }, this);
         },
 

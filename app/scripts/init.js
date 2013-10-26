@@ -10,7 +10,13 @@
         baseUrl: "app",
 
         /* starting point for application */
-        deps: ['backbone.marionette', 'bootstrap', 'marionette.handlebars', 'scripts/main'],
+        deps: [
+            'backbone.marionette',
+            'backbone-relational',
+            'bootstrap',
+            'marionette.handlebars',
+            'scripts/main'
+        ],
 
         shim: {
             handlebars: {

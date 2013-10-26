@@ -3,7 +3,7 @@ define([
 ],
 function (Backbone) {
 
-    var UserModel = Backbone.Model.extend({
+    var UserModel = Backbone.RelationalModel.extend({
 
         defaults: {
             nick: 'Guest-' + Math.floor((Math.random()*9999)+1),

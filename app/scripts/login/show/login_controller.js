@@ -18,13 +18,8 @@ function(Backbone, app, communicator, LoginItemView) {
             nickModel = new Backbone.Model({nick: nick});
             var loginItemView = new LoginItemView({model: nickModel});
 
-            loginItemView.on("login:submit", function () {
-                room = loginItemView.ui.room.val();
-                if (room !== '') {
-                    communicator.vent.trigger("login:submit", room);
-                }else{
-                    //TODO show error
-                }
+            loginItemView.on("login:submit", function (room) {
+                communicator.vent.trigger("login:submit", room);
             });
 
             this.region.show(loginItemView);

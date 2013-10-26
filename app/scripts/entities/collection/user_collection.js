@@ -1,12 +1,12 @@
 define([
     'backbone',
     'scripts/communicator',
-    'scripts/entities/model/user_model',
+    'scripts/entities/relation/user_relation',
 ],
-function (Backbone, Communicator, UserModel) {
+function (Backbone, Communicator, UserRelationalModel) {
 
     var UserCollection =  Backbone.Collection.extend({
-        model: UserModel
+        model: UserRelationalModel
     });
 
     return UserCollection;
