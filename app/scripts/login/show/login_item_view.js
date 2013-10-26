@@ -16,12 +16,13 @@ function(Backbone, LoginViewTemplate) {
         },
 
         ui: {
-            nick: ".js-nick",
             room: ".js-room",
         },
 
-        events: {
-            "click .js-submit": "loginSubmit"
+        events: {},
+
+        triggers: {
+            "click .js-submit": "login:submit",
         },
 
         onRender: function () {},
@@ -30,10 +31,6 @@ function(Backbone, LoginViewTemplate) {
             console.log("loginview close");
         },
 
-        loginSubmit: function (event) {
-            event.preventDefault();
-            this.trigger("login:submit");
-        },
     });
 
 });

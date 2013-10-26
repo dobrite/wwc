@@ -3,7 +3,7 @@ define([
     "underscore",
     "scripts/communicator",
     "scripts/ws/websocket_proxy",
-    "scripts/chat_config",
+    "scripts/chat_config", //XXX maybe not the best place for this
 ],
 function (Backbone, _, communicator, WebsocketProxy, config) {
 

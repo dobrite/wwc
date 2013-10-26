@@ -16,12 +16,10 @@ function (Backbone, ChannelTemplate) {
             template: ChannelTemplate
         },
 
-        ui: {
-            //tab: ".js-tab"
-        },
+        ui: {},
 
         triggers: {
-            "click .js-tab": "click",
+            "click .js-tab": "change",
         },
 
         events: {},

@@ -19,11 +19,12 @@ function(Backbone, app, communicator, LoginItemView) {
             var loginItemView = new LoginItemView({model: nickModel});
 
             loginItemView.on("login:submit", function () {
-                //var self = {nick: nick, self: true};
-                //communicator.command.execute("entities:user:add", self);
-
-                //login logic here
-                communicator.vent.trigger("login:submit");
+                room = loginItemView.ui.room.val();
+                if (room !== '') {
+                    communicator.vent.trigger("login:submit", room);
+                }else{
+                    //TODO show error
+                }
             });
 
             this.region.show(loginItemView);
