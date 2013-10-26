@@ -12,6 +12,8 @@ function (Backbone, ChannelItemView) {
 
         initialize: function() {
             console.log("initialize a ChannelCollectionView");
+
+            this.on("itemview:click", this.onTabClick);
         },
 
         itemView: ChannelItemView,
@@ -19,6 +21,11 @@ function (Backbone, ChannelItemView) {
         ui: {},
 
         events: {},
+
+        onTabClick: function (view) {
+            this.$el.children().removeClass("active");
+            view.$el.addClass("active");
+        },
 
         onRender: function() {},
 

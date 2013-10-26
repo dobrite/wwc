@@ -20,14 +20,11 @@ function (Backbone, ChannelTemplate) {
             tab: ".js-tab"
         },
 
-        events: {
-            "click .js-tab": "onTabClick"
+        triggers: {
+            "click .js-tab": "click",
         },
 
-        onTabClick: function (event) {
-            event.preventDefault();
-            this.ui.tab.tab("show");
-        },
+        events: {},
 
         onRender: function() {},
     });
