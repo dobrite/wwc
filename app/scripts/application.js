@@ -20,14 +20,16 @@ function (Backbone, communicator, regionManager, WebsocketProxy, mainTemplate) {
 
     app.on("initialize:after", function () {
         require([
+            "scripts/chat_config",
             "scripts/ws/websocket_api",
-            "scripts/chat/chat_app"
+            "scripts/chat/chat_app",
+            "scripts/login/login_app",
         ],
-        function () {
+        function (config) {
             communicator.command.execute("router:history:start");
 
             if(communicator.reqres.request("router:route") === ""){
-                communicator.vent.trigger("chat:show");
+                communicator.vent.trigger("login:show", config.user);
             }
 
         });

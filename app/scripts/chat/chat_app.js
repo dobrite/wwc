@@ -8,6 +8,7 @@ define([
     "scripts/chat/common/input/input_controller",
 ],
 function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelController, InputController) {
+    //TODO do we need websocketproxy up there?
 
     var ChatRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
@@ -26,6 +27,24 @@ function (Backbone, app, communicator, WebsocketProxy, ChatLayout, ChannelContro
     });
 
     var API = {
+        createChatRoom: function (room) {
+
+            /* called to create a room
+             */
+
+            require([
+                "scripts/chat/room/room_controller",
+            ],
+            function (RoomController) {
+                var roomController = new RoomController({
+                    region: chatLayout.roomRegion,
+                    room: room,
+                    //room: new RoomRelationalModel(),
+                });
+
+                roomController.showRoom();
+            });
+        },
         showChatRoom: function (room) {
 
             /* called to show the room portion

@@ -6,7 +6,7 @@ function(Backbone, LoginViewTemplate) {
 
     return Backbone.Marionette.ItemView.extend({
 
-        initialize: function () {
+        initialize: function (options) {
             console.log("initialize a Loginview ItemView");
         },
 
@@ -16,7 +16,8 @@ function(Backbone, LoginViewTemplate) {
         },
 
         ui: {
-            nick: ".js-nick"
+            nick: ".js-nick",
+            room: ".js-room",
         },
 
         events: {

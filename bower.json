@@ -16,7 +16,8 @@
     "backbone.marionette.handlebars": "~0.2.0",
     "socksjs-client": "git://github.com/dobrite/socksjs-client.git",
     "centrifuge-client": "git://github.com/dobrite/centrifuge-client.git",
-    "momentjs": "~2.3.1"
+    "momentjs": "~2.3.1",
+    "backbone-relational": "~0.8.6"
   },
   "devDependencies": {}
 }

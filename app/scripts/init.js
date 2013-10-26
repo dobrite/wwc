@@ -23,6 +23,13 @@
                 ],
                 exports: 'Backbone'
             },
+            "backbone-relational": {
+                deps: [
+                    'underscore',
+                    'backbone',
+                    'jquery'
+                ]
+            },
             bootstrap: {
                 deps: [
                     'jquery'
@@ -37,6 +44,7 @@
         paths: {
             jquery: 'bower_components/jquery/jquery',
             backbone: 'bower_components/backbone-amd/backbone',
+            "backbone-relational": 'bower_components/backbone-relational/backbone-relational',
             underscore: 'bower_components/underscore-amd/underscore',
 
             /* alias all marionette libs */

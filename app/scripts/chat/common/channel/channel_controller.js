@@ -13,7 +13,10 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             this.region = options.region;
 
             this.channelCollectionView = new ChannelCollectionView({
-                collection: new ChannelCollection([{channel: "blah"}, {channel: "python"}])
+                collection: new ChannelCollection([
+                    //{channel: "blah"},
+                    //{channel: "python"},
+                ])
             });
         },
 

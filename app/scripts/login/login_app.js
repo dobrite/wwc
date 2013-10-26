@@ -18,14 +18,14 @@ function (Backbone, app, communicator, regionManager, LoginController) {
     });
 
     var API = {
-        showLogin: function () {
-            loginController.showLogin();
+        showLogin: function (nick) {
+            loginController.showLogin(nick);
         }
     };
 
-    communicator.vent.on("login:show", function (room) {
+    communicator.vent.on("login:show", function (nick) {
         communicator.command.execute("router:navigate", "login");
-        API.showLogin();
+        API.showLogin(nick);
     });
 
     app.addInitializer(function(){

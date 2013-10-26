@@ -17,7 +17,7 @@ function (Backbone, ChannelTemplate) {
         },
 
         ui: {
-            tab: ".js-tab"
+            //tab: ".js-tab"
         },
 
         triggers: {

@@ -3,9 +3,8 @@ define([
     'scripts/application',
     'scripts/communicator',
     'scripts/login/show/login_item_view',
-    'scripts/entities/model/user_model',
 ],
-function(Backbone, app, communicator, LoginItemView, UserModel) {
+function(Backbone, app, communicator, LoginItemView) {
 
     var LoginController = Backbone.Marionette.Controller.extend({
 
@@ -15,13 +14,13 @@ function(Backbone, app, communicator, LoginItemView, UserModel) {
             this.region = options.region;
         },
 
-        showLogin: function () {
-            var loginItemView = new LoginItemView();
+        showLogin: function (nick) {
+            nickModel = new Backbone.Model({nick: nick});
+            var loginItemView = new LoginItemView({model: nickModel});
 
-            loginItemView.on("login:submit", function (data) {
-                var nick = loginItemView.ui.nick.val();
-                var self = {nick: nick, self: true};
-                communicator.command.execute("entities:user:add", self);
+            loginItemView.on("login:submit", function () {
+                //var self = {nick: nick, self: true};
+                //communicator.command.execute("entities:user:add", self);
 
                 //login logic here
                 communicator.vent.trigger("login:submit");
