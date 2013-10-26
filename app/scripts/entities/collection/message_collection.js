@@ -1,12 +1,12 @@
 define([
     'backbone',
     'scripts/communicator',
-    'scripts/entities/model/message_model',
+    'scripts/entities/relation/message_relation',
 ],
-function (Backbone, Communicator, MessageModel) {
+function (Backbone, Communicator, MessageRelationalModel) {
 
     var MessageCollection =  Backbone.Collection.extend({
-        model: MessageModel
+        model: MessageRelationalModel
     });
 
     return MessageCollection;

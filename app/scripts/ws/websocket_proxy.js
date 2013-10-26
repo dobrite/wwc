@@ -49,7 +49,6 @@ function (Centrifuge, Backbone, _, $) {
             this.subscription = this.centrifuge.subscribe(endpoint);
             _.extend(this.subscription, Backbone.Events);
             this.subscription.on('all', this.onEvent);
-            console.log(this.subscription);
         },
 
         unsubscribe: function () {
@@ -61,24 +60,16 @@ function (Centrifuge, Backbone, _, $) {
             this.subscription.publish(data);
         },
 
-        presence: function () {
-            var defer = $.Deferred();
-
+        presence: function (func) {
             this.subscription.presence(function (data) {
-                defer.resolve(data);
+                func(data[0]); //rec an array of one
             });
-
-            return defer.promise();
         },
 
-        history: function () {
-            var defer = $.Deferred();
-
+        history: function (func) {
             this.subscription.history(function (data) {
-                defer.resolve(data);
+                func(data[0]); //rec an array of one
             });
-
-            return defer.promise();
         },
 
     });

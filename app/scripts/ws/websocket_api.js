@@ -15,6 +15,7 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.command.setHandler("ws:subscribe", function (channel) {
+        console.log(channel);
         ws.subscribe(channel);
     });
 
@@ -22,12 +23,12 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         ws.publish(message);
     });
 
-    communicator.reqres.setHandler("ws:presence", function () {
-        return ws.presence();
+    communicator.command.setHandler("ws:presence", function (func) {
+        ws.presence(func);
     });
 
-    communicator.reqres.setHandler("ws:history", function () {
-        return ws.history();
+    communicator.command.setHandler("ws:history", function (func) {
+        ws.history(func);
     });
 
     return ;

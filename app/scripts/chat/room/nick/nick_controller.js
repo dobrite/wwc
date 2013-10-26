@@ -2,7 +2,6 @@ define([
     "backbone",
     "scripts/communicator",
     "scripts/chat/room/nick/nick_collection_view",
-    "scripts/entities/user_entities",
 ],
 function (Backbone, communicator, NickCollectionView) {
 
@@ -12,11 +11,11 @@ function (Backbone, communicator, NickCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var users = communicator.reqres.request("entities:users:get");
+            //var users = communicator.reqres.request("entities:users:get");
 
-            this.nickCollectionView = new NickCollectionView({
-                collection: users
-            });
+            //this.nickCollectionView = new NickCollectionView({
+            //    collection: users
+            //});
         },
 
         showNicks: function () {

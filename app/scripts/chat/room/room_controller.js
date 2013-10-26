@@ -14,7 +14,7 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
             console.log("initializing a new RoomController");
 
             options = options || (options = {});
-            this.room = options.room;
+            this.roomModel = options.roomModel;
             this.region = options.region;
 
             this.roomLayout = new RoomLayout();
@@ -27,8 +27,6 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
                 region: this.roomLayout.messageRegion
             });
 
-            communicator.command.execute("ws:subscribe", {channel: this.room.get('name')});
-
         },
 
         showRoom: function () {
@@ -36,17 +34,6 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
             this.region.show(this.roomLayout);
             this.messageController.showMessages();
             this.nickController.showNicks();
-            var presence_promise = communicator.reqres.request("ws:presence", function () {});
-
-            $.when(presence_promise).done(function (data) {
-                console.log(data);
-            });
-
-            var history_promise = communicator.reqres.request("ws:history");
-
-            $.when(history_promise).done(function (data) {
-                console.log(data);
-            });
 
         },
 

@@ -24,6 +24,7 @@ function (Backbone, communicator, regionManager, WebsocketProxy, mainTemplate) {
             "scripts/ws/websocket_api",
             "scripts/chat/chat_app",
             "scripts/login/login_app",
+            "scripts/entities/room_entities",
         ],
         function (config) {
             communicator.command.execute("router:history:start");

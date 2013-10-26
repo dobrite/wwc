@@ -37,7 +37,6 @@ function (
         region: chatLayout.inputRegion
     });
 
-    //move this into room_entities and only talk to it via communiactor
     var roomControllers = {};
 
     var API = {
@@ -46,9 +45,11 @@ function (
             /* called to create a room
              */
 
+            var roomRelationalModel = communicator.reqres.request('entities:room:add', room);
+
             roomControllers[room] = new RoomController({
                 region: chatLayout.roomRegion,
-                room: new RoomRelationalModel({name: room}),
+                roomModel: roomRelationalModel,
             });
 
         },
@@ -93,6 +94,7 @@ function (
         });
     });
 
+    //TODO can I replace this with a communicator method? 'start' or w/e
     app.addInitializer(function(){
         console.log("chat_app initialize");
 
