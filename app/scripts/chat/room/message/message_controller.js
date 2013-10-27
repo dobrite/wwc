@@ -16,12 +16,6 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             this.messageCollectionView = new MessageCollectionView({
                 collection: this.messages
             });
-
-            communicator.vent.on("ws:message", function (message) {
-                console.log(message);
-                //var nick = this.self.get('nick');
-                //messages.add({nick: nick, text: message[0].data});
-            }, this);
         },
 
         showMessages: function () {

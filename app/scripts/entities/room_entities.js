@@ -42,27 +42,18 @@ function ($, Backbone, _, communicator, RoomRelationalModel, RoomCollection) {
 
             return roomRelationalModel;
         },
-        //getUsers: function () {
-        //    //TODO replace with server lookup
-        //    //and remove "module" scope users var
-        //    return users;
-        //},
-        //addUser: function (user) {
-        //    users.add(user);
-        //},
-        //getSelf: function () {
-        //    //only one
-        //    return users.where({self: true})[0];
-        //}
+        addMessage: function (message) {
+            roomRelationalModel.get('messages').add(message);
+        },
     };
 
     communicator.reqres.setHandler("entities:room:add", function (room) {
         return API.roomAdd(room);
     });
 
-    //communicator.reqres.setHandler("entities:user:self", function () {
-    //    return API.getSelf();
-    //});
+    communicator.vent.on("ws:message", function (message) {
+        API.addMessage(message);
+    });
 
     //communicator.command.setHandler("entities:user:add", function (user) {
     //    API.addUser(user);

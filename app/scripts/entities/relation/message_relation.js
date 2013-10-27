@@ -19,13 +19,14 @@ function (Backbone, moment, UserRelationalModel) {
 
         initialize: function(data, options) {
             this.set("id", data.uid);
-            //this.set("user_id", data.client_id);
+            this.set("text", data.data);
+            this.set("user_id", data.client_id);
         },
 
-        defaults: {
-            //ts: moment().format("HH:mm"),
-            //nick: '',
-            //text: '',
+        defaults: function () {
+            this.set('ts', moment().format("HH:mm:ss"));
+            this.set('nick', '');
+            this.set('text', '');
         },
 
     });
