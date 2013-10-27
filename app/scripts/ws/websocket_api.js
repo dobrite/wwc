@@ -15,7 +15,6 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.command.setHandler("ws:subscribe", function (channel) {
-        console.log(channel);
         ws.subscribe(channel);
     });
 

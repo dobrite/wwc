@@ -11,14 +11,11 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
         initialize: function (options) {
             options = options || (options = {});
             this.region = options.region;
-
-            var messages = new MessageCollection();
+            this.messages = options.messages;
 
             this.messageCollectionView = new MessageCollectionView({
-                collection: messages
+                collection: this.messages
             });
-
-            //this.self = communicator.reqres.request("entities:user:self");
 
             communicator.vent.on("ws:message", function (message) {
                 console.log(message);

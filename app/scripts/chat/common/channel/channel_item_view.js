@@ -8,7 +8,6 @@ function (Backbone, ChannelTemplate) {
         tagName: "li",
 
         initialize: function() {
-            console.log("initialize a ChannelItemView");
         },
 
         template: {

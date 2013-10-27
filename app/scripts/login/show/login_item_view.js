@@ -28,7 +28,6 @@ function(Backbone, LoginViewTemplate) {
         onRender: function () {},
 
         onClose: function () {
-            console.log("loginview close");
         },
 
         onSubmit: function () {

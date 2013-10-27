@@ -5,7 +5,7 @@ define([
     'scripts/entities/relation/message_relation',
     'scripts/entities/collection/message_collection',
 ],
-function (Backbone, UserRelationalModel, UserCollection, MessageModel, MessageCollection) {
+function (Backbone, UserRelationalModel, UserCollection, MessageRelationalModel, MessageCollection) {
 
     var RoomRelationalModel = Backbone.RelationalModel.extend({
 
@@ -20,7 +20,7 @@ function (Backbone, UserRelationalModel, UserCollection, MessageModel, MessageCo
         },{
             type: Backbone.HasMany,
             key: 'messages',
-            relatedModel: MessageModel,
+            relatedModel: MessageRelationalModel,
             collectionType: MessageCollection,
             reverseRelation: {
                 key: 'inRoom',

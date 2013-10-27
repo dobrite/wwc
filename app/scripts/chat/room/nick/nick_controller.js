@@ -12,17 +12,12 @@ function (Backbone, communicator, NickCollectionView) {
             this.region = options.region;
             this.nicks = options.nicks;
 
-            this.nicks.on("all", function (event) {
-                console.log(event);
-            });
-
             this.nickCollectionView = new NickCollectionView({
                 collection: this.nicks,
             });
         },
 
         showNicks: function () {
-            console.log("showing nicks");
             this.region.show(this.nickCollectionView);
         },
 

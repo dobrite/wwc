@@ -8,7 +8,6 @@ function (Backbone, NickTemplate) {
         tagName: "p",
 
         initialize: function() {
-            console.log("initialize a NickItemView");
         },
 
         template: {

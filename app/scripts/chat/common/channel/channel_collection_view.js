@@ -11,8 +11,6 @@ function (Backbone, ChannelItemView) {
         className: "nav nav-tabs",
 
         initialize: function() {
-            console.log("initialize a ChannelCollectionView");
-
             this.on("itemview:change", this.onTabChange);
         },
 
@@ -24,6 +22,11 @@ function (Backbone, ChannelItemView) {
 
         onTabChange: function (view) {
             //TODO don't do this if tab clicked is already active tab
+            this.$el.children().removeClass("active");
+            view.$el.addClass("active");
+        },
+
+        onAfterItemAdded: function(view){
             this.$el.children().removeClass("active");
             view.$el.addClass("active");
         },

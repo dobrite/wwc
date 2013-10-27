@@ -59,7 +59,6 @@ function (
              * i.e. to switch between rooms
              */
 
-            console.log("showing room: " + room);
             roomControllers[room].showRoom();
 
         },
@@ -69,7 +68,6 @@ function (
              * input, channel, and room
              */
 
-            console.log("showing chat");
             regionManager.getRegion('mainPane').show(chatLayout);
             channelController.showChannels();
             inputController.showInput();
@@ -89,6 +87,7 @@ function (
         communicator.command.execute("ws:connect");
         communicator.vent.on("ws:connect", function () {
             API.createChatRoom(room);
+            communicator.vent.trigger("chat:create:room", room);
             API.showChat();
             communicator.vent.trigger("chat:show:room", room);
         });

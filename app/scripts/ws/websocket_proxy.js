@@ -62,12 +62,14 @@ function (Centrifuge, Backbone, _, $) {
 
         presence: function (func) {
             this.subscription.presence(function (data) {
+                console.log(data);
                 func(data[0].data); //rec an array of one
             });
         },
 
         history: function (func) {
             this.subscription.history(function (data) {
+                console.log(data);
                 func(data[0].data); //rec an array of one
             });
         },
