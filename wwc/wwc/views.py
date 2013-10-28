@@ -28,10 +28,15 @@ _index_response = Response(content_type='text/html', body=_index)
 
 @view_config(route_name='index')
 def index_view(request):
+    #TODO once we get users into the DB remove all cookie info and inject
+    #directly into template
+    #json dumps is encoded to utf-8 by webob. centrifuge doesn't so
+    #we get token mismatch
     if 'wwc.token' in request.cookies:
         username = request.cookies.get('wwc.username', '')
         project_id  = request.cookies.get('wwc.project_id', '')
         secret_key = request.registry.settings['centrifuge.secret']
+        #TODO move username to info and use user id
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
             return _index_response

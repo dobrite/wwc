@@ -8,7 +8,7 @@ function (Backbone) {
 
         initialize: function(data, options) {
             this.set("nick", data.user_id);
-            this.set("id", data.client_id);
+            this.set("id", data.user_id);
         },
 
         defaults: {

@@ -1,3 +1,13 @@
+#message-pane {
+  height: 660px;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+#nick-pane {
+  padding: 20px;
+}
+
 .nav.nav-tabs {
   margin-top: 20px;
 }

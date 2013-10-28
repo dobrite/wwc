@@ -13,14 +13,16 @@ function (Backbone, moment, UserRelationalModel) {
         //    relatedModel: UserRelationalModel,
         //    reverseRelation: {
         //        type: Backbone.HasMany,
-        //        key: 'messages'
+        //        key: 'messages',
+        //        includeInJSON: 'user_id',
         //    }
         //}],
 
         initialize: function(data, options) {
             this.set("id", data.uid);
             this.set("text", data.data);
-            this.set("user_id", data.client_id);
+            this.set("user_id", data.client.user_id);
+            this.set("user", data.client);
         },
 
         defaults: function () {

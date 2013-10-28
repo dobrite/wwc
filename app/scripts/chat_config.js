@@ -1,6 +1,7 @@
 define([
 ],
 function () {
+    //TODO refactor
     var getProjectId = function () {
         return document.cookie.replace(/(?:(?:^|.*;\s*)wwc.project_id\s*\=\s*([^;]*).*$)|^.*$/, "$1");
     };
