@@ -30,7 +30,8 @@
     "express": "~3.2.6",
     "sinon": "~1.7.1",
     "sinon-chai": "~2.4.0",
-    "squirejs": "~0.1.0"
+    "squirejs": "~0.1.0",
+    "requirejs": "~2.1.9"
   },
   "author": "Dave O"
 }
