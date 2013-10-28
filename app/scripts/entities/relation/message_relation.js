@@ -7,15 +7,15 @@ function (Backbone, moment, UserRelationalModel) {
 
     return Backbone.RelationalModel.extend({
 
-        relations: [{
-            type: Backbone.HasOne,
-            key: 'user',
-            relatedModel: UserRelationalModel,
-            reverseRelation: {
-                type: Backbone.HasMany,
-                key: 'messages'
-            }
-        }],
+        //relations: [{
+        //    type: Backbone.HasOne,
+        //    key: 'user',
+        //    relatedModel: UserRelationalModel,
+        //    reverseRelation: {
+        //        type: Backbone.HasMany,
+        //        key: 'messages'
+        //    }
+        //}],
 
         initialize: function(data, options) {
             this.set("id", data.uid);
