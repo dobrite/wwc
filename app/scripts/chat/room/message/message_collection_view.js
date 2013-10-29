@@ -12,17 +12,17 @@ function (Backbone, MessageItemView) {
 
         itemView: MessageItemView,
 
-        /* ui selector cache */
         ui: {},
 
-        /* Ui events hash */
         events: {},
 
         collectionEvents: {
         },
 
         /* on render callback */
-        onRender: function() {}
+        onRender: function() {
+            console.log("rendering");
+        }
     });
 
     return MessageCollectionView;

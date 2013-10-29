@@ -1,49 +1,54 @@
 define([
-    "jquery",
     "backbone",
     "underscore",
     "scripts/communicator",
-    'scripts/entities/relation/room_relation',
+    'scripts/entities/model/room_model',
     "scripts/entities/collection/room_collection",
+    "scripts/entities/collection/user_collection",
+    "scripts/entities/collection/message_collection",
 ],
-function ($, Backbone, _, communicator, RoomRelationalModel, RoomCollection) {
+function (
+    Backbone,
+    _,
+    communicator,
+    RoomModel,
+    RoomCollection,
+    UserCollection,
+    MessageCollection
+) {
 
     var roomCollection = new RoomCollection();
 
     var API = {
         roomAdd: function (room) {
-            roomRelationalModel = new RoomRelationalModel({id: room});
-            roomCollection.add(roomRelationalModel);
+            roomModel = new RoomModel({
+                id: room,
+                users: new UserCollection(),
+                messages: new MessageCollection(),
+            });
+            roomCollection.add(roomModel);
 
             communicator.command.execute("ws:subscribe", {channel: room});
-            communicator.vent.on("ws:subscribe:success", function () {
-                presence_defer = $.Deferred();
+            communicator.vent.on("ws:subscribe:success", function (subscribe) {
+                if(subscribe.params.channel === room){
 
-                communicator.command.execute("ws:presence", function (data) {
-                    roomRelationalModel.get('users').add(_.values(data));
-                    presence_defer.resolve(data);
-                });
-
-                history_defer = $.Deferred();
-
-                communicator.command.execute("ws:history", function (data) {
-                    roomRelationalModel.get('messages').add(_.values(data));
-                    history_defer.resolve(data);
-                });
-
-                //TODO listen for an add on messages and at that time add a user model
-                $.when(presence_defer, history_defer).done(function (presence, history) {
-                    _.each(roomRelationalModel.get('messages'), function (elem, index, list) {
-                        //no elem available
-                        var client_id = list.models[index].get('client_id');
+                    communicator.command.execute("ws:presence", function (presence) {
+                        roomModel.get('users').add(_.values(presence));
                     });
-                });
+
+
+                    communicator.command.execute("ws:history", function (history) {
+                        roomModel.get('messages').add(_.values(history));
+                    });
+
+                }
+
             });
 
-            return roomRelationalModel;
+            return roomModel;
         },
         addMessage: function (message) {
-            roomRelationalModel.get('messages').add(message);
+            roomModel.get('messages').add(message);
         },
     };
 

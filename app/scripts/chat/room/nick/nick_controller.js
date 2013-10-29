@@ -18,6 +18,7 @@ function (Backbone, communicator, NickCollectionView) {
         },
 
         showNicks: function () {
+            this.region.reset();
             this.region.show(this.nickCollectionView);
         },
 

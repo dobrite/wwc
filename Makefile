@@ -18,3 +18,6 @@ ws:
 
 shell:
 	bin/pshell -p bpython wwc/development.ini
+
+build:
+	node node_modules/requirejs/bin/r.js -o build.js

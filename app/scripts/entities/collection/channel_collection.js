@@ -9,8 +9,6 @@ function (Backbone, Communicator, ChannelModel) {
         model: ChannelModel
     });
 
-    //Communicator.vent.on('ws:');
-
     return ChannelCollection;
 
 });

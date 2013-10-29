@@ -5,7 +5,7 @@ define([
     'jquery',
     'sockjs-client'
 ],
-function (Centrifuge, Backbone, _, $) {
+function (Centrifuge, Backbone, _, $, B) {
 
     var WebsocketProxy = Backbone.Marionette.Controller.extend({
 
@@ -31,7 +31,7 @@ function (Centrifuge, Backbone, _, $) {
         },
 
         onEvent: function (event, params) {
-            this.communicator.vent.trigger('ws:' + event, params);
+            this.communicator.vent.trigger('ws:' + event, params[0]);
         },
 
         disconnect: function () {

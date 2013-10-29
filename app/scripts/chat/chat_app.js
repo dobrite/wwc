@@ -6,7 +6,7 @@ define([
     "scripts/chat/common/channel/channel_controller",
     "scripts/chat/common/input/input_controller",
     "scripts/chat/room/room_controller",
-    "scripts/entities/relation/room_relation",
+    "scripts/entities/model/room_model",
     "scripts/region_manager",
 ],
 function (
@@ -17,13 +17,13 @@ function (
     ChannelController,
     InputController,
     RoomController,
-    RoomRelationalModel,
+    RoomModel,
     regionManager
 ) {
 
     var ChatRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
-            "room/:room" : "showChat"
+            "room/:room" : "showChatRoom"
         }
     });
 
@@ -39,25 +39,32 @@ function (
 
     var roomControllers = {};
 
+    var createChatRoom = function (room) {
+
+        /* called to create a room
+        */
+
+        var roomModel = communicator.reqres.request('entities:room:add', room);
+
+        roomControllers[room] = new RoomController({
+            region: chatLayout.roomRegion,
+            roomModel: roomModel,
+        });
+
+        communicator.vent.trigger("chat:create:room", room);
+
+    };
+
     var API = {
-        createChatRoom: function (room) {
-
-            /* called to create a room
-             */
-
-            var roomRelationalModel = communicator.reqres.request('entities:room:add', room);
-
-            roomControllers[room] = new RoomController({
-                region: chatLayout.roomRegion,
-                roomModel: roomRelationalModel,
-            });
-
-        },
         showChatRoom: function (room) {
 
             /* called to show a specific room
              * i.e. to switch between rooms
              */
+
+            if(!roomControllers.hasOwnProperty(room)){
+                createChatRoom(room);
+            }
 
             roomControllers[room].showRoom();
 
@@ -86,8 +93,6 @@ function (
     communicator.vent.on("login:submit", function (room) {
         communicator.command.execute("ws:connect");
         communicator.vent.on("ws:connect", function () {
-            API.createChatRoom(room);
-            communicator.vent.trigger("chat:create:room", room);
             API.showChat();
             communicator.vent.trigger("chat:show:room", room);
         });

@@ -25,6 +25,7 @@ develop-eggs
 *.swm
 *.swl
 *.swk
+
 *.bak
 
 pyvenv.cfg
@@ -81,3 +82,6 @@ npm-debug.log
 centrifuge.db
 config.json
 .centrc
+
+#build files
+*.built.js

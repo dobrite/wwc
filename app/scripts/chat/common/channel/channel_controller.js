@@ -16,15 +16,18 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
                 collection: new ChannelCollection()
             });
 
+            //TODO shouldn't we just listen for room collection add events?
             communicator.vent.on("chat:create:room", function (room) {
                 this.channelCollectionView.collection.add({channel: room});
             }, this);
+
+            this.listenTo(this.channelCollectionView, 'itemview:change', function (event, view) {
+                communicator.vent.trigger('chat:show:room', view.model.get('channel'));
+            });
         },
 
         showChannels: function () {
             this.region.show(this.channelCollectionView);
-            //move somewhere else
-            //this.channelCollectionView.collection.add({channel: room});
         },
 
         onClose: function () {

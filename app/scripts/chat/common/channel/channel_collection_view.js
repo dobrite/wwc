@@ -22,11 +22,15 @@ function (Backbone, ChannelItemView) {
 
         onTabChange: function (view) {
             //TODO don't do this if tab clicked is already active tab
+            //TODO refactor duplicate function
+            //TODO refactor duplicate comment
             this.$el.children().removeClass("active");
             view.$el.addClass("active");
         },
 
         onAfterItemAdded: function(view){
+            //TODO refactor duplicate function
+            //TODO refactor duplicate comment
             this.$el.children().removeClass("active");
             view.$el.addClass("active");
         },

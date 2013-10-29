@@ -19,10 +19,12 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
         },
 
         showMessages: function () {
+            this.region.reset();
             this.region.show(this.messageCollectionView);
         },
 
         onClose: function () {
+            console.log("close");
         },
 
     });

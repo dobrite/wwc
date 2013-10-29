@@ -2,9 +2,8 @@ define([
     'backbone'
 ],
 function (Backbone) {
-    //TODO could use subModelTypes for Admin, etc.
 
-    var UserModel = Backbone.RelationalModel.extend({
+    var UserModel = Backbone.Model.extend({
 
         initialize: function(data, options) {
             this.set("nick", data.user_id);
