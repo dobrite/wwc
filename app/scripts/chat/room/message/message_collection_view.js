@@ -19,9 +19,7 @@ function (Backbone, MessageItemView) {
         collectionEvents: {
         },
 
-        /* on render callback */
         onRender: function() {
-            console.log("rendering");
         }
     });
 

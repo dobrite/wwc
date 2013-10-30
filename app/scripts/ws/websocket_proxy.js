@@ -14,6 +14,7 @@ function (Centrifuge, Backbone, _, $, B) {
             this.namespace = options.namespace;
             this.communicator = options.communicator;
             this.centrifuge = new Centrifuge();
+            this.subscription = {};
 
             _.extend(this.centrifuge, Backbone.Events);
             _.bindAll(this, 'onEvent');
@@ -46,30 +47,44 @@ function (Centrifuge, Backbone, _, $, B) {
             var channel = options.channel;
             var endpoint = namespace + ":" + channel;
 
-            this.subscription = this.centrifuge.subscribe(endpoint);
-            _.extend(this.subscription, Backbone.Events);
-            this.subscription.on('all', this.onEvent);
+            this.subscription[endpoint] = this.centrifuge.subscribe(endpoint);
+            _.extend(this.subscription[endpoint], Backbone.Events);
+            this.subscription[endpoint].on('all', this.onEvent);
         },
 
         unsubscribe: function () {
-            this.subscription.unsubscribe();
-            this.subscription.off('all');
+            //TODO does this work? we need to pass this in
+            var namespace = options.namespace || this.namespace;
+            var channel = options.channel;
+            var endpoint = namespace + ":" + channel;
+
+            this.subscription[endpoint].unsubscribe();
+            this.subscription[endpoint].off('all');
         },
 
-        publish: function (data) {
-            this.subscription.publish(data);
+        publish: function (options) {
+            //TODO refactor all these
+            var namespace = options.namespace || this.namespace;
+            var channel = options.channel;
+            var endpoint = namespace + ":" + channel;
+
+            this.subscription[endpoint].publish(options.message);
         },
 
-        presence: function (func) {
-            this.subscription.presence(function (data) {
-                console.log(data);
+        presence: function (channel, func) {
+            //TODO refactor all these
+            var endpoint = this.namespace + ":" + channel;
+
+            this.subscription[endpoint].presence(function (data) {
                 func(data[0].data); //rec an array of one
             });
         },
 
-        history: function (func) {
-            this.subscription.history(function (data) {
-                console.log(data);
+        history: function (channel, func) {
+            //TODO refactor all these
+            var endpoint = this.namespace + ":" + channel;
+
+            this.subscription[endpoint].history(function (data) {
                 func(data[0].data); //rec an array of one
             });
         },

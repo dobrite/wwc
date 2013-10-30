@@ -68,6 +68,8 @@ function (
 
             roomControllers[room].showRoom();
 
+            communicator.vent.trigger("chat:show:room", room);
+
         },
         showChat: function () {
 
@@ -78,10 +80,11 @@ function (
             regionManager.getRegion('mainPane').show(chatLayout);
             channelController.showChannels();
             inputController.showInput();
+
         },
     };
 
-    communicator.vent.on("chat:show:room", function (room) {
+    communicator.command.setHandler("chat:show:room", function (room) {
         communicator.command.execute("router:navigate", "room/" + room, {});
         API.showChatRoom(room);
     });
@@ -93,8 +96,9 @@ function (
     communicator.vent.on("login:submit", function (room) {
         communicator.command.execute("ws:connect");
         communicator.vent.on("ws:connect", function () {
+            communicator.command.execute("router:navigate", "room/" + room, {});
             API.showChat();
-            communicator.vent.trigger("chat:show:room", room);
+            API.showChatRoom(room);
         });
     });
 

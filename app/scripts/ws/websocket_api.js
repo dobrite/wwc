@@ -22,12 +22,12 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         ws.publish(message);
     });
 
-    communicator.command.setHandler("ws:presence", function (func) {
-        ws.presence(func);
+    communicator.command.setHandler("ws:presence", function (room, func) {
+        ws.presence(room, func);
     });
 
-    communicator.command.setHandler("ws:history", function (func) {
-        ws.history(func);
+    communicator.command.setHandler("ws:history", function (room, func) {
+        ws.history(room, func);
     });
 
     return ;

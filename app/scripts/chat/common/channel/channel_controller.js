@@ -22,7 +22,7 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             }, this);
 
             this.listenTo(this.channelCollectionView, 'itemview:change', function (event, view) {
-                communicator.vent.trigger('chat:show:room', view.model.get('channel'));
+                communicator.command.execute('chat:show:room', view.model.get('channel'));
             });
         },
 

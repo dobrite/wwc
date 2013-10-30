@@ -16,6 +16,7 @@ function (Backbone, communicator, InputItemView) {
 
             //maybe a triggerMethod?
             this.listenTo(communicator.vent, "chat:input:message", this.publishMessage);
+            this.listenTo(communicator.vent, "chat:show:room", this.currentRoom);
         },
 
         showInput: function () {
@@ -23,7 +24,14 @@ function (Backbone, communicator, InputItemView) {
         },
 
         publishMessage: function (message) {
-            communicator.command.execute("ws:publish", message);
+            communicator.command.execute("ws:publish", {
+                channel: this.currentRoom,
+                message: message,
+            });
+        },
+
+        currentRoom: function (room) {
+            this.currentRoom = room;
         },
 
         onClose: function () {

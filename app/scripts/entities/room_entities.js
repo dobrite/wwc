@@ -32,12 +32,12 @@ function (
             communicator.vent.on("ws:subscribe:success", function (subscribe) {
                 if(subscribe.params.channel === room){
 
-                    communicator.command.execute("ws:presence", function (presence) {
+                    communicator.command.execute("ws:presence", room, function (presence) {
                         roomModel.get('users').add(_.values(presence));
                     });
 
 
-                    communicator.command.execute("ws:history", function (history) {
+                    communicator.command.execute("ws:history", room, function (history) {
                         roomModel.get('messages').add(_.values(history));
                     });
 
@@ -48,7 +48,7 @@ function (
             return roomModel;
         },
         addMessage: function (message) {
-            roomModel.get('messages').add(message);
+            roomCollection.findWhere({id: message.channel}).get('messages').add(message);
         },
     };
 

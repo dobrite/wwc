@@ -42,7 +42,6 @@ function (WebsocketProxy) {
 
         it('initialize should take options', function () {
             var options = {test: true};
-            console.log(options);
             var websocketProxy = new WebsocketProxy(options);
             expect(websocketProxy.options).to.be.equal(options);
         });
