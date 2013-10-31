@@ -74,13 +74,14 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.vent.on("ws:join", function (message) {
+        var id = message.data.client_id;
         var channel = message.channel;
         var nick = message.data.user_id;
         var type = message.message_type;
         var text = nick + " has joined " + channel + ".";
 
         var normalized = {
-            //id: id, //doesn't exist
+            id: id, //id of joining user
             channel: channel,
             nick: nick,
             type: type,
@@ -91,13 +92,14 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.vent.on("ws:leave", function (message) {
+        var id = message.data.client_id;
         var channel = message.channel;
         var nick = message.data.user_id;
         var type = message.message_type;
         var text = nick + " has left " + channel + ".";
 
         var normalized = {
-            //id: id, //doesn't exist
+            id: id, //id of leaving user
             channel: channel,
             nick: nick,
             type: type,

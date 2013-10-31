@@ -18,10 +18,7 @@ function (Backbone, communicator, UserModel) {
             this.listenTo(
                 communicator.vent,
                 this.channel + ":join",
-                function (message) {
-                    var added = {nick: message.nick};
-                    this.add(added);
-                }
+                this.add
             );
 
             this.listenTo(
