@@ -7,8 +7,7 @@ function (Backbone, NickTemplate) {
     var NickItemView = Backbone.Marionette.ItemView.extend({
         tagName: "p",
 
-        initialize: function() {
-        },
+        initialize: function() {},
 
         template: {
             type: 'handlebars',

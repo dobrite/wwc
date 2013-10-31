@@ -6,14 +6,11 @@ function (Backbone) {
     var UserModel = Backbone.Model.extend({
 
         initialize: function(data, options) {
-            this.set("nick", data.user_id);
-            this.set("id", data.user_id);
+            this.set("nick", data.nick);
         },
 
         defaults: {
             nick: 'Guest-' + Math.floor((Math.random()*9999)+1),
-            id: '',
-            //self: false,
         },
 
     });

@@ -32,8 +32,18 @@ function (Centrifuge, Backbone, _, $, B) {
         },
 
         onEvent: function (event, params) {
+            console.log(event);
+            console.log(params);
             this.communicator.vent.trigger('ws:' + event, params[0]);
         },
+
+        //TODO maybe this is a good idea?
+        //onSubEvent: function (event, params) {
+        //    console.log("SUB");
+        //    console.log(event);
+        //    console.log(params);
+        //    this.communicator.vent.trigger('ws:' + event, params[0]);
+        //},
 
         disconnect: function () {
             this.centrifuge.disconnect();

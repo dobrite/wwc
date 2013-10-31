@@ -3,7 +3,7 @@ define([
     'scripts/communicator',
     'scripts/entities/model/user_model',
 ],
-function (Backbone, Communicator, UserModel) {
+function (Backbone, communicator, UserModel) {
 
     var UserCollection =  Backbone.Collection.extend({
         model: UserModel

@@ -8,13 +8,16 @@ function (Backbone, communicator, NickCollectionView) {
     var NickController = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
+
             options = options || (options = {});
+            this.channel = options.channel;
             this.region = options.region;
             this.nicks = options.nicks;
 
             this.nickCollectionView = new NickCollectionView({
                 collection: this.nicks,
             });
+
         },
 
         showNicks: function () {
@@ -22,8 +25,7 @@ function (Backbone, communicator, NickCollectionView) {
             this.region.show(this.nickCollectionView);
         },
 
-        onClose: function () {
-        },
+        onClose: function () {},
 
     });
 

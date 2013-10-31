@@ -5,6 +5,7 @@ define([
     'scripts/entities/model/room_model',
     "scripts/entities/collection/room_collection",
     "scripts/entities/collection/user_collection",
+    "scripts/entities/model/message_model",
     "scripts/entities/collection/message_collection",
 ],
 function (
@@ -14,6 +15,7 @@ function (
     RoomModel,
     RoomCollection,
     UserCollection,
+    MessageModel,
     MessageCollection
 ) {
 
@@ -22,48 +24,79 @@ function (
     var API = {
         roomAdd: function (room) {
             roomModel = new RoomModel({
-                id: room,
+                channel: room,
                 users: new UserCollection(),
                 messages: new MessageCollection(),
             });
-            roomCollection.add(roomModel);
 
-            communicator.command.execute("ws:subscribe", {channel: room});
-            communicator.vent.on("ws:subscribe:success", function (subscribe) {
-                if(subscribe.params.channel === room){
-
-                    communicator.command.execute("ws:presence", room, function (presence) {
-                        roomModel.get('users').add(_.values(presence));
-                    });
-
-
-                    communicator.command.execute("ws:history", room, function (history) {
-                        roomModel.get('messages').add(_.values(history));
-                    });
-
+            //TODO all these need to be moved
+            roomModel.get('users').listenToOnce(
+                communicator.vent,
+                room + ":presence",
+                function (users) {
+                    roomModel.get('users').add(users);
                 }
+            );
 
-            });
+            roomModel.get('users').listenTo(
+                communicator.vent,
+                room + ":join",
+                function (message) {
+                    var users = roomModel.get('users');
+                    var added = {nick: message.nick};
+                    users.add(added);
+                }
+            );
+
+            roomModel.get('users').listenTo(
+                communicator.vent,
+                room + ":leave",
+                function (message) {
+                    var users = roomModel.get('users');
+                    var removed = _.findWhere({nick: message.nick});
+                    users.remove(removed);
+                }
+            );
+
+            roomModel.listenToOnce(
+                communicator.vent,
+                room + ":history",
+                function (messages) {
+                    roomModel.get('messages').add(messages);
+                }
+            );
+
+            roomModel.get('messages').listenTo(
+                communicator.vent,
+                room + ":join",
+                function (message) {
+                    roomModel.get('messages').add(message);
+                }
+            );
+
+            roomModel.get('messages').listenTo(
+                communicator.vent,
+                room + ":leave",
+                function (message) {
+                    roomModel.get('messages').add(message);
+                }
+            );
+
+            roomCollection.add(roomModel);
 
             return roomModel;
         },
         addMessage: function (message) {
             roomCollection.findWhere({id: message.channel}).get('messages').add(message);
-        },
+        }
     };
 
     communicator.reqres.setHandler("entities:room:add", function (room) {
         return API.roomAdd(room);
     });
 
-    communicator.vent.on("ws:message", function (message) {
-        API.addMessage(message);
-    });
-
-    //communicator.command.setHandler("entities:user:add", function (user) {
-    //    API.addUser(user);
-    //});
-
+    //TODO add a single domain communicator handler for message
+    //
     return ;
 
 });

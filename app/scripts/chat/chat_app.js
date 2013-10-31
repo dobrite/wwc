@@ -47,6 +47,7 @@ function (
         var roomModel = communicator.reqres.request('entities:room:add', room);
 
         roomControllers[room] = new RoomController({
+            channel: room,
             region: chatLayout.roomRegion,
             roomModel: roomModel,
         });

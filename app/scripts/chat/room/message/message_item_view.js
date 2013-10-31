@@ -1,6 +1,6 @@
 define([
     'backbone',
-    'hbs!templates/item/message_template'
+    'hbs!templates/item/message_template',
 ],
 function (Backbone, MessageTemplate) {
 

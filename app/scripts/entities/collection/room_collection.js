@@ -3,7 +3,7 @@ define([
     'scripts/communicator',
     'scripts/entities/model/room_model',
 ],
-function (Backbone, Communicator, RoomModel) {
+function (Backbone, communicator, RoomModel) {
 
     var RoomCollection =  Backbone.Collection.extend({
         model: RoomModel

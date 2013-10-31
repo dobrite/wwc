@@ -6,9 +6,7 @@ function (Backbone, MessageItemView) {
 
     var MessageCollectionView = Backbone.Marionette.CollectionView.extend({
 
-        initialize: function() {
-            console.log("initialize a MessageCollectionView");
-        },
+        initialize: function() {},
 
         itemView: MessageItemView,
 
@@ -16,11 +14,9 @@ function (Backbone, MessageItemView) {
 
         events: {},
 
-        collectionEvents: {
-        },
+        collectionEvents: {},
 
-        onRender: function() {
-        }
+        onRender: function() {}
     });
 
     return MessageCollectionView;

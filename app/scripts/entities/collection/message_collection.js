@@ -3,7 +3,7 @@ define([
     'scripts/communicator',
     'scripts/entities/model/message_model',
 ],
-function (Backbone, Communicator, MessageModel) {
+function (Backbone, communicator, MessageModel) {
 
     var MessageCollection =  Backbone.Collection.extend({
         model: MessageModel

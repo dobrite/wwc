@@ -4,7 +4,7 @@ define([
     'scripts/region_manager',
     'hbs!templates/chat_template',
 ],
-function (Backbone, Communicator, RegionManager, ChatTemplate) {
+function (Backbone, communicator, RegionManager, ChatTemplate) {
 
     return Backbone.Marionette.Layout.extend({
 

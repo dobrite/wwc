@@ -11,23 +11,27 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
     var RoomController = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
-            console.log("initializing a new RoomController");
 
             options = options || (options = {});
+            this.channel = options.channel;
             this.roomModel = options.roomModel;
             this.region = options.region;
 
             this.roomLayout = new RoomLayout();
 
             this.nickController = new NickController({
+                channel: this.channel,
                 region: this.roomLayout.nickRegion,
                 nicks: this.roomModel.get('users'),
             });
 
             this.messageController = new MessageController({
+                channel: this.channel,
                 region: this.roomLayout.messageRegion,
                 messages: this.roomModel.get('messages'),
             });
+
+            communicator.command.execute("ws:subscribe", {channel: this.channel});
 
         },
 

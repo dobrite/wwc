@@ -63,6 +63,7 @@ require.config({
         i18nprecompile: 'bower_components/require-handlebars-plugin/hbs/i18nprecompile',
         json2: 'bower_components/require-handlebars-plugin/hbs/json2',
         hbs: 'bower_components/require-handlebars-plugin/hbs',
+        'handlebars-helpers': 'bower_components/handlebars-helpers/helpers',
 
         'marionette.handlebars': 'bower_components/backbone.marionette.handlebars/backbone.marionette.handlebars'
     },
