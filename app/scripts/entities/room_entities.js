@@ -25,62 +25,9 @@ function (
         roomAdd: function (room) {
             roomModel = new RoomModel({
                 channel: room,
-                users: new UserCollection(),
-                messages: new MessageCollection(),
+                users: new UserCollection([], {channel: room}),
+                messages: new MessageCollection([], {channel: room }),
             });
-
-            //TODO all these need to be moved
-            roomModel.get('users').listenToOnce(
-                communicator.vent,
-                room + ":presence",
-                function (users) {
-                    roomModel.get('users').add(users);
-                }
-            );
-
-            roomModel.get('users').listenTo(
-                communicator.vent,
-                room + ":join",
-                function (message) {
-                    var users = roomModel.get('users');
-                    var added = {nick: message.nick};
-                    users.add(added);
-                }
-            );
-
-            roomModel.get('users').listenTo(
-                communicator.vent,
-                room + ":leave",
-                function (message) {
-                    var users = roomModel.get('users');
-                    var removed = _.findWhere({nick: message.nick});
-                    users.remove(removed);
-                }
-            );
-
-            roomModel.listenToOnce(
-                communicator.vent,
-                room + ":history",
-                function (messages) {
-                    roomModel.get('messages').add(messages);
-                }
-            );
-
-            roomModel.get('messages').listenTo(
-                communicator.vent,
-                room + ":join",
-                function (message) {
-                    roomModel.get('messages').add(message);
-                }
-            );
-
-            roomModel.get('messages').listenTo(
-                communicator.vent,
-                room + ":leave",
-                function (message) {
-                    roomModel.get('messages').add(message);
-                }
-            );
 
             roomCollection.add(roomModel);
 

@@ -6,7 +6,36 @@ define([
 function (Backbone, communicator, UserModel) {
 
     var UserCollection =  Backbone.Collection.extend({
-        model: UserModel
+        initialize: function (models, options) {
+            this.channel = options.channel;
+
+            this.listenToOnce(
+                communicator.vent,
+                this.channel + ":presence",
+                this.add
+            );
+
+            this.listenTo(
+                communicator.vent,
+                this.channel + ":join",
+                function (message) {
+                    var added = {nick: message.nick};
+                    this.add(added);
+                }
+            );
+
+            this.listenTo(
+                communicator.vent,
+                this.channel + ":leave",
+                function (message) {
+                    var removed = _.findWhere({nick: message.nick});
+                    this.remove(removed);
+                }
+            );
+
+        },
+
+        model: UserModel,
     });
 
     return UserCollection;

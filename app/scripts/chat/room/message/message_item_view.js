@@ -7,9 +7,7 @@ function (Backbone, MessageTemplate) {
     var MessageItemView = Backbone.Marionette.ItemView.extend({
         tagName: "p",
 
-        initialize: function() {
-            console.log("initialize a MessageItemView");
-        },
+        initialize: function() {},
 
         template: {
             type: 'handlebars',

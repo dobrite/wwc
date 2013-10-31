@@ -32,8 +32,6 @@ function (Centrifuge, Backbone, _, $, B) {
         },
 
         onEvent: function (event, params) {
-            console.log(event);
-            console.log(params);
             this.communicator.vent.trigger('ws:' + event, params[0]);
         },
 
