@@ -51,9 +51,7 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             this.messages.add(message);
         },
 
-        onClose: function () {
-            console.log("close");
-        },
+        onClose: function () {},
 
     });
 
