@@ -49,9 +49,12 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         communicator.vent.trigger(channel + ":subscribe");
 
         communicator.command.execute("ws:presence", channel, function (presence) {
-            var nicks = _.pluck(presence, 'user_id');
-            var users = _.map(nicks, function(nick) {
-                 return {nick: nick};
+            var values = _.values(presence);
+            var users = _.map(values, function (user) {
+                 return {
+                     id: user.client_id,
+                     nick: user.user_id,
+                 };
             });
             communicator.vent.trigger(channel + ":presence", users);
         });
@@ -77,6 +80,7 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         var text = nick + " has joined " + channel + ".";
 
         var normalized = {
+            //id: id, //doesn't exist
             channel: channel,
             nick: nick,
             type: type,
@@ -93,6 +97,7 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         var text = nick + " has left " + channel + ".";
 
         var normalized = {
+            //id: id, //doesn't exist
             channel: channel,
             nick: nick,
             type: type,
@@ -103,12 +108,14 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     var normalize = function (message) {
+        var id = message.uid;
         var channel = message.channel;
         var nick = message.client.user_id;
         var type = message.message_type;
         var text = message.data;
 
         var normalized = {
+            id: id,
             channel: channel,
             nick: nick,
             type: type,
