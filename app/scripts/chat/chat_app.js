@@ -115,10 +115,6 @@ function (
         communicator.command.execute("router:navigate", "room/" + _.last(rooms), {});
     });
 
-    communicator.vent.on("chat:show", function () {
-        //TODO show last active chatroom
-    });
-
     communicator.vent.on("login:submit", function (room) {
         communicator.command.execute("ws:connect");
         communicator.vent.on("ws:connect", function () {
