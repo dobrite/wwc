@@ -24,10 +24,11 @@ function (Backbone, communicator, UserModel) {
             this.listenTo(
                 communicator.vent,
                 this.channel + ":leave",
-                function (message) {
-                    var removed = _.findWhere({nick: message.nick});
-                    this.remove(removed);
-                }
+                //function (message) {
+                    //var removed = _.findWhere({id: message.id});
+                    //TODO does this work based on id automatically?
+                this.remove
+                //}
             );
 
         },

@@ -12,6 +12,7 @@ function (Backbone, ChannelItemView) {
 
         initialize: function() {
             this.on("itemview:change", this.onTabChange);
+            this.on("itemview:remove", this.onTabRemove);
         },
 
         itemView: ChannelItemView,
@@ -21,6 +22,7 @@ function (Backbone, ChannelItemView) {
         events: {},
 
         onTabChange: function (view) {
+            //TODO should these go in controller?
             //TODO don't do this if tab clicked is already active tab
             //TODO refactor duplicate function
             //TODO refactor duplicate comment
@@ -28,7 +30,14 @@ function (Backbone, ChannelItemView) {
             view.$el.addClass("active");
         },
 
+        onTabRemove: function (view) {
+            //TODO should these go in controller?
+            this.$el.children().removeClass("active");
+            view.$el.addClass("active");
+        },
+
         onAfterItemAdded: function(view){
+            //TODO should these go in controller?
             //TODO refactor duplicate function
             //TODO refactor duplicate comment
             this.$el.children().removeClass("active");

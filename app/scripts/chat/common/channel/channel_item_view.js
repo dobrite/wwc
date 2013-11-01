@@ -19,6 +19,7 @@ function (Backbone, ChannelTemplate) {
 
         triggers: {
             "click .js-tab": "change",
+            "click .js-remove": "remove",
         },
 
         events: {},

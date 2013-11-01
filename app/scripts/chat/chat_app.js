@@ -56,7 +56,25 @@ function (
 
     };
 
+    var destroyChatRoom = function (room) {
+
+        /* called to destroy a room
+         */
+
+        communicator.command.execute('entities:room:remove', room);
+
+        delete roomControllers[room];
+
+        console.log("deleting room");
+
+        communicator.vent.trigger("chat:destroy:room", room);
+    };
+
     var API = {
+        removeChatRoom: function (room) {
+            console.log("API chat removing room");
+            destroyChatRoom(room);
+        },
         showChatRoom: function (room) {
 
             /* called to show a specific room
@@ -88,6 +106,10 @@ function (
     communicator.command.setHandler("chat:show:room", function (room) {
         communicator.command.execute("router:navigate", "room/" + room, {});
         API.showChatRoom(room);
+    });
+
+    communicator.command.setHandler("chat:destroy:room", function (room) {
+        API.removeChatRoom(room);
     });
 
     communicator.vent.on("chat:show", function () {

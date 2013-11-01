@@ -33,6 +33,11 @@ function (
 
             return roomModel;
         },
+        roomRemove: function (room) {
+            var removed = roomCollection.findWhere({channel: room});
+            roomCollection.remove(removed);
+            console.log("removing room entitie");
+        },
         addMessage: function (message) {
             roomCollection.findWhere({id: message.channel}).get('messages').add(message);
         }
@@ -41,6 +46,11 @@ function (
     communicator.reqres.setHandler("entities:room:add", function (room) {
         return API.roomAdd(room);
     });
+
+    communicator.reqres.setHandler("entities:room:remove", function (room) {
+        return API.roomRemove(room);
+    });
+
 
     //TODO add a single domain communicator handler for message
     //

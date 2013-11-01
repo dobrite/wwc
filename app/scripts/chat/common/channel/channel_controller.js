@@ -12,18 +12,42 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
+            var channelCollection = new ChannelCollection();
+
             this.channelCollectionView = new ChannelCollectionView({
-                collection: new ChannelCollection()
+                collection: channelCollection
             });
 
-            //TODO shouldn't we just listen for room collection add events?
             communicator.vent.on("chat:create:room", function (room) {
-                this.channelCollectionView.collection.add({channel: room});
+                channelCollection.add({channel: room});
             }, this);
 
-            this.listenTo(this.channelCollectionView, 'itemview:change', function (event, view) {
-                communicator.command.execute('chat:show:room', view.model.get('channel'));
-            });
+            communicator.vent.on("chat:destroy:room", function (room) {
+                var removed = channelCollection.findWhere({channel: room});
+                channelCollection.remove(removed);
+            }, this);
+
+            this.listenTo(
+                this.channelCollectionView,
+                'itemview:change',
+                function (event, view) {
+                    communicator.command.execute(
+                        'chat:show:room',
+                        view.model.get('channel')
+                    );
+                }
+            );
+
+            this.listenTo(
+                this.channelCollectionView,
+                'itemview:remove',
+                function (event, view) {
+                    communicator.command.execute(
+                        'chat:destroy:room',
+                        view.model.get('channel')
+                    );
+                }
+            );
         },
 
         showChannels: function () {
