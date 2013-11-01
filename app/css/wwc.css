@@ -1,3 +1,7 @@
+.glyphicon-remove {
+  cursor: pointer;
+}
+
 #message-pane {
   height: 660px;
   padding: 20px;
