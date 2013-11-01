@@ -38,6 +38,9 @@ function (
             roomCollection.remove(removed);
             console.log("removing room entitie");
         },
+        roomList: function () {
+            return roomCollection.pluck('channel');
+        },
         addMessage: function (message) {
             roomCollection.findWhere({id: message.channel}).get('messages').add(message);
         }
@@ -51,9 +54,10 @@ function (
         return API.roomRemove(room);
     });
 
+    communicator.reqres.setHandler("entities:room:list", function () {
+        return API.roomList();
+    });
 
-    //TODO add a single domain communicator handler for message
-    //
     return ;
 
 });

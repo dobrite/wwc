@@ -1,10 +1,9 @@
 define([
     "backbone",
     "scripts/communicator",
-    "scripts/entities/collection/channel_collection",
     "scripts/chat/common/channel/channel_collection_view",
 ],
-function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
+function (Backbone, communicator, ChannelCollectionView) {
 
     var ChannelController = Backbone.Marionette.Controller.extend({
 
@@ -12,19 +11,22 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
             options = options || (options = {});
             this.region = options.region;
 
-            var channelCollection = new ChannelCollection();
+            var channelCollection = new Backbone.Collection({
+                model: Backbone.Model
+            });
 
             this.channelCollectionView = new ChannelCollectionView({
                 collection: channelCollection
             });
 
-            communicator.vent.on("chat:create:room", function (room) {
-                channelCollection.add({channel: room});
+            communicator.vent.on("chat:create:room", function () {
+                var rooms = communicator.reqres.request("entities:room:list");
+                channelCollection.reset(this.inflate(rooms));
             }, this);
 
-            communicator.vent.on("chat:destroy:room", function (room) {
-                var removed = channelCollection.findWhere({channel: room});
-                channelCollection.remove(removed);
+            communicator.vent.on("chat:destroy:room", function () {
+                var rooms = communicator.reqres.request("entities:room:list");
+                channelCollection.reset(this.inflate(rooms));
             }, this);
 
             this.listenTo(
@@ -52,6 +54,12 @@ function (Backbone, communicator, ChannelCollection, ChannelCollectionView) {
 
         showChannels: function () {
             this.region.show(this.channelCollectionView);
+        },
+
+        inflate: function (rooms) {
+            return _.map(rooms, function (room) {
+                return {channel: room};
+            });
         },
 
         onClose: function () {
