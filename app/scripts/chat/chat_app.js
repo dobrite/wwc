@@ -1,5 +1,6 @@
 define([
     "backbone",
+    "underscore",
     "scripts/application",
     "scripts/communicator",
     "scripts/chat/chat_layout",
@@ -11,6 +12,7 @@ define([
 ],
 function (
     Backbone,
+    _,
     app,
     communicator,
     ChatLayout,
@@ -109,6 +111,8 @@ function (
 
     communicator.command.setHandler("chat:destroy:room", function (room) {
         API.removeChatRoom(room);
+        var rooms = communicator.reqres.request("entities:room:list");
+        communicator.command.execute("router:navigate", "room/" + _.last(rooms), {});
     });
 
     communicator.vent.on("chat:show", function () {

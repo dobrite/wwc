@@ -36,7 +36,6 @@ function (
         roomRemove: function (room) {
             var removed = roomCollection.findWhere({channel: room});
             roomCollection.remove(removed);
-            console.log("removing room entitie");
         },
         roomList: function () {
             return roomCollection.pluck('channel');
