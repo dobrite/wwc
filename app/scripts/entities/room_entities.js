@@ -50,7 +50,7 @@ function (
         return API.roomAdd(room);
     });
 
-    communicator.reqres.setHandler("entities:room:remove", function (room) {
+    communicator.command.setHandler("entities:room:remove", function (room) {
         return API.roomRemove(room);
     });
 

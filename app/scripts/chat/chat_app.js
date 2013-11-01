@@ -72,7 +72,6 @@ function (
 
     var API = {
         removeChatRoom: function (room) {
-            console.log("API chat removing room");
             destroyChatRoom(room);
         },
         showChatRoom: function (room) {
