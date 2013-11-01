@@ -22,24 +22,18 @@ function (Backbone, ChannelItemView) {
         events: {},
 
         onTabChange: function (view) {
-            //TODO should these go in controller?
-            //TODO don't do this if tab clicked is already active tab
-            //TODO refactor duplicate function
-            //TODO refactor duplicate comment
-            this.$el.children().removeClass("active");
-            view.$el.addClass("active");
+            this.highlightActive(view);
         },
 
         onTabRemove: function (view) {
-            //TODO should these go in controller?
-            this.$el.children().removeClass("active");
-            view.$el.addClass("active");
+            this.highlightActive(view);
         },
 
-        onAfterItemAdded: function(view){
-            //TODO should these go in controller?
-            //TODO refactor duplicate function
-            //TODO refactor duplicate comment
+        onAfterItemAdded: function (view){
+            this.highlightActive(view);
+        },
+
+        highlightActive: function (view) {
             this.$el.children().removeClass("active");
             view.$el.addClass("active");
         },
