@@ -64,18 +64,12 @@ function (
          */
 
         communicator.command.execute('entities:room:remove', room);
-
         delete roomControllers[room];
-
-        console.log("deleting room");
-
         communicator.vent.trigger("chat:destroy:room", room);
+
     };
 
     var API = {
-        removeChatRoom: function (room) {
-            destroyChatRoom(room);
-        },
         showChatRoom: function (room) {
 
             /* called to show a specific room
@@ -88,6 +82,7 @@ function (
 
             roomControllers[room].showRoom();
 
+            //vent not command - let rest of app know
             communicator.vent.trigger("chat:show:room", room);
 
         },
@@ -101,6 +96,9 @@ function (
             channelController.showChannels();
             inputController.showInput();
 
+        },
+        removeChatRoom: function (room) {
+            destroyChatRoom(room);
         },
     };
 
