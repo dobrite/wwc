@@ -19,3 +19,11 @@ The following assumes Ubuntu 12.04 64-bit:
 3. Install virtualbox with:
 ::
     $ sudo apt-get install virtualbox
+
+4. Clone this repo:
+::
+    $ git clone https://github.com/dobrite/wwc
+
+5. From the root of the repo:
+::
+    $ vagrant up
