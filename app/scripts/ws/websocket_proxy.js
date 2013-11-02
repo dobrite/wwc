@@ -23,12 +23,14 @@ function (Centrifuge, Backbone, _, $, B) {
         },
 
         connect: function (options) {
-            if(!this.centrifuge.isConnected()){
-                _.extend(this.options, options || {});
-                this.namespace = this.options.namespace;
-                this.centrifuge.configure(this.options);
-                this.centrifuge.connect();
-            }
+            _.extend(this.options, options || {});
+            this.namespace = this.options.namespace;
+            this.centrifuge.configure(this.options);
+            this.centrifuge.connect();
+        },
+
+        connected: function () {
+            return this.centrifuge.isConnected();
         },
 
         onEvent: function (event, params) {

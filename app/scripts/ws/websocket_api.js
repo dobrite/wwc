@@ -21,7 +21,11 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
      */
 
     communicator.command.setHandler("ws:connect", function (options) {
-        ws.connect(options);
+        if(!ws.connected()){
+            ws.connect(options);
+        }else{
+            communicator.vent.trigger("ws:connected");
+        }
     });
 
     communicator.command.setHandler("ws:subscribe", function (channel) {

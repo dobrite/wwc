@@ -25,7 +25,7 @@ function (
 
     var ChatRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
-            "room/:room" : "showChatRoom"
+            "room/:room" : "connectChat"
         }
     });
 
@@ -40,6 +40,17 @@ function (
     });
 
     var roomControllers = {};
+
+    var connectChat = function (room) {
+        communicator.vent.on("ws:connect", function () {
+            API.showChat();
+            API.showChatRoom(room);
+        });
+        communicator.vent.on("ws:connected", function () {
+            API.showChatRoom(room);
+        });
+        communicator.command.execute("ws:connect");
+    };
 
     var createChatRoom = function (room) {
 
@@ -70,6 +81,9 @@ function (
     };
 
     var API = {
+        connectChat: function (room) {
+            connectChat(room);
+        },
         showChatRoom: function (room) {
 
             /* called to show a specific room
