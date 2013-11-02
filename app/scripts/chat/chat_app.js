@@ -1,6 +1,7 @@
 define([
     "backbone",
     "underscore",
+    "scripts/application",
     "scripts/communicator",
     "scripts/chat/chat_layout",
     "scripts/chat/common/channel/channel_controller",
@@ -12,6 +13,7 @@ define([
 function (
     Backbone,
     _,
+    app,
     communicator,
     ChatLayout,
     ChannelController,
@@ -122,7 +124,7 @@ function (
         });
     });
 
-    communicator.vent.on("start", function () {
+    app.addInitializer(function () {
         new ChatRouter({
             controller: API
         });

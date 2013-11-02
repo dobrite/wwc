@@ -1,10 +1,11 @@
 define([
     "backbone",
+    "scripts/application",
     "scripts/communicator",
     "scripts/region_manager",
     "scripts/login/show/login_controller",
 ],
-function (Backbone, communicator, regionManager, LoginController) {
+function (Backbone, app, communicator, regionManager, LoginController) {
 
     var LoginRouter = Backbone.Marionette.AppRouter.extend({
         appRoutes: {
@@ -27,7 +28,7 @@ function (Backbone, communicator, regionManager, LoginController) {
         API.showLogin(nick);
     });
 
-    communicator.vent.on("start", function () {
+    app.addInitializer(function () {
         new LoginRouter({
             controller: API
         });
