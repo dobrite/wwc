@@ -5,7 +5,6 @@ define([
     'scripts/ws/websocket_proxy',
 ],
 function (Backbone, communicator, regionManager, WebsocketProxy) {
-    console.log("application.js");
 
     var app = new Backbone.Marionette.Application();
 

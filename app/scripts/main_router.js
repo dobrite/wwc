@@ -15,7 +15,6 @@ function (Backbone, communicator) {
         },
 
         startHistory: function () {
-            console.log("starting history");
             this.history.start();
         },
 

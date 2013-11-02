@@ -8,8 +8,6 @@ function(Backbone, communicator, LoginItemView) {
     var LoginController = Backbone.Marionette.Controller.extend({
 
         initialize: function (options) {
-            console.log("initialize a LoginController Controller");
-
             this.region = options.region;
         },
 

@@ -6,9 +6,7 @@ function(Backbone, LoginViewTemplate) {
 
     return Backbone.Marionette.ItemView.extend({
 
-        initialize: function (options) {
-            console.log("initialize a Loginview ItemView");
-        },
+        initialize: function (options) {},
 
         template: {
             type: 'handlebars',
@@ -31,12 +29,12 @@ function(Backbone, LoginViewTemplate) {
         },
 
         onSubmit: function () {
+
             var room = this.ui.room.val();
             if (room !== '') {
                 this.trigger("login:submit", room);
-            }else{
-                //TODO show error
             }
+
         },
 
     });

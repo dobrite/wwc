@@ -9,9 +9,7 @@ function (Backbone, communicator, InputTemplate) {
         tagName: "div",
         className: "input-group",
 
-        initialize: function() {
-            console.log("initialize a InputItemView");
-        },
+        initialize: function() {},
 
         template: {
             type: 'handlebars',
