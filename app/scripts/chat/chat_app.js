@@ -42,6 +42,11 @@ function (
     var roomControllers = {};
 
     var connectChat = function (room) {
+
+        /* called to connect
+         * will not connect if connected
+         */
+
         communicator.vent.on("ws:connect", function () {
             API.showChat();
             API.showChatRoom(room);
