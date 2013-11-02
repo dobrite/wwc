@@ -13,6 +13,10 @@ function (Backbone, communicator, regionManager, WebsocketProxy) {
         mainPane: "#main",
     });
 
+    app.on('start', function (event, blah) {
+        communicator.vent.trigger("start");
+    });
+
     app.on("initialize:after", function () {
         require([
             "scripts/chat_config",

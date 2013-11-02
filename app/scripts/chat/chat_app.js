@@ -1,7 +1,6 @@
 define([
     "backbone",
     "underscore",
-    "scripts/application",
     "scripts/communicator",
     "scripts/chat/chat_layout",
     "scripts/chat/common/channel/channel_controller",
@@ -13,7 +12,6 @@ define([
 function (
     Backbone,
     _,
-    app,
     communicator,
     ChatLayout,
     ChannelController,
@@ -124,10 +122,7 @@ function (
         });
     });
 
-    //TODO can I replace this with a communicator method? 'start' or w/e
-    app.addInitializer(function(){
-        console.log("chat_app initialize");
-
+    communicator.vent.on("start", function () {
         new ChatRouter({
             controller: API
         });
