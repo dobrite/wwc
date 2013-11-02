@@ -1,10 +1,9 @@
 define([
     'backbone',
-    'scripts/application',
     'scripts/communicator',
     'scripts/login/show/login_item_view',
 ],
-function(Backbone, app, communicator, LoginItemView) {
+function(Backbone, communicator, LoginItemView) {
 
     var LoginController = Backbone.Marionette.Controller.extend({
 
