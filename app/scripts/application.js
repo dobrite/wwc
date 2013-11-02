@@ -3,19 +3,14 @@ define([
     'scripts/communicator',
     'scripts/region_manager',
     'scripts/ws/websocket_proxy',
-    'hbs!templates/main_template',
 ],
-function (Backbone, communicator, regionManager, WebsocketProxy, mainTemplate) {
+function (Backbone, communicator, regionManager, WebsocketProxy) {
     console.log("application.js");
 
     var app = new Backbone.Marionette.Application();
 
     regionManager.addRegions({
         mainPane: "#main",
-    });
-
-    app.addInitializer(function () {
-        document.body.innerHTML = mainTemplate();
     });
 
     app.on("initialize:after", function () {
