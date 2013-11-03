@@ -58,20 +58,17 @@ cd /vagrant
 
 # npm
 sudo apt-get -y install curl
+cd /tmp
 export clean=yes; curl https://npmjs.org/install.sh | sh
+
+cd /vagrant
 
 # bower
 npm install -g bower
 
-#clone wwc
-#apt-get install -y git
-#cd /opt/
-#mkdir wwc
-#git clone http://github.com/dobrite/wwc.git
-#chown vagrant:vagrant -R wwc
+apt-get install -y git
 
 # make the dev environment
-cd wwc
 make env
 #make ws &
 #make dev
