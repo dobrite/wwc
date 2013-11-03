@@ -2,8 +2,6 @@ WWC
 ===
 
 Websocket chat using centrifuge, pyramid, and backbone-marionette.
-::
-    $ make env
 
 NOTE: Development is still rapidly ongoing so expect things to break from time
 to time.
