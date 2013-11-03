@@ -18,5 +18,9 @@
     "centrifuge-client": "git://github.com/dobrite/centrifuge-client.git",
     "momentjs": "~2.3.1",
     "handlebars-helpers": "~1.0.0"
+  },
+  "resolutions": {
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0"
   }
 }
