@@ -1,7 +1,7 @@
 .PHONY: build
 
 env:
-	/opt/python3.3/bin/pyvenv-3.3 --upgrade .
+	pyvenv --upgrade .
 	wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | bin/python3.3
 	bin/python3.3 bootstrap.py
 	bin/buildout
