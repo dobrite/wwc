@@ -41,7 +41,6 @@ pip-log.txt
 *.mo
 
 # Vagrant
-Vagrantfile
 .vagrant
 
 # Mr Developer
