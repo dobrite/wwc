@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 apt-get update
-apt-get install -y make
 
 # build tool chain
-apt-get install -y build-essential
+apt-get install -y make build-essential
 
 # for python 3
 apt-get install -y openssl libssl-dev libbz2-dev zlib1g-dev libexpat1-dev libdb4.8-dev libsqlite3-dev libncursesw5-dev libncurses5-dev libreadline-dev libxml2-dev python-software-properties
@@ -31,6 +30,7 @@ apt-get install -y postgresql-9.3
 cd /vagrant
 
 # redis 2.8.0-rc5
+# could use chris-lea/redis-server
 cd /opt
 mkdir redis
 chown vagrant:vagrant redis
@@ -43,28 +43,15 @@ src/redis-server --daemonize yes
 
 cd /vagrant
 
-# node 0.10.21
-#http://nodejs.org/dist/node-latest.tar.gz
-wget http://nodejs.org/dist/v0.10.21/node-v0.10.21.tar.gz
-mv node-v0.10.21.tar.gz /tmp
-cd /tmp
-tar xfvz node-v0.10.21.tar.gz
-cd node-v0.10.21
-./configure --prefix=/opt/node
-make && make install
-ln -s /opt/node/bin/node /usr/local/bin
-
-cd /vagrant
-
-# npm
-sudo apt-get -y install curl
-cd /tmp
-export clean=yes; curl https://npmjs.org/install.sh | sh
+# nodejs, includes npm and nodejs-dev
+add-apt-repository -y ppa:chris-lea/node.js
+sudo apt-get update
+sudo apt-get -y install nodejs
 
 cd /vagrant
 
 # bower
-npm install -g bower
+#npm install -g bower
 
 apt-get install -y git
 
