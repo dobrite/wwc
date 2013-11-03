@@ -8,7 +8,7 @@ env:
 	rm setuptools-*
 
 clean:
-	rm -rf bin/ include/ lib/ .installed.cfg .mr.developer.cfg develop-eggs/ eggs/ parts/ src/ node_modules/ app/bower_components/
+	rm -rf bin/ include/ lib/ .installed.cfg .mr.developer.cfg develop-eggs/ eggs/ parts/ src/ node_modules/ app/bower_components/ __pycache__/ .cache/
 
 dev:
 	bin/pserve wwc/development.ini --reload
