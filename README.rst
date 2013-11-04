@@ -46,8 +46,7 @@ The following assumes Ubuntu 12.04 64-bit:
     $ bin/initialize_cent_config
     $ make ws
 
-8. SSH into vagrant in a second terminal, create centrifuge projects, and start
-   dev server:
+8. SSH into vagrant in a second terminal, create centrifuge projects, and start dev server:
 ::
     $ vagrant ssh
     $ cd /vagrant
