@@ -35,7 +35,7 @@ def index_view(request):
     if 'wwc.token' in request.cookies:
         username = request.cookies.get('wwc.username', '')
         project_id  = request.cookies.get('wwc.project_id', '')
-        secret_key = request.registry.settings['centrifuge.secret']
+        secret_key = request.registry.settings['centrifuge.secret_key']
         #TODO move username to info and use user id
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
@@ -49,7 +49,7 @@ def index_view(request):
 )
 def reddit_login_complete_view(request):
     project_id = request.registry.settings['centrifuge.project_id']
-    secret_key = request.registry.settings['centrifuge.secret']
+    secret_key = request.registry.settings['centrifuge.secret_key']
     username = request.context.profile['preferredUsername']
     token = get_client_token(secret_key, project_id, username)
     redirect = HTTPFound(location='/')
