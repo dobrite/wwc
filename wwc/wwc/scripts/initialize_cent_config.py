@@ -24,7 +24,11 @@ def section_template(section):
 
 
 def load_config():
-    with open("config.json") as f:
+    if os.path.isfile('config.json'):
+        filename = 'config.json'
+    else:
+        filename = 'example_config.json'
+    with open(filename) as f:
         return json.loads(f.read())
 
 
