@@ -34,3 +34,24 @@ The following assumes Ubuntu 12.04 64-bit:
 5. Start the dev VM (get some coffee):
 ::
     $ vagrant up
+
+6. SSH into vagrant vm and build buildout (more coffee):
+::
+    $ vagrant ssh
+    $ cd /vagrant
+    $ make env
+
+7. Once that is complete bootstrap and start the websocket server:
+::
+    $ bin/initialize_cent_config
+    $ make ws
+
+8. SSH into vagrant in a second terminal, create centrifuge projects, and start
+   dev server:
+::
+    $ vagrant ssh
+    $ cd /vagrant
+    $ bin/initialize_cent_project
+    $ make dev
+
+9. Visit http://localhost:6542 on your host computer

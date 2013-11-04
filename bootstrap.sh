@@ -54,10 +54,3 @@ cd /vagrant
 #npm install -g bower
 
 apt-get install -y git
-
-# make the dev environment
-make env
-bin/initialize_cent_config
-make ws &
-bin/initialize_cent_projects
-make dev
