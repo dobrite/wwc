@@ -18,12 +18,12 @@ from wwc.utils import get_client_token
 
 
 _here = os.path.dirname(__file__)
-_index_path = os.path.join(_here, '..', '..', 'app', 'index.html')
+_chat_path = os.path.join(_here, '..', '..', 'app', 'chat.html')
 
-with open(_index_path) as f:
-    _index = f.read()
+with open(_chat_path) as f:
+    _chat = f.read()
 
-_index_response = Response(content_type='text/html', body=_index)
+_chat_response = Response(content_type='text/html', body=_chat)
 
 
 @view_config(route_name='index')
@@ -39,7 +39,7 @@ def index_view(request):
         #TODO move username to info and use user id
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
-            return _index_response
+            return _chat_response
     return HTTPFound(location='/login/reddit')
 
 
