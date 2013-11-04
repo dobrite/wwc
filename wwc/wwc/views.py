@@ -30,13 +30,13 @@ _chat_response = Response(content_type='text/html', body=_chat)
 def index_view(request):
     #TODO once we get users into the DB remove all cookie info and inject
     #directly into template
-    #json dumps for user_info is encoded to utf-8 by webob.
-    #centrifuge doesn't so we get token mismatch
     if 'wwc.token' in request.cookies:
         username = request.cookies.get('wwc.username', '')
         project_id  = request.cookies.get('wwc.project_id', '')
         secret_key = request.registry.settings['centrifuge.secret_key']
         #TODO move username to info and use user id
+        #json dumps for user_info is encoded to utf-8 by webob.
+        #centrifuge doesn't so we get token mismatch
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
             return _chat_response
@@ -44,8 +44,7 @@ def index_view(request):
 
 
 @view_config(
-    context='velruse.providers.reddit.RedditAuthenticationComplete',
-    renderer='wwc:templates/result.mak',
+    context='velruse.providers.reddit.RedditAuthenticationComplete'
 )
 def reddit_login_complete_view(request):
     project_id = request.registry.settings['centrifuge.project_id']
