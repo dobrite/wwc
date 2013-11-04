@@ -30,8 +30,8 @@ _chat_response = Response(content_type='text/html', body=_chat)
 def index_view(request):
     #TODO once we get users into the DB remove all cookie info and inject
     #directly into template
-    #json dumps is encoded to utf-8 by webob. centrifuge doesn't so
-    #we get token mismatch
+    #json dumps for user_info is encoded to utf-8 by webob.
+    #centrifuge doesn't so we get token mismatch
     if 'wwc.token' in request.cookies:
         username = request.cookies.get('wwc.username', '')
         project_id  = request.cookies.get('wwc.project_id', '')
