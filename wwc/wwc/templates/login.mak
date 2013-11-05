@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Login</title>
-  </head>
-  <body>
-    <form id="reddit" action="${login_url(request, 'reddit')}" method="post">
-      <input type="submit" value="Login with Reddit" />
-    </form>
-  </body>
-</html>
+<%inherit file="wwc:templates/base.mak" />
+
+<a href="${request.route_url('velruse.reddit-login')}">
+  <button class="btn btn-default">Login with Reddit</button>
+</a>
+<a href="${request.route_url('velruse.reddit-login')}">
+  <button class="btn btn-default">Login as a Guest</button>
+</a>

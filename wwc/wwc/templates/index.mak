@@ -3,4 +3,4 @@
 <%block name="header">
 </%block>
 
-content
+${name}

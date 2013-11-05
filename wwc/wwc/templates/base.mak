@@ -31,9 +31,9 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="#">WWC</a>
       </div>
-      <ul class="nav navbar-nav navbar-right">
-        <li><button type="button" class="btn btn-default navbar-btn">Sign in</button></li>
-      </ul>
+        <a href="${request.route_url('login')}">
+          <button type="button" class="btn btn-default navbar-btn navbar-right">Login</button>
+        </a>
     </nav>
 
     ${self.body()}

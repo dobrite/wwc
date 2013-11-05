@@ -15,6 +15,7 @@ from wwc.models import DBSession
 from wwc.schemas import RedditLoginSchema
 
 from wwc.utils import get_client_token
+from wwc.utils import generate_username
 
 
 _here = os.path.dirname(__file__)
@@ -40,13 +41,14 @@ def chat_view(request):
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
             return _chat_response
-    return HTTPFound(location='/login/reddit')
+    return HTTPFound(location='/login')
 
 
 @view_config(route_name='index',
              renderer='wwc:templates/index.mak')
 def index_view(request):
-    return {}
+    name = generate_username()
+    return {'name': name}
 
 
 @view_config(context='velruse.providers.reddit.RedditAuthenticationComplete')
@@ -63,6 +65,6 @@ def reddit_login_complete_view(request):
 
 
 @view_config(context='velruse.AuthenticationDenied',
-             renderer='wwc:templates/mytemplate.mak', )
+             renderer='wwc:templates/mytemplate.mak')
 def login_complete_view(request):
     return {'result': 'denied', }

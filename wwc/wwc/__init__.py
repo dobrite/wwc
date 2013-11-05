@@ -43,6 +43,8 @@ def add_horus(config):
     config.registry.registerUtility(Activation, IActivationClass)
     config.include('horus')
 
+    config.override_asset(to_override='horus:templates/login.mako',
+                          override_with='wwc:templates/login.mak')
 
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.

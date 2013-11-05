@@ -1,5 +1,10 @@
 import hmac
 
+from random import choice
+
+with open('words.txt') as f:
+    WORDS = f.read().split("\n")
+
 
 def get_client_token(secret_key, project_id, user, user_info=None):
     """
@@ -12,3 +17,9 @@ def get_client_token(secret_key, project_id, user, user_info=None):
         sign.update(bytes(user_info, 'utf-8'))
     token = sign.hexdigest()
     return token
+
+def generate_username():
+    """
+    Create a random username
+    """
+    return "{}-{}".format(choice(WORDS), choice(WORDS))
