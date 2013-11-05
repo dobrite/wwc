@@ -26,8 +26,8 @@ with open(_chat_path) as f:
 _chat_response = Response(content_type='text/html', body=_chat)
 
 
-@view_config(route_name='index')
-def index_view(request):
+@view_config(route_name='chat')
+def chat_view(request):
     #TODO once we get users into the DB remove all cookie info and inject
     #directly into template
     if 'wwc.token' in request.cookies:
@@ -43,9 +43,13 @@ def index_view(request):
     return HTTPFound(location='/login/reddit')
 
 
-@view_config(
-    context='velruse.providers.reddit.RedditAuthenticationComplete'
-)
+@view_config(route_name='index',
+             renderer='wwc:templates/index.mak')
+def index_view(request):
+    return {}
+
+
+@view_config(context='velruse.providers.reddit.RedditAuthenticationComplete')
 def reddit_login_complete_view(request):
     project_id = request.registry.settings['centrifuge.project_id']
     secret_key = request.registry.settings['centrifuge.secret_key']
@@ -58,9 +62,7 @@ def reddit_login_complete_view(request):
     return redirect
 
 
-@view_config(
-    context='velruse.AuthenticationDenied',
-    renderer='wwc:templates/mytemplate.mak',
-)
+@view_config(context='velruse.AuthenticationDenied',
+             renderer='wwc:templates/mytemplate.mak', )
 def login_complete_view(request):
     return {'result': 'denied', }
