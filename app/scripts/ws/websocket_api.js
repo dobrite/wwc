@@ -119,6 +119,7 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         var nick = message.client.user_id;
         var type = message.message_type;
         var text = message.data;
+        var ts = message.timestamp;
 
         var normalized = {
             id: id,
@@ -126,6 +127,7 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
             nick: nick,
             type: type,
             text: text,
+            ts: ts,
         };
 
         return normalized;
