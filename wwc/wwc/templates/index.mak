@@ -2,5 +2,3 @@
 
 <%block name="header">
 </%block>
-
-${name}

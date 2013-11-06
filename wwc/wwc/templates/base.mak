@@ -29,7 +29,7 @@
   <body>
     <nav class="navbar navbar-inverse" role="navigation">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">WWC</a>
+        <a class="navbar-brand" href="/">WWC</a>
       </div>
         <a href="${request.route_url('login')}">
           <button type="button" class="btn btn-default navbar-btn navbar-right">Login</button>
