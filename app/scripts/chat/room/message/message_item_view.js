@@ -14,6 +14,13 @@ function (Backbone, MessageTemplate) {
             template: MessageTemplate
         },
 
+        serializeData: function(){
+            var data = {};
+            data = this.model.toJSON();
+            console.log(data);
+            return data;
+        },
+
         ui: {},
 
         events: {},
