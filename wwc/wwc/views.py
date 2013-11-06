@@ -18,7 +18,7 @@ from wwc.utils import generate_username
 
 
 @view_config(route_name='chat',
-             renderer="wwc:templates/chat.mak")
+             renderer="wwc:templates/chat.mako")
 def chat_view(request):
     #TODO once we get users into the DB remove all cookie info and inject
     #directly into template
@@ -36,7 +36,7 @@ def chat_view(request):
 
 
 @view_config(route_name='index',
-             renderer='wwc:templates/index.mak')
+             renderer='wwc:templates/index.mako')
 def index_view(request):
     return {}
 
@@ -68,6 +68,6 @@ def reddit_login_complete_view(request):
 
 
 @view_config(context='velruse.AuthenticationDenied',
-             renderer='wwc:templates/mytemplate.mak')
+             renderer='wwc:templates/mytemplate.mako')
 def login_complete_view(request):
     return {'result': 'denied', }

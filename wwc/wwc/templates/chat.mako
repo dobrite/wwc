@@ -1,6 +1,6 @@
-<div id="main" class="container">
-  ${token}
-</div>
+<%inherit file="wwc:templates/base.mako" />
+
+<div id="main" class="container"></div>
 
 <!-- build:js scripts/main.js -->
 <script data-main="app/scripts/init" src="app/bower_components/requirejs/require.js"></script>

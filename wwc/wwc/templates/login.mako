@@ -1,4 +1,4 @@
-<%inherit file="wwc:templates/base.mak" />
+<%inherit file="wwc:templates/base.mako" />
 
 <a href="${request.route_url('velruse.reddit-login')}">
   <button class="btn btn-default">Login with Reddit</button>
