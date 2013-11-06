@@ -1,9 +1,9 @@
 import hmac
 
 from random import choice
+from random import randint
 
-with open('words.txt') as f:
-    WORDS = f.read().split("\n")
+from itertools import repeat
 
 
 def get_client_token(secret_key, project_id, user, user_info=None):
@@ -18,8 +18,13 @@ def get_client_token(secret_key, project_id, user, user_info=None):
     token = sign.hexdigest()
     return token
 
+
+with open('words.txt') as f:
+    WORDS = f.read().split("\n")
 def generate_username():
     """
     Create a random username
     """
-    return "{}-{}".format(choice(WORDS), choice(WORDS))
+    times = 2 if randint(0, 9) else 3
+    words = [choice(WORDS) for _ in range(times)]
+    return "-".join(words)
