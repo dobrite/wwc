@@ -20,8 +20,6 @@ from wwc.utils import generate_username
 @view_config(route_name='chat',
              renderer="wwc:templates/chat.mako")
 def chat_view(request):
-    #TODO once we get users into the DB remove all cookie info and inject
-    #directly into template
     if 'wwc.token' in request.cookies:
         username = request.cookies.get('wwc.username', '')
         project_id = request.cookies.get('wwc.project_id', '')
@@ -31,7 +29,14 @@ def chat_view(request):
         #centrifuge doesn't so we get token mismatch
         token = get_client_token(secret_key, project_id, username)
         if request.cookies['wwc.token'] == token:
-            return {'token': token}
+            return {'token': token,
+                    'project_id': project_id,
+                    'username': username,
+                    'debug': True}
+        else:
+            redirect = HTTPFound(location='/login')
+            redirect.set_cookie('wwc.token', None)
+            return redirect
     return HTTPFound(location='/login')
 
 
@@ -60,7 +65,7 @@ def reddit_login_complete_view(request):
     secret_key = request.registry.settings['centrifuge.secret_key']
     username = request.context.profile['preferredUsername']
     token = get_client_token(secret_key, project_id, username)
-    redirect = HTTPFound(location='/')
+    redirect = HTTPFound(location='/chat')
     redirect.set_cookie('wwc.token', token)
     redirect.set_cookie('wwc.username', username)
     redirect.set_cookie('wwc.project_id', project_id)

@@ -22,7 +22,7 @@
     <script src="app/bower_components/modernizr/modernizr.js"></script>
     <!-- endbuild -->
 
-    <%block name="js" />
+    <%block name="javascript" />
 
   </head>
 
