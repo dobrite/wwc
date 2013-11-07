@@ -6,6 +6,7 @@ function (Backbone, NickItemView) {
 
     var NickCollectionView = Backbone.Marionette.CollectionView.extend({
 
+        //can use backbone babysitter and a custom index for user
         initialize: function() {},
 
         itemView: NickItemView,

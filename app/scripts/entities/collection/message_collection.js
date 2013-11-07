@@ -30,6 +30,16 @@ function (Backbone, communicator, MessageModel) {
         },
 
         model: MessageModel,
+
+        comparator: function(m1, m2) {
+
+            var ts1 = m1.get('ts');
+            var ts2 = m2.get('ts');
+
+            return (ts1 < ts2)?-1:1;
+
+        },
+
     });
 
     return MessageCollection;

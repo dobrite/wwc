@@ -6,7 +6,11 @@ function (Backbone, MessageItemView) {
 
     var MessageCollectionView = Backbone.Marionette.CollectionView.extend({
 
-        initialize: function() {},
+        initialize: function() {
+            this.listenTo(this.collection, 'sort', function (data) {
+                this.render();
+            }, this);
+        },
 
         itemView: MessageItemView,
 
@@ -16,7 +20,8 @@ function (Backbone, MessageItemView) {
 
         collectionEvents: {},
 
-        onRender: function() {}
+        onRender: function() {},
+
     });
 
     return MessageCollectionView;
