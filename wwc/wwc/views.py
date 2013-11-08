@@ -44,6 +44,12 @@ def index_view(request):
     return {}
 
 
+@view_config(route_name='login_choice',
+             renderer='wwc:templates/login.mako')
+def login_choice_view(request):
+    return {}
+
+
 @view_config(route_name='login_guest')
 def login_guest_view(request):
     project_id = request.registry.settings['centrifuge.project_id']

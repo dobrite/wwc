@@ -48,8 +48,6 @@ def add_horus(config):
 
     config.registry.registerUtility(WWCRegisterSchema, IRegisterSchema)
 
-    config.override_asset(to_override='horus:templates/login.mako',
-                          override_with='wwc:templates/login.mako')
     config.override_asset(to_override='horus:templates/register.mako',
                           override_with='wwc:templates/register.mako')
 
@@ -73,5 +71,7 @@ def main(global_config, **settings):
     config.add_route('login_guest', '/login/guest')
     add_static(config)
     add_horus(config)
+    config.add_route('login', '/login/wwc')
+    config.add_route('login_choice', '/login')
     config.scan()
     return config.make_wsgi_app()

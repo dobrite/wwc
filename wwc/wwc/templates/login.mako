@@ -6,7 +6,7 @@
 <a href="${request.route_url('login_guest')}">
   <button class="btn btn-default">Login as a Guest</button>
 </a>
-<a href="${request.route_url('login_guest')}">
+<a href="${request.route_url('login')}">
   <button class="btn btn-default">Login w/ WWC</button>
 </a>
 <a href="${request.route_url('register')}">
