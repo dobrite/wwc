@@ -11,8 +11,6 @@ from velruse import login_url
 from wwc.models import User
 from wwc.models import DBSession
 
-from wwc.schemas import RedditLoginSchema
-
 from wwc.utils import get_client_token
 from wwc.utils import generate_username
 

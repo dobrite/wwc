@@ -9,6 +9,9 @@ from sqlalchemy import engine_from_config
 from hem.interfaces import IDBSession
 from horus.interfaces import IUserClass
 from horus.interfaces import IActivationClass
+from horus.interfaces import IRegisterSchema
+
+from wwc.schemas import WWCRegisterSchema
 
 from wwc.models import DBSession
 from wwc.models import Base
@@ -42,6 +45,8 @@ def add_horus(config):
     config.registry.registerUtility(User, IUserClass)
     config.registry.registerUtility(Activation, IActivationClass)
     config.include('horus')
+
+    config.registry.registerUtility(WWCRegisterSchema, IRegisterSchema)
 
     config.override_asset(to_override='horus:templates/login.mako',
                           override_with='wwc:templates/login.mako')

@@ -10,6 +10,7 @@ from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Unicode
 from sqlalchemy import DateTime
+from sqlalchemy import ForeignKey
 
 from sqlalchemy.sql import expression
 
@@ -50,8 +51,15 @@ class TimeMixin(object):
     modified_on = Column(DateTime, onupdate=datetime.utcnow)
 
 class User(UserMixin, TimeMixin, Base):
-    reddit_auth_token = Column(Unicode(255))
-    #this needs to be one-to-many to the auth provider/token table
+    #override horus
+    email = Column(Unicode(100), nullable=True, unique=True)
+
+
+class Profile(TimeMixin, Base):
+    user_id = Column(Integer, ForeignKey('user.id'))
+    reddit_id = Column(Unicode(20))
+    reddit_username = Column(Unicode(20))
+    reddit_oauth_token = Column(Unicode(100))
 
 
 class Group(GroupMixin, TimeMixin, Base):
