@@ -21,3 +21,9 @@ shell:
 
 build:
 	node node_modules/requirejs/bin/r.js -o build.js
+
+db:
+	bin/initialize_wwc_db wwc/development.ini
+
+drop_db:
+	bin/delete_wwc_db wwc/development.ini
