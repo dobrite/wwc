@@ -1,4 +1,4 @@
-.PHONY: build, test
+.PHONY: build, test, shell
 
 env:
 	pyvenv --upgrade .
