@@ -12,7 +12,7 @@
     wwc.token = "${token}";
     wwc.project = "${project_id}";
     wwc.user = "${username}";
-    wwc.debug = "${debug}";
+    wwc.debug = ${'true' if debug else 'false'}
     window.wwc = wwc;
   </script>
 </%block>
