@@ -1,4 +1,4 @@
-.PHONY: build
+.PHONY: build, test
 
 env:
 	pyvenv --upgrade .
@@ -27,3 +27,6 @@ db:
 
 drop_db:
 	bin/delete_wwc_db wwc/development.ini
+
+test:
+	bin/py.test wwc/

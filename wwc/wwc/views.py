@@ -45,7 +45,7 @@ def index_view(request):
 
 
 @view_config(route_name='login_choice',
-             renderer='wwc:templates/login.mako')
+             renderer='wwc:templates/login_choice.mako')
 def login_choice_view(request):
     return {}
 
