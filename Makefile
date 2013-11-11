@@ -30,3 +30,6 @@ drop_db:
 
 test:
 	bin/py.test wwc/
+
+cov:
+	bin/py.test --cov-report term-missing --cov wwc
