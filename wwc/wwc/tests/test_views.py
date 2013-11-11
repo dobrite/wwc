@@ -91,12 +91,14 @@ class TestViews(BaseTestCase):
         from pyramid.httpexceptions import HTTPFound
         request = testing.DummyRequest()
         request.registry = self._make_registry()
+        request.session = self._make_session()
         mock = Mock(return_value='abc')
         with patch('wwc.views.get_client_token', mock):
             ret = chat_view(request)
             assert isinstance(ret, HTTPFound)
             assert ret.location == '/login'
             assert ret.code == 302
+            assert 'wwc.token' not in request.session
 
 
     def test_chat_view_no_token(self):

@@ -34,7 +34,7 @@ def chat_view(request):
                     'username': username,
                     'debug': settings.get('debugtoolbar.enabled', False)}
         else:
-            session['wwc.token'] = None
+            del session['wwc.token']
     return HTTPFound(location='/login')
 
 
