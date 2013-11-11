@@ -12,6 +12,7 @@ function (Backbone) {
             this.set('nick', '');
             this.set('type', 'b');
             this.set('text', '');
+            this.set('type', 'message');
 
         },
 
