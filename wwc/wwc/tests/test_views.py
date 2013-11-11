@@ -12,6 +12,14 @@ class TestViews(BaseTestCase):
             settings = {'centrifuge.secret_key': 'abc'}
         return MockRegistry
 
+
+    def _make_session(self):
+        session = {}
+        session['wwc.token'] = '0f3aca354209d9ae8b2db4ff228d1e24'
+        session['wwc.project_id'] = '123'
+        session['wwc.username'] = 'dave'
+        return session
+
     def _make_context(self):
         class TestContext:
             provider_type = "reddit"
@@ -28,6 +36,35 @@ class TestViews(BaseTestCase):
             provider_name = "reddit"
 
         return TestContext
+
+
+    def test_chat_view_debug_false(self):
+        from wwc.views import chat_view
+        request = testing.DummyRequest()
+        request.session = self._make_session()
+        request.registry = self._make_registry()
+        request.registry.settings['debugtoolbar.enabled'] = False
+        ret = chat_view(request)
+        assert ret['debug'] == False
+
+
+    def test_chat_view_debug_true(self):
+        from wwc.views import chat_view
+        request = testing.DummyRequest()
+        request.session = self._make_session()
+        request.registry = self._make_registry()
+        request.registry.settings['debugtoolbar.enabled'] = True
+        ret = chat_view(request)
+        assert ret['debug'] == True
+
+
+    def test_chat_view_debug_none(self):
+        from wwc.views import chat_view
+        request = testing.DummyRequest()
+        request.session = self._make_session()
+        request.registry = self._make_registry()
+        ret = chat_view(request)
+        assert ret['debug'] == False
 
 
     def test_chat_view_valid_token(self):

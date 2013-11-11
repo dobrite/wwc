@@ -50,29 +50,27 @@ def login_choice_view(request):
     return {}
 
 
-@view_config(route_name='login_guest')
-def login_guest_view(request):
+def set_session_token(request, username):
     project_id = request.registry.settings['centrifuge.project_id']
     secret_key = request.registry.settings['centrifuge.secret_key']
-    username = generate_username()
     token = get_client_token(secret_key, project_id, username)
     session = request.session
     session['wwc.token'] = token
     session['wwc.username'] = username
     session['wwc.project_id'] = project_id
+
+
+@view_config(route_name='login_guest')
+def login_guest_view(request):
+    username = generate_username()
+    set_session_token(request, username)
     return HTTPFound(location='/chat')
 
 
 @view_config(context='velruse.providers.reddit.RedditAuthenticationComplete')
 def reddit_login_complete_view(request):
-    project_id = request.registry.settings['centrifuge.project_id']
-    secret_key = request.registry.settings['centrifuge.secret_key']
     username = request.context.profile['preferredUsername']
-    token = get_client_token(secret_key, project_id, username)
-    session = request.session
-    session['wwc.token'] = token
-    session['wwc.username'] = username
-    session['wwc.project_id'] = project_id
+    set_session_token(request, username)
     return HTTPFound(location='/chat')
 
 
