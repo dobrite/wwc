@@ -24,16 +24,6 @@ function (Backbone, communicator, UserModel) {
             this.listenTo(
                 communicator.vent,
                 this.channel + ":leave",
-                //function (message) {
-                    //var removed = _.findWhere({id: message.id});
-                    //TODO does this work based on id automatically?
-                this.remove
-                //}
-            );
-
-            this.listenTo(
-                communicator.vent,
-                this.channel + ":leave",
                 this.removeUser
             );
 
@@ -41,8 +31,9 @@ function (Backbone, communicator, UserModel) {
 
         removeUser: function (user) {
             //translate client_id to id if exists
-            //some cent messages (join/leave) don't have uuid
+            //some cent messages (join/leave) don't have message uuid
             //so we create one and store client uuid in client_id
+            //user collection uses client_id as model id
             user.id = user.client_id || user.id;
             this.remove(user);
         },
