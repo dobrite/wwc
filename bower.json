@@ -17,6 +17,7 @@
     "socksjs-client": "git://github.com/dobrite/socksjs-client.git",
     "centrifuge-client": "git://github.com/dobrite/centrifuge-client.git",
     "momentjs": "~2.3.1",
-    "handlebars-helpers": "~1.0.0"
+    "handlebars-helpers": "~1.0.0",
+    "node-uuid": "~1.4.1"
   }
 }

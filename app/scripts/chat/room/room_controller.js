@@ -31,7 +31,7 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
                 messages: this.roomModel.get('messages'),
             });
 
-            communicator.command.execute("ws:subscribe", {channel: this.channel});
+            communicator.command.execute("ws:subscribe", this.channel);
 
         },
 
@@ -44,6 +44,8 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
         },
 
         onClose: function () {
+            console.log("closing");
+            communicator.command.execute("ws:unsubscribe", this.channel);
         },
 
     });

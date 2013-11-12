@@ -33,10 +33,6 @@ function (Centrifuge, Backbone, _, $, B) {
             return this.centrifuge.isConnected();
         },
 
-        onEvent: function (event, params) {
-            this.communicator.vent.trigger('ws:' + event, params[0]);
-        },
-
         disconnect: function () {
             this.centrifuge.disconnect();
             this.centrifuge.on('disconnect', function () {
@@ -44,9 +40,13 @@ function (Centrifuge, Backbone, _, $, B) {
             }, this);
         },
 
-        subscribe: function (options) {
+        onEvent: function (event, params) {
+            this.communicator.vent.trigger('ws:' + event, params[0]);
+        },
+
+        subscribe: function (channel, options) {
+            var options = options || (options = {});
             var namespace = options.namespace || this.namespace;
-            var channel = options.channel;
             var endpoint = namespace + ":" + channel;
 
             this.subscription[endpoint] = this.centrifuge.subscribe(endpoint);
@@ -54,27 +54,24 @@ function (Centrifuge, Backbone, _, $, B) {
             this.subscription[endpoint].on('all', this.onEvent);
         },
 
-        unsubscribe: function () {
-            //TODO does this work? we need to pass this in
+        unsubscribe: function (channel, options) {
+            var options = options || (options = {});
             var namespace = options.namespace || this.namespace;
-            var channel = options.channel;
             var endpoint = namespace + ":" + channel;
 
             this.subscription[endpoint].unsubscribe();
             this.subscription[endpoint].off('all');
         },
 
-        publish: function (options) {
-            //TODO refactor all these
+        publish: function (channel, message, options) {
+            var options = options || (options = {});
             var namespace = options.namespace || this.namespace;
-            var channel = options.channel;
             var endpoint = namespace + ":" + channel;
 
-            this.subscription[endpoint].publish(options.message);
+            this.subscription[endpoint].publish(message);
         },
 
         presence: function (channel, func) {
-            //TODO refactor all these
             var endpoint = this.namespace + ":" + channel;
 
             this.subscription[endpoint].presence(function (data) {
@@ -83,7 +80,6 @@ function (Centrifuge, Backbone, _, $, B) {
         },
 
         history: function (channel, func) {
-            //TODO refactor all these
             var endpoint = this.namespace + ":" + channel;
 
             this.subscription[endpoint].history(function (data) {

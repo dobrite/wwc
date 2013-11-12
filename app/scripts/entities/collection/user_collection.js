@@ -31,6 +31,20 @@ function (Backbone, communicator, UserModel) {
                 //}
             );
 
+            this.listenTo(
+                communicator.vent,
+                this.channel + ":leave",
+                this.removeUser
+            );
+
+        },
+
+        removeUser: function (user) {
+            //translate client_id to id if exists
+            //some cent messages (join/leave) don't have uuid
+            //so we create one and store client uuid in client_id
+            user.id = user.client_id || user.id;
+            this.remove(user);
         },
 
         model: UserModel,

@@ -11,6 +11,8 @@ function (Backbone, MessageTemplate, NotifyTemplate) {
         initialize: function() {},
 
         getTemplate: function() {
+            //TODO add {sort: false} upstream after initial sort
+            //otherwise were sorting all messages every time
             var template = MessageTemplate;
 
             if (this.model.get("type") === 'join'){

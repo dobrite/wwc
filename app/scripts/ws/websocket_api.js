@@ -28,20 +28,28 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
         }
     });
 
+    communicator.command.setHandler("ws:disconnect", function () {
+        ws.disconnect();
+    });
+
     communicator.command.setHandler("ws:subscribe", function (channel) {
         ws.subscribe(channel);
     });
 
-    communicator.command.setHandler("ws:publish", function (message) {
-        ws.publish(message);
+    communicator.command.setHandler("ws:unsubscribe", function (channel) {
+        ws.unsubscribe(channel);
     });
 
-    communicator.command.setHandler("ws:presence", function (room, func) {
-        ws.presence(room, func);
+    communicator.command.setHandler("ws:publish", function (channel, message) {
+        ws.publish(channel, message);
     });
 
-    communicator.command.setHandler("ws:history", function (room, func) {
-        ws.history(room, func);
+    communicator.command.setHandler("ws:presence", function (channel, func) {
+        ws.presence(channel, func);
+    });
+
+    communicator.command.setHandler("ws:history", function (channel, func) {
+        ws.history(channel, func);
     });
 
     /*
@@ -78,14 +86,15 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.vent.on("ws:join", function (message) {
-        var id = message.data.client_id;
+        var client_id = message.data.client_id;
         var channel = message.channel;
         var nick = message.data.user_id;
         var type = message.message_type;
         var text = nick + " has joined " + channel + ".";
 
         var normalized = {
-            id: id, //id of joining user
+            //id provided by uuid4 default
+            client_id: client_id, //uuid of joining user
             channel: channel,
             nick: nick,
             type: type,
@@ -96,14 +105,15 @@ function (Backbone, _, communicator, WebsocketProxy, config) {
     });
 
     communicator.vent.on("ws:leave", function (message) {
-        var id = message.data.client_id;
+        var client_id = message.data.client_id;
         var channel = message.channel;
         var nick = message.data.user_id;
         var type = message.message_type;
         var text = nick + " has left " + channel + ".";
 
         var normalized = {
-            id: id, //id of leaving user
+            //id provided by uuid4 default
+            client_id: client_id, //uuid of leaving user
             channel: channel,
             nick: nick,
             type: type,

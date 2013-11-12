@@ -80,6 +80,7 @@ function (
          */
 
         communicator.command.execute('entities:room:remove', room);
+        roomControllers[room].close();
         delete roomControllers[room];
         communicator.vent.trigger("chat:destroy:room", room);
 

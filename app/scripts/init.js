@@ -50,6 +50,7 @@ require.config({
         bootstrap: 'bower_components/bootstrap/dist/js/bootstrap',
 
         moment: "bower_components/momentjs/moment",
+        uuid: "bower_components/node-uuid/uuid",
 
         'sockjs-client': 'bower_components/socksjs-client/sockjs-0.3.4.min',
 
