@@ -19,20 +19,20 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
                 collection: this.messages
             });
 
-            this.listenTo(this.messages, "add", this.scrollDown);
-
             this.listenTo(
-                communicator.vent,
-                this.channel + ":message",
-                this.addMessage
+                this.messageCollectionView,
+                "after:item:added",
+                this.scrollDown
             );
 
-            //TODO this is funky
-            //all message controllers will do this
             this.listenTo(
                 communicator.vent,
                 "chat:show:room",
-                this.scrollDown
+                function (channel) {
+                    if(this.channel === channel){
+                        this.scrollDown();
+                    }
+                }, this
             );
 
         },
@@ -46,12 +46,6 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             var $el = this.region.$el[0];
             $el.scrollTop = $el.scrollHeight;
         },
-
-        addMessage: function (message) {
-            this.messages.add(message);
-        },
-
-        onClose: function () {},
 
     });
 
