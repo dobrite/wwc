@@ -103,7 +103,6 @@ function (
             roomControllers[room].showRoom();
 
             //vent not command - let rest of app know
-            console.log(room);
             communicator.vent.trigger("chat:show:room", room);
 
         },
