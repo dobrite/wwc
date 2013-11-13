@@ -103,6 +103,7 @@ function (
             roomControllers[room].showRoom();
 
             //vent not command - let rest of app know
+            console.log(room);
             communicator.vent.trigger("chat:show:room", room);
 
         },
@@ -130,7 +131,9 @@ function (
     communicator.command.setHandler("chat:destroy:room", function (room) {
         API.removeChatRoom(room);
         var rooms = communicator.reqres.request("entities:room:list");
-        communicator.command.execute("router:navigate", "room/" + _.last(rooms), {});
+        var last = _.last(rooms);
+        communicator.command.execute("router:navigate", "room/" + last, {});
+        API.showChatRoom(last);
     });
 
     communicator.vent.on("login:submit", function (room) {
