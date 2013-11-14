@@ -6,6 +6,8 @@ function(Backbone, LoginViewTemplate) {
 
     return Backbone.Marionette.ItemView.extend({
 
+        className: "row",
+
         initialize: function (options) {},
 
         template: {

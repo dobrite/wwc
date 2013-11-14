@@ -35,8 +35,11 @@
           <button type="button" class="btn btn-default navbar-btn navbar-right">Login</button>
         </a>
     </nav>
+    <div class="container">
 
-    ${self.body()}
+      ${self.body()}
+
+    </div>
 
     <div class="footer">
       <%block name="footer"/>
