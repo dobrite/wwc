@@ -20,6 +20,8 @@
 
     <!-- build:js scripts/vendor/modernizr.js -->
     <script src="/app/bower_components/modernizr/modernizr.js"></script>
+    <script src="/app/bower_components/jquery/jquery.js"></script>
+    <script src="/app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- endbuild -->
 
     <%block name="javascript" />
