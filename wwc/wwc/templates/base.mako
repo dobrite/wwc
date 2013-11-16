@@ -18,12 +18,6 @@
     <link rel="stylesheet" href="/app/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/app/css/wwc.css">
 
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="/app/bower_components/modernizr/modernizr.js"></script>
-    <script src="/app/bower_components/jquery/jquery.js"></script>
-    <script src="/app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- endbuild -->
-
     <%block name="javascript" />
 
   </head>
@@ -46,5 +40,10 @@
     <div class="footer">
       <%block name="footer"/>
     </div>
+
+    <script src="/app/bower_components/modernizr/modernizr.js"></script>
+    <script src="/app/bower_components/jquery/jquery.js"></script>
+    <script src="/app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
   </body>
 </html>
