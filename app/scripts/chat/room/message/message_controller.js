@@ -2,9 +2,9 @@ define([
     "backbone",
     "scripts/communicator",
     "scripts/entities/collection/message_collection",
-    "scripts/chat/room/message/message_collection_view",
+    "scripts/chat/room/message/message_composite_view",
 ],
-function (Backbone, communicator, MessageCollection, MessageCollectionView) {
+function (Backbone, communicator, MessageCollection, MessageCompositeView) {
 
     var MessageController = Backbone.Marionette.Controller.extend({
 
@@ -15,12 +15,12 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             this.region = options.region;
             this.messages = options.messages;
 
-            this.messageCollectionView = new MessageCollectionView({
+            this.messageCompositeView = new MessageCompositeView({
                 collection: this.messages
             });
 
             this.listenTo(
-                this.messageCollectionView,
+                this.messageCompositeView,
                 "after:item:added",
                 this.scrollDown
             );
@@ -39,7 +39,7 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
 
         showMessages: function () {
             this.region.reset();
-            this.region.show(this.messageCollectionView);
+            this.region.show(this.messageCompositeView);
         },
 
         scrollDown: function () {
