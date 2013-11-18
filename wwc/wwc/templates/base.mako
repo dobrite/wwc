@@ -27,9 +27,9 @@
       <div class="navbar-header">
         <a class="navbar-brand" href="/">WWC</a>
       </div>
-        <a href="${request.route_url('login_choice')}">
-          <button type="button" class="btn btn-default navbar-btn navbar-right">Login</button>
-        </a>
+      <a href="${request.route_url('login_choice')}">
+        <button type="button" class="btn btn-default navbar-btn navbar-right">Login</button>
+      </a>
     </nav>
     <div class="container">
 
