@@ -11,7 +11,7 @@ function (Backbone, MessageItemView, MessageCompositeTemplate) {
 
         itemView: MessageItemView,
 
-        itemViewContainer: '#thing',
+        itemViewContainer: '#messages',
 
         template: {
             type: 'handlebars',
@@ -20,7 +20,9 @@ function (Backbone, MessageItemView, MessageCompositeTemplate) {
 
         ui: {},
 
-        events: {},
+        events: {
+            'click [data-toggle=offcanvas]': 'toggleOffCanvas',
+        },
 
         collectionEvents: {},
 
@@ -31,6 +33,11 @@ function (Backbone, MessageItemView, MessageCompositeTemplate) {
         },
 
         onClose: function() {},
+
+        toggleOffCanvas: function() {
+            console.log('click');
+            $('.row-offcanvas').toggleClass('active');
+        },
 
     });
 

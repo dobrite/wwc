@@ -17,6 +17,9 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <link rel="stylesheet" href="/app/bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="/app/css/wwc.css">
+    <link rel="stylesheet" href="/app/css/offcanvas.css">
+
+    <script src="/app/bower_components/modernizr/modernizr.js"></script>
 
     <%block name="javascript" />
 
@@ -41,9 +44,17 @@
       <%block name="footer"/>
     </div>
 
-    <script src="/app/bower_components/modernizr/modernizr.js"></script>
     <script src="/app/bower_components/jquery/jquery.js"></script>
     <script src="/app/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+      //$(document).ready(function() {
+      //  console.log($('[data-toggle=offcanvas]'));
+      //  $('[data-toggle=offcanvas]').click(function() {
+      //    console.log("click");
+      //    $('.row-offcanvas').toggleClass('active');
+      //  });
+      //});
+    </script>
 
   </body>
 </html>
