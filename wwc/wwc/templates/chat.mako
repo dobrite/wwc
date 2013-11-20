@@ -17,7 +17,7 @@
   </script>
 </%block>
 
-<div id="main" class="container"></div>
+<div id="main"></div>
 
 <!-- build:js scripts/main.js -->
 <script data-main="app/scripts/init" src="app/bower_components/requirejs/require.js"></script>

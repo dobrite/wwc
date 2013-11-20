@@ -44,7 +44,6 @@ function (Backbone, $, communicator, RoomLayout, NickController, MessageControll
         },
 
         onClose: function () {
-            console.log("closing");
             communicator.command.execute("ws:unsubscribe", this.channel);
         },
 

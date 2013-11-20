@@ -2,9 +2,9 @@ define([
     "backbone",
     "scripts/communicator",
     "scripts/entities/collection/message_collection",
-    "scripts/chat/room/message/message_collection_view",
+    "scripts/chat/room/message/message_composite_view",
 ],
-function (Backbone, communicator, MessageCollection, MessageCollectionView) {
+function (Backbone, communicator, MessageCollection, MessageCompositeView) {
 
     var MessageController = Backbone.Marionette.Controller.extend({
 
@@ -15,43 +15,37 @@ function (Backbone, communicator, MessageCollection, MessageCollectionView) {
             this.region = options.region;
             this.messages = options.messages;
 
-            this.messageCollectionView = new MessageCollectionView({
+            this.messageCompositeView = new MessageCompositeView({
                 collection: this.messages
             });
 
-            this.listenTo(this.messages, "add", this.scrollDown);
-
             this.listenTo(
-                communicator.vent,
-                this.channel + ":message",
-                this.addMessage
+                this.messageCompositeView,
+                "after:item:added",
+                this.scrollDown
             );
 
-            //TODO this is funky
-            //all message controllers will do this
             this.listenTo(
                 communicator.vent,
                 "chat:show:room",
-                this.scrollDown
+                function (channel) {
+                    if(this.channel === channel){
+                        this.scrollDown();
+                    }
+                }, this
             );
 
         },
 
         showMessages: function () {
             this.region.reset();
-            this.region.show(this.messageCollectionView);
+            this.region.show(this.messageCompositeView);
         },
 
         scrollDown: function () {
             var $el = this.region.$el[0];
             $el.scrollTop = $el.scrollHeight;
         },
-
-        addMessage: function (message) {
-            this.messages.add(message);
-        },
-
-        onClose: function () {},
 
     });
 

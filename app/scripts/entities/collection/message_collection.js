@@ -27,6 +27,12 @@ function (Backbone, communicator, MessageModel) {
                 this.add
             );
 
+            this.listenTo(
+                communicator.vent,
+                this.channel + ":message",
+                this.add
+            );
+
         },
 
         model: MessageModel,
