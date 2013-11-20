@@ -3,8 +3,11 @@ define([
     'scripts/communicator',
     'scripts/region_manager',
     'scripts/ws/websocket_proxy',
+    'scripts/list_globals',
 ],
-function (Backbone, communicator, regionManager, WebsocketProxy) {
+function (Backbone, communicator, regionManager, WebsocketProxy, listGlobals) {
+
+    console.log(listGlobals());
 
     var app = new Backbone.Marionette.Application();
 
