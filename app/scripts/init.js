@@ -23,9 +23,6 @@ require.config({
             ],
             exports: 'jquery',
         },
-        "sockjs-client": {
-            exports: 'SockJS'
-        }
     },
 
     paths: {
