@@ -17,9 +17,6 @@ require.config({
         handlebars: {
             exports: 'Handlebars'
         },
-        underscore: {
-            exports: '_',
-        },
         backbone: {
             deps: [
                 'underscore',
@@ -41,7 +38,7 @@ require.config({
     paths: {
         jquery: 'bower_components/jquery/jquery',
         backbone: 'bower_components/backbone/backbone',
-        underscore: 'bower_components/underscore/underscore',
+        underscore: 'bower_components/underscore-amd/underscore',
 
         'backbone.marionette': 'bower_components/backbone.marionette/lib/core/amd/backbone.marionette',
         'backbone.wreqr': 'bower_components/backbone.wreqr/lib/amd/backbone.wreqr',
