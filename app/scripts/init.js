@@ -1,16 +1,17 @@
 require.config({
-    //no global moment object
+
     noGlobal: true,
 
     baseUrl: "app",
 
-    /* starting point for application */
+    nameSpace: "WWC",
+
     deps: [
+        'underscore',
         'backbone',
         'backbone.marionette',
         'bootstrap',
-        'marionette.handlebars',
-        'scripts/main'
+        'marionette.handlebars'
     ],
 
     shim: {
@@ -60,3 +61,26 @@ require.config({
         helperPathCallback: function(name) {return 'templates/helpers/' + name;}
     }
 });
+
+(function (exports) {
+    'use strict';
+
+    define([
+        'scripts/application',
+    ],
+    function (app) {
+        console.log("here");
+
+        var App = function (params) {
+            app.configure.apply(this, arguments);
+            app.start();
+            return app;
+        };
+
+        App.prototype = app.prototype;
+
+        return App;
+
+    });
+
+}(this));

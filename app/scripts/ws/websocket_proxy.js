@@ -3,9 +3,10 @@ define([
     'backbone',
     'underscore',
     'jquery',
-    'sockjs-client'
+    'sockjs-client',
+    'backbone.marionette'
 ],
-function (Centrifuge, Backbone, _, $, B) {
+function (Centrifuge, Backbone, _, $) {
 
     var WebsocketProxy = Backbone.Marionette.Controller.extend({
 

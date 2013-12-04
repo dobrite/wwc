@@ -1,13 +1,15 @@
 define([
-    'backbone',
     'scripts/communicator',
     'scripts/region_manager',
+    'scripts/main_router',
     'scripts/ws/websocket_proxy',
     'scripts/list_globals',
 ],
-function (Backbone, communicator, regionManager, WebsocketProxy, listGlobals) {
+function (communicator, regionManager, MainRouter, WebsocketProxy, listGlobals) {
 
     console.log(listGlobals());
+
+    var mainRouter = new MainRouter();
 
     var app = new Backbone.Marionette.Application();
 
@@ -18,6 +20,10 @@ function (Backbone, communicator, regionManager, WebsocketProxy, listGlobals) {
     app.on('start', function (event, blah) {
         communicator.vent.trigger("start");
     });
+
+    app.configure = function (params) {
+        console.log(params);
+    };
 
     app.on("initialize:after", function () {
         require([
@@ -38,4 +44,5 @@ function (Backbone, communicator, regionManager, WebsocketProxy, listGlobals) {
     });
 
     return app;
+
 });
