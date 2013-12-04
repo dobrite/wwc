@@ -2,7 +2,8 @@
   "name": "bone-chat",
   "version": "0.0.0",
   "dependencies": {
-    "backbone": "~1.0.0",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0",
     "bootstrap": "3.0.0",
     "jquery": "~1.10.2",
     "requirejs": "~2.1.5",
@@ -17,8 +18,6 @@
     "centrifuge-client": "git://github.com/dobrite/centrifuge-client.git",
     "momentjs": "~2.3.1",
     "handlebars-helpers": "~1.0.0",
-    "node-uuid": "~1.4.1",
-    "underscore-amd": "~1.5.2",
-    "backbone-amd": "~1.1.0"
+    "node-uuid": "~1.4.1"
   }
 }
