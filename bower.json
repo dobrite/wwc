@@ -19,5 +19,9 @@
     "momentjs": "~2.3.1",
     "handlebars-helpers": "~1.0.0",
     "node-uuid": "~1.4.1"
+  },
+  "resolutions": {
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0"
   }
 }
