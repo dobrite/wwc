@@ -11,11 +11,11 @@ apt-get install -y openssl libssl-dev libbz2-dev zlib1g-dev libexpat1-dev libdb4
 #
 # compile python 3.3
 cd /tmp
-wget http://python.org/ftp/python/3.3.2/Python-3.3.2.tar.bz2
-tar jxf Python-3.3.2.tar.bz2 --strip-components 1
-./configure --prefix=/opt/python3.3
+wget http://python.org/ftp/python/3.3.3/Python-3.3.3.tar.bz2
+tar jxf Python-3.3.3.tar.bz2 --strip-components 1
+./configure --prefix=/opt/python3.3.3
 make && make install
-ln -s /opt/python3.3/bin/pyvenv /usr/local/bin
+ln -s /opt/python3.3.3/bin/pyvenv /usr/local/bin
 
 cd /vagrant
 
@@ -28,14 +28,14 @@ apt-get install -y postgresql-9.3
 
 cd /vagrant
 
-# redis 2.8.0-rc5
-# could use chris-lea/redis-server once it's released
+# redis 2.8.4
+# could use chris-lea/redis-server
 cd /opt
 mkdir redis
 chown vagrant:vagrant redis
 cd redis
-wget http://download.redis.io/releases/redis-2.8.0-rc5.tar.gz
-tar xfvz redis-2.8.0-rc5.tar.gz --strip-components 1
+wget http://download.redis.io/releases/redis-2.8.4.tar.gz
+tar xfvz redis-2.8.4.tar.gz --strip-components 1
 make && make install
 cd utils
 echo "\n\n\n\n\n" | sudo ./install_server.sh
