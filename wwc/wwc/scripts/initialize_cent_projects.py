@@ -16,8 +16,8 @@ def create_project(name, config):
     result, error = client.send("project_create", {"name": name,
                                                    "display_name": name, })
     if not result['error']:
-        project_id = result['body'][0]
-        secret_key = result['body'][7]
+        project_id = result['body']['_id']
+        secret_key = result['body']['secret_key']
         return project_id, secret_key
 
 
