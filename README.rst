@@ -50,7 +50,7 @@ The following assumes Ubuntu 12.04 64-bit:
 ::
     $ vagrant ssh
     $ cd /vagrant
-    $ bin/initialize_cent_project
+    $ bin/initialize_cent_projects
     $ make dev
 
 9. Visit http://localhost:6542 on your host computer
