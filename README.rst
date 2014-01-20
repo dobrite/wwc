@@ -54,3 +54,6 @@ The following assumes Ubuntu 12.04 64-bit:
     $ make dev
 
 9. Visit http://localhost:6542 on your host computer
+
+  NOTE: This is still pre-alpha, not much works and there are little tests.
+  Obviously this will change as the project matures.
