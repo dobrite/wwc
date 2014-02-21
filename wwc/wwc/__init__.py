@@ -19,11 +19,11 @@ from wwc.models import User
 from wwc.models import Activation
 
 
-def get_secret_settings(section):
+def get_secret_settings(section, filename):
     pkgroot = pkg_resources.get_distribution('wwc').location
-    secrets_ini = os.path.join(pkgroot, 'secrets.ini')
+    settings_ini = os.path.join(pkgroot, filename)
     config_parser = ConfigParser()
-    with open(secrets_ini) as f:
+    with open(settings_ini) as f:
         config_parser.readfp(f)
     return dict(config_parser.items(section))
 
@@ -60,9 +60,9 @@ def main(global_config, **settings):
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
     config = Configurator(settings=settings)
-    config.add_settings(get_secret_settings('mandrill'))
-    config.add_settings(get_secret_settings('velruse.reddit'))
-    config.add_settings(get_secret_settings('centrifuge'))
+    config.add_settings(get_secret_settings('mandrill', 'secrets.ini'))
+    config.add_settings(get_secret_settings('velruse.reddit', 'secrets.ini'))
+    config.add_settings(get_secret_settings('centrifuge', 'centrifuge.ini'))
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
     config.include('pyramid_mailer')
