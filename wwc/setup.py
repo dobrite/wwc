@@ -40,8 +40,9 @@ requires = [
     'transaction',
     'zope.sqlalchemy',
     'waitress',
-    'centrifuge',
+    'uwsgi',
     'cent',
+    'centrifuge',
     'setuptools',
 ]
 
