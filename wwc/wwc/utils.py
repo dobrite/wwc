@@ -1,9 +1,15 @@
+import os
 import hmac
+import pkg_resources
 
 from random import choice
 from random import randint
 
-from itertools import repeat
+
+pkgroot = pkg_resources.get_distribution('wwc').location
+words_path = os.path.join(pkgroot, 'wwc', 'data', 'words.txt')
+with open(words_path) as f:
+    WORDS = f.read().split("\n")
 
 
 def get_client_token(secret_key, project_id, user, user_info=None):
@@ -19,8 +25,6 @@ def get_client_token(secret_key, project_id, user, user_info=None):
     return token
 
 
-with open('words.txt') as f:
-    WORDS = f.read().split("\n")
 def generate_username():
     """
     Create a random username
