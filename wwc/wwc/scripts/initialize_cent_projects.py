@@ -42,14 +42,14 @@ def add_to_centrc(name, project_id, secret_key):
 def add_to_secrets(project_id, secret_key):
     pkgroot = pkg_resources.get_distribution('wwc').location
     os.chdir(pkgroot)
-    if not os.path.isfile('secrets.ini'):
-        shutil.copy('secrets_example.ini', 'secrets.ini')
+    if not os.path.isfile('centrifuge.ini'):
+        shutil.copy('centrifuge_example.ini', 'secrets.ini')
     cp = ConfigParser()
-    with open('secrets.ini', 'r') as f:
+    with open('centrifuge.ini', 'r') as f:
         cp.readfp(f)
     cp.set('centrifuge', 'centrifuge.project_id', project_id)
     cp.set('centrifuge', 'centrifuge.secret_key', secret_key)
-    with open('secrets.ini', 'w') as f:
+    with open('centrifuge.ini', 'w') as f:
         cp.write(f)
 
 
