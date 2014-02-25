@@ -62,7 +62,7 @@ def main(global_config, **settings):
     config = Configurator(settings=settings)
     config.add_settings(get_secret_settings('mandrill', 'secrets.ini'))
     config.add_settings(get_secret_settings('velruse.reddit', 'secrets.ini'))
-    config.add_settings(get_secret_settings('centrifuge', 'centrifuge.ini'))
+    config.add_settings(get_secret_settings('centrifuge', 'secrets.ini'))
     config.include('pyramid_mako')
     config.include('pyramid_redis_sessions')
     config.include('pyramid_mailer')
