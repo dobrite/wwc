@@ -4,9 +4,9 @@
   <script type="text/javascript">
     var wwc = {};
     if (Modernizr.websockets){
-      wwc.url = "ws://localhost:8000/connection/websocket"
+      wwc.url = "ws://" + location.hostname + "/connection/websocket"
     }else{
-      www.url = "http://localhost:8000/connection"
+      www.url = "http://" + location.hostname + "/connection"
     }
     wwc.namespace = "wwc";
     wwc.token = "${token}";
